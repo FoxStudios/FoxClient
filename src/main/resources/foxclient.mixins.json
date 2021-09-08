@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "net.ddns.rootrobo.foxclient.mixin",
+  "compatibilityLevel": "JAVA_16",
+  "client": [
+    "ClientPlayNetworkHandlerMixin",
+    "DisconnectScreenMixin",
+    "I18nInvoker",
+    "InGameHudMixin",
+    "MinecraftClientMixin",
+    "MouseMixin",
+    "SplashOverlayMixin",
+    "TitleScreenMixin",
+    "TranslationStorageMixin",
+    "WindowMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
