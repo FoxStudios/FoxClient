@@ -12,6 +12,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class TexturedButtonWidgetMixin {
     @Inject(at = @At("HEAD"), method = "renderButton")
     public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        RenderSystem.enableBlend();
+        RenderSystem.enableBlend(); // allow transparency
     }
 }
