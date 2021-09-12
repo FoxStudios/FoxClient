@@ -13,18 +13,22 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 public class NicerButtonWidget extends ButtonWidget {
+    /*
     private final int x_o;
     private final int y_o;
     private final int width_o;
+    */
 
     public NicerButtonWidget(int x, int y, int width, int height, Text message, PressAction onPress) {
         super(x, y, width, height, message, onPress);
+        /*
         x_o = x;
         y_o = y;
         width_o = width;
+         */
     }
 
-    private static Identifier WIDGET_TEXTURE = new Identifier("foxclient", "textures/ui/widgets.png");
+    private static final Identifier WIDGET_TEXTURE = new Identifier("foxclient", "textures/ui/widgets.png");
 
     @Override
     public void onPress() {
@@ -36,6 +40,7 @@ public class NicerButtonWidget extends ButtonWidget {
 
     }
 
+    /*
     @Override
     protected void onFocusedChanged(boolean newFocused) {
         super.onFocusedChanged(newFocused);
@@ -49,6 +54,7 @@ public class NicerButtonWidget extends ButtonWidget {
             width = width_o;
         }
     }
+    */
 
     @Override
     public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
@@ -58,7 +64,6 @@ public class NicerButtonWidget extends ButtonWidget {
         RenderSystem.setShaderTexture(0, WIDGET_TEXTURE);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
         int i = this.getYImage(this.isHovered());
-        //int i = this.getYImage(false);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();
@@ -66,10 +71,16 @@ public class NicerButtonWidget extends ButtonWidget {
         this.drawTexture(matrices, this.x + this.width / 2, this.y, 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
         this.renderBackground(matrices, minecraftClient, mouseX, mouseY);
         int j = this.active ? 16777215 : 10526880;
+
+        float text_alpha = 0.6f;
+        if(this.isFocused() || this.isMouseOver(mouseX, mouseY)) {
+            text_alpha = 0.75f;
+        }
+
         drawCenteredText(matrices, textRenderer, this.getMessage(),
                 this.x + this.width / 2,
                 this.y + (this.height - 8) / 2,
-                j | MathHelper.ceil(this.alpha * 255.0F) << 24);
+                j | MathHelper.ceil(text_alpha * 255.0F) << 24);
     }
 
     @Override

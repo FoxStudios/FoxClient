@@ -3,6 +3,7 @@ package net.ddns.rootrobo.foxclient.gui;
 import com.google.common.util.concurrent.Runnables;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.ddns.rootrobo.foxclient.Main;
 import net.ddns.rootrobo.foxclient.gui.widgets.NicerButtonWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -58,7 +59,7 @@ public class FoxClientTitleScreen extends Screen {
         assert this.client != null;
         this.client.keyboard.setRepeatEvents(true);
 
-        int y = this.height / 2 + 20;
+        int y = this.height / 2 + 16;
         int spacingY = 24;
 
         // VANILLA BUTTONS
@@ -123,7 +124,8 @@ public class FoxClientTitleScreen extends Screen {
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.doBackgroundFade ? (float) MathHelper.ceil(MathHelper.clamp(f, 0.0F, 1.0F)) : 1.0F);
-        drawTexture(matrices, (width/2) - (128/2), height/2 - 128 + 32, 0, 0, 128, 128, 128, 128);
+        int fomxSize = 118;
+        drawTexture(matrices, (width/2) - (fomxSize/2), height/2 - fomxSize + 32, 0, 0, 128, fomxSize, fomxSize,fomxSize, fomxSize);
 
         // draw texts
         int transparent = MathHelper.ceil(0.5f * 255.0F) << 24;
@@ -143,6 +145,7 @@ public class FoxClientTitleScreen extends Screen {
             gameVersion = gameVersion + ("release".equalsIgnoreCase(this.client.getVersionType()) ? "" : "/" + this.client.getVersionType());
         }
         drawStringWithShadow(matrices, this.textRenderer, gameVersion, 4, this.height - 10, 16777215 | transparent);
+        drawStringWithShadow(matrices, this.textRenderer, "FoxClient "+ Main.VERSION, 4, this.height - 20, 16777215 | transparent);
 
         // draw buttons
         super.render(matrices, mouseX, mouseY, delta);

@@ -131,39 +131,6 @@ public abstract class TitleScreenMixin extends Screen {
     private void render(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         ci.cancel();
         MinecraftClient.getInstance().setScreen(new FoxClientTitleScreen(true));
-
-        int y = this.height / 4 + 48;
-
-        float fadeTime = this.doBackgroundFade ? (float) (Util.getMeasuringTimeMs() - this.backgroundFadeStart) / 1000.0F : 1.0F;
-        float fadeColor = this.doBackgroundFade ? MathHelper.clamp(fadeTime - 1.0F, 0.0F, 1.0F) : 1.0F;
-
-        int alpha = MathHelper.ceil(fadeColor * 255.0F) << 24;
-        if ((alpha & 0xFC000000) != 0) {
-            if(FabricLoader.getInstance().isModLoaded("optifabric")) {
-                textRenderer.drawWithShadow(matrices, Text.of("FoxClient "+Main.VERSION), 2, this.height - 30, 0xFF7700 | alpha);
-            } else {
-                textRenderer.drawWithShadow(matrices, Text.of("FoxClient "+Main.VERSION), 2, this.height - 20, 0xFF7700 | alpha);
-            }
-        }
-
-        /*
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, menu_box_texture);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1f);
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.enableDepthTest();
-
-        MinecraftClient.getInstance().getTextureManager().bindTexture(menu_box_texture);
-        this.drawTexture(matrices, (width/2) - (menu_box_texture_image_width/2/2), y, 0, 0, menu_box_texture_image_width / 2, this.height/3);
-
-        this.drawTexture(matrices, (width/2)-menu_box_texture_image_width, 5, 0, 0, 0,
-                menu_box_texture_image_width/2,
-                menu_box_texture_image_height/2,
-                menu_box_texture_image_width, menu_box_texture_image_height);
-
-         */
-
     }
 
     private void updateButton(ButtonWidget buttonWidget) {
