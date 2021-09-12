@@ -10,6 +10,7 @@ import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
@@ -27,7 +28,7 @@ public class FoxClientTitleScreen extends Screen {
     private long backgroundFadeStart;
 
     public FoxClientTitleScreen(boolean doBackgroundFade) {
-        super(new TranslatableText("FoxClient"));
+        super(new LiteralText("FoxClient"));
         this.doBackgroundFade = doBackgroundFade;
     }
 
