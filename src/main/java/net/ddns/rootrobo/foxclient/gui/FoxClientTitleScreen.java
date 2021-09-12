@@ -6,6 +6,7 @@ import net.ddns.rootrobo.foxclient.gui.widgets.NicerButtonWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -47,7 +48,8 @@ public class FoxClientTitleScreen extends Screen {
         assert this.client != null;
         this.client.keyboard.setRepeatEvents(true);
 
-        int y = this.height / 2 + 16;
+        int y = this.height / 2 + 20;
+        int spacingY = 24;
 
         // VANILLA BUTTONS
         this.addDrawableChild(new NicerButtonWidget(this.width / 2 - 100, y, 200, 20, new TranslatableText("menu.singleplayer"),
@@ -56,6 +58,10 @@ public class FoxClientTitleScreen extends Screen {
                     this.client.setScreen(new SelectWorldScreen(this));
                 })
         );
+
+        this.addDrawableChild(new NicerButtonWidget(this.width / 2 - 100, y + spacingY, 200, 20, new TranslatableText("menu.multiplayer"), (button) -> {
+            this.client.setScreen(new MultiplayerScreen(this));
+        }));
     }
 
     public void onClose() {
