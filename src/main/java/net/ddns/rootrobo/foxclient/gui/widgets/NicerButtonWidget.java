@@ -1,6 +1,7 @@
 package net.ddns.rootrobo.foxclient.gui.widgets;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import io.netty.handler.ssl.IdentityCipherSuiteFilter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
@@ -8,6 +9,7 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 public class NicerButtonWidget extends ButtonWidget {
@@ -21,6 +23,8 @@ public class NicerButtonWidget extends ButtonWidget {
         y_o = y;
         width_o = width;
     }
+
+    private static Identifier WIDGET_TEXTURE = new Identifier("foxclient", "textures/ui/widgets.png");
 
     @Override
     public void onPress() {
@@ -51,7 +55,7 @@ public class NicerButtonWidget extends ButtonWidget {
         MinecraftClient minecraftClient = MinecraftClient.getInstance();
         TextRenderer textRenderer = minecraftClient.textRenderer;
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, WIDGETS_TEXTURE);
+        RenderSystem.setShaderTexture(0, WIDGET_TEXTURE);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
         int i = this.getYImage(this.isHovered());
         //int i = this.getYImage(false);
