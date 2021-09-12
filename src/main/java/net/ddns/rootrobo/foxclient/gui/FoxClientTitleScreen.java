@@ -7,10 +7,12 @@ import net.ddns.rootrobo.foxclient.Main;
 import net.ddns.rootrobo.foxclient.gui.widgets.NicerButtonWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.screen.CreditsScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
+import net.minecraft.client.gui.screen.option.AccessibilityOptionsScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
@@ -23,6 +25,8 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 
+import java.lang.reflect.InvocationTargetException;
+
 @Environment(EnvType.CLIENT)
 public class FoxClientTitleScreen extends Screen {
     // ui
@@ -33,8 +37,8 @@ public class FoxClientTitleScreen extends Screen {
     private static final Identifier EXIT_BUTTON = new Identifier("foxclient", "textures/ui/buttons/exit.png");
     private static final Identifier OPTIONS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/options.png");
     private static final Identifier EMPTY_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
-    private static final Identifier ACCESSIBILITY_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
-    private static final Identifier MODS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
+    private static final Identifier ACCESSIBILITY_BUTTON = new Identifier("foxclient", "textures/ui/buttons/accessibility.png");
+    private static final Identifier MODS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/modmenu.png");
     private static final Identifier REPLAYMOD_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
     private static final Identifier UPDATE_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
 
@@ -80,19 +84,44 @@ public class FoxClientTitleScreen extends Screen {
         }));
 
         // - small buttons
-        int button_id = 3; // set amount of buttons here
+        int button_id = 5; // set amount of buttons here
+
+        button_id++;
         spacingY = spacingY + 2;
 
+        // accessibility button
+        button_id--;
+        this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, ACCESSIBILITY_BUTTON, 32, 64, (button) -> {
+            this.client.setScreen(new AccessibilityOptionsScreen(this, this.client.options));
+        }, new TranslatableText("narrator.button.accessibility")));
+
+        // mods button
+        button_id--;
+        TexturedButtonWidget modButton = this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, MODS_BUTTON, 32, 64, (button) -> {
+            if(FabricLoader.getInstance().isModLoaded("modmenu")) {
+                try {
+                    Class<?> modMenuGui = Class.forName("com.terraformersmc.modmenu.gui.ModsScreen");
+
+                    this.client.setScreen((Screen) modMenuGui.getDeclaredConstructor(Screen.class).newInstance(this));
+                } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | ClassNotFoundException | InstantiationException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                // todo: add a popup of some sort to inform the user that mod menu is required for this
+            }
+        }, new TranslatableText("mods")));
+        if(!FabricLoader.getInstance().isModLoaded("modmenu")) {
+            modButton.active = false;
+        }
         // realms button
-
-
+        button_id--;
         this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, EMPTY_BUTTON, 32, 64, (button) -> {
             this.client.setScreen(new RealmsMainScreen(this));
         }, new TranslatableText("menu.online")));
 
         // options button
         button_id--;
-        this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, OPTIONS_BUTTON, 32, 64, (button) -> {
+        this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20 * button_id - 8 * (button_id - 1), y + spacingY * 2, 20, 20, 0, 0, 20, OPTIONS_BUTTON, 32, 64, (button) -> {
             this.client.setScreen(new OptionsScreen(this, this.client.options));
         }, new TranslatableText("options.title")));
 

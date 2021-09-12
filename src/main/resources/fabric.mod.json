@@ -10,7 +10,7 @@
   ],
   "contact": {
     "homepage": "http://localhost/",
-    "sources": "https://github.com/RootRobo/soonTM"
+    "sources": "https://github.com/FoxStudios/FoxClient"
   },
   "license": "... just don't steal shit and im happy :3",
   "icon": "assets/foxclient/icon.png",
@@ -30,6 +30,9 @@
     "fabricloader": ">=0.7.4",
     "fabric": "*",
     "minecraft": ">=1.16.5"
+  },
+  "recommends": {
+    "modmenu": "*"
   },
   "custom": {
     "modmenu": {
