@@ -10,10 +10,10 @@
     "InGameHudMixin",
     "MinecraftClientMixin",
     "MouseMixin",
-    "MultiplayerScreenMixin",
     "SplashOverlayMixin",
     "TitleScreenMixin",
     "TranslationStorageMixin",
+    "TexturedButtonWidgetMixin",
     "WindowMixin"
   ],
   "injectors": {

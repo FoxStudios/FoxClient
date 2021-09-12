@@ -1,29 +1,17 @@
 package net.ddns.rootrobo.foxclient.mixin;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.ddns.rootrobo.foxclient.Main;
 import net.ddns.rootrobo.foxclient.client.Updater;
-import net.ddns.rootrobo.foxclient.gui.ConfigTestScreen;
 import net.ddns.rootrobo.foxclient.gui.FoxClientTitleScreen;
 import net.ddns.rootrobo.foxclient.gui.widgets.NicerButtonWidget;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
-import net.minecraft.client.gui.screen.option.AccessibilityOptionsScreen;
-import net.minecraft.client.gui.screen.option.LanguageOptionsScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
-import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.texture.NativeImage;
-import net.minecraft.client.texture.NativeImageBackedTexture;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.resource.ResourceType;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
@@ -38,7 +26,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.io.IOException;
-import java.io.InputStream;
 
 @Mixin(TitleScreen.class)
 public abstract class TitleScreenMixin extends Screen {
@@ -69,8 +56,12 @@ public abstract class TitleScreenMixin extends Screen {
         super(title);
     }
 
-    @Inject(at = @At("RETURN"), method = "init")
+    @Inject(at = @At("RETURN"), method = "init", cancellable = true)
     private void init(CallbackInfo ci) {
+        ci.cancel();
+        this.client.setScreen(new FoxClientTitleScreen(false));
+        return;
+        /*
         assert this.client != null;
         this.clearChildren();
 
@@ -80,22 +71,11 @@ public abstract class TitleScreenMixin extends Screen {
         int y = this.height / 4 + 48;
         int spacingY = 24;
 
-        // VANILLA BUTTONS
-        this.addDrawableChild(new NicerButtonWidget(this.width / 2 - 100, y, 200, 20, new TranslatableText("menu.singleplayer"),
-                (button) -> {
-                    assert this.client != null;
-                    this.client.setScreen(new SelectWorldScreen(this));
-                })
-        );
-
-        this.addDrawableChild(new NicerButtonWidget(this.width / 2 - 100, y + spacingY, 200, 20, new TranslatableText("menu.multiplayer"), (button) -> {
-            this.client.setScreen(new MultiplayerScreen(this));
-        }));
-
-        this.addDrawableChild(new NicerButtonWidget(this.width / 2 - 100, y + spacingY * 2, 200, 20, new TranslatableText("menu.online"), (button) -> {
+        this.addDrawableChild(new NicerButtonWidget(this.width / 2 - 120, y + spacingY * 2, 200, 20, new TranslatableText("menu.online"), (button) -> {
             this.client.setScreen(new RealmsMainScreen(this));
         }));
 
+        /*
         try {
             InputStream in = MinecraftClient.getInstance().getResourcePackProvider().getPack().open(
                     ResourceType.CLIENT_RESOURCES,
@@ -111,6 +91,7 @@ public abstract class TitleScreenMixin extends Screen {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
 
         // things
         /*
@@ -119,6 +100,7 @@ public abstract class TitleScreenMixin extends Screen {
         }, new TranslatableText("narrator.button.language")));
         */
 
+        /*
         this.addDrawableChild(new NicerButtonWidget(this.width / 2 - 100, y + 72 + 12, 98, 20, new TranslatableText("menu.options"), (button) -> {
             this.client.setScreen(new OptionsScreen(this, this.client.options));
         }));
@@ -126,6 +108,8 @@ public abstract class TitleScreenMixin extends Screen {
         this.addDrawableChild(new NicerButtonWidget(this.width / 2 + 2, y + 72 + 12, 98, 20, new TranslatableText("menu.quit"), (button) -> {
             this.client.scheduleStop();
         }));
+
+         */
         /*
         this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 104, y + 72 + 12, 20, 20, 0, 0, 20, ACCESSIBILITY_ICON_TEXTURE, 32, 64, (button) -> {
             this.client.setScreen(new AccessibilityOptionsScreen(this, this.client.options));
@@ -143,7 +127,7 @@ public abstract class TitleScreenMixin extends Screen {
         */
     }
 
-    @Inject(method = "render", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     private void render(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         ci.cancel();
         MinecraftClient.getInstance().setScreen(new FoxClientTitleScreen(true));
@@ -162,6 +146,7 @@ public abstract class TitleScreenMixin extends Screen {
             }
         }
 
+        /*
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, menu_box_texture);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1f);
@@ -172,13 +157,13 @@ public abstract class TitleScreenMixin extends Screen {
         MinecraftClient.getInstance().getTextureManager().bindTexture(menu_box_texture);
         this.drawTexture(matrices, (width/2) - (menu_box_texture_image_width/2/2), y, 0, 0, menu_box_texture_image_width / 2, this.height/3);
 
-        /*
         this.drawTexture(matrices, (width/2)-menu_box_texture_image_width, 5, 0, 0, 0,
                 menu_box_texture_image_width/2,
                 menu_box_texture_image_height/2,
                 menu_box_texture_image_width, menu_box_texture_image_height);
 
          */
+
     }
 
     private void updateButton(ButtonWidget buttonWidget) {
