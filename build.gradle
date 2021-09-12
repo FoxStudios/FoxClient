@@ -13,7 +13,6 @@ group = project.maven_group
 
 repositories {
 	maven { url 'https://jitpack.io' }
-	maven { url 'https://maven.terraformersmc.com/releases' }
 }
 
 configurations {
@@ -29,8 +28,6 @@ dependencies {
 
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-
-	modImplementation 'com.terraformersmc:modmenu:2.0.10'
 
 	implementation 'com.github.JnCrMx:discord-game-sdk4j:v0.5.3'
 	include 'com.github.JnCrMx:discord-game-sdk4j:v0.5.3'
