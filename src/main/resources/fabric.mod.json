@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "foxclient",
-  "version": "${version}",
+  "version": "${version}-rev.#branch#.#githash#",
   "name": "FoxClient",
   "description": "a minercfat mod",
   "authors": [

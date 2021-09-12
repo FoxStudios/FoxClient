@@ -6,6 +6,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.ddns.rootrobo.foxclient.gui.widgets.NicerButtonWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.screen.CreditsScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
@@ -124,15 +125,24 @@ public class FoxClientTitleScreen extends Screen {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.doBackgroundFade ? (float) MathHelper.ceil(MathHelper.clamp(f, 0.0F, 1.0F)) : 1.0F);
         drawTexture(matrices, (width/2) - (128/2), height/2 - 128 + 32, 0, 0, 128, 128, 128, 128);
 
-        // draw copyright
+        // draw texts
         int transparent = MathHelper.ceil(0.5f * 255.0F) << 24;
 
-        drawStringWithShadow(matrices, this.textRenderer, mojangCopyrightText, this.mojangCopyrightTextX, this.height - 10,
-                16777215 | transparent);
-
+        // -> copyright
+        drawStringWithShadow(matrices, this.textRenderer, mojangCopyrightText, this.mojangCopyrightTextX, this.height - 10, 16777215 | transparent);
+        // -> copyright hover
         if (mouseX > this.mojangCopyrightTextX && mouseX < this.mojangCopyrightTextX + this.mojangCopyrightTextWidth && mouseY > this.height - 10 && mouseY < this.height) {
             fill(matrices, this.mojangCopyrightTextX, this.height - 1, this.mojangCopyrightTextX + this.mojangCopyrightTextWidth, this.height, 16777215 | transparent);
         }
+
+        String gameVersion = "Minecraft "+ SharedConstants.getGameVersion().getName();
+        assert this.client != null;
+        if (this.client.isDemo()) {
+            gameVersion = gameVersion + " Demo";
+        } else {
+            gameVersion = gameVersion + ("release".equalsIgnoreCase(this.client.getVersionType()) ? "" : "/" + this.client.getVersionType());
+        }
+        drawStringWithShadow(matrices, this.textRenderer, gameVersion, 4, this.height - 10, 16777215 | transparent);
 
         // draw buttons
         super.render(matrices, mouseX, mouseY, delta);

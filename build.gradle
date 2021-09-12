@@ -1,6 +1,7 @@
 plugins {
 	id 'fabric-loom' version '0.8-SNAPSHOT'
 	id 'maven-publish'
+	id 'org.ajoberstar.grgit' version '4.1.0'
 }
 
 sourceCompatibility = JavaVersion.VERSION_16
@@ -43,6 +44,12 @@ processResources {
 	inputs.property "version", project.version
 
 	filesMatching("fabric.mod.json") {
+		filter {
+			it.replace("#githash#", grgit.head().abbreviatedId as String)
+		}
+		filter {
+			it.replace("#branch#", grgit.branch.current().getName() as String)
+		}
 		expand "version": project.version
 	}
 }
