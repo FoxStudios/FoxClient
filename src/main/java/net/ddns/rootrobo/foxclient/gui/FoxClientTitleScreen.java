@@ -10,13 +10,10 @@ import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.OrderedText;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
-
-import java.util.List;
 
 @Environment(EnvType.CLIENT)
 public class FoxClientTitleScreen extends Screen {
@@ -24,8 +21,6 @@ public class FoxClientTitleScreen extends Screen {
     private static final Identifier BACKGROUND = new Identifier("foxclient", "textures/ui/title/bg.png");
     private static final Identifier BUTTON_BOX = new Identifier("foxclient", "textures/ui/main_box.png");
     private static final Identifier FOMX = new Identifier("foxclient", "textures/ui/title/fomx.png");
-
-    private List<OrderedText> tooltipText;
 
     private final boolean doBackgroundFade;
 
@@ -96,25 +91,8 @@ public class FoxClientTitleScreen extends Screen {
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.doBackgroundFade ? (float) MathHelper.ceil(MathHelper.clamp(f, 0.0F, 1.0F)) : 1.0F);
-        drawTexture(matrices,
-                (width/2) - (128/2),
-                height/2 - 128 + 32,
-                0,
-                0,
-                128,
-                128,
-                128,
-                128);
+        drawTexture(matrices, (width/2) - (128/2), height/2 - 128 + 32, 0, 0, 128, 128, 128, 128);
 
-        this.tooltipText = null;
-        drawCenteredText(matrices, this.textRenderer, this.title, this.width / 2, 8, 16777215);
         super.render(matrices, mouseX, mouseY, delta);
-        if (this.tooltipText != null) {
-            this.renderOrderedTooltip(matrices, this.tooltipText, mouseX, mouseY);
-        }
-    }
-
-    public void setTooltip(List<OrderedText> list) {
-        this.tooltipText = list;
     }
 }
