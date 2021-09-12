@@ -10,6 +10,7 @@
     "InGameHudMixin",
     "MinecraftClientMixin",
     "MouseMixin",
+    "MultiplayerScreenMixin",
     "SplashOverlayMixin",
     "TitleScreenMixin",
     "TranslationStorageMixin",
@@ -17,8 +18,5 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "mixins": [
-    "MultiplayerScreenMixin"
-  ]
+  }
 }
