@@ -1,7 +1,6 @@
 package net.ddns.rootrobo.foxclient.gui.widgets;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import io.netty.handler.ssl.IdentityCipherSuiteFilter;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
@@ -13,19 +12,9 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 public class NicerButtonWidget extends ButtonWidget {
-    /*
-    private final int x_o;
-    private final int y_o;
-    private final int width_o;
-    */
 
     public NicerButtonWidget(int x, int y, int width, int height, Text message, PressAction onPress) {
         super(x, y, width, height, message, onPress);
-        /*
-        x_o = x;
-        y_o = y;
-        width_o = width;
-         */
     }
 
     private static final Identifier WIDGET_TEXTURE = new Identifier("foxclient", "textures/ui/widgets.png");
@@ -39,22 +28,6 @@ public class NicerButtonWidget extends ButtonWidget {
     public void appendNarrations(NarrationMessageBuilder builder) {
 
     }
-
-    /*
-    @Override
-    protected void onFocusedChanged(boolean newFocused) {
-        super.onFocusedChanged(newFocused);
-        if(newFocused) {
-            x = x_o-2;
-            y = y_o;
-            width = width_o+4;
-        } else {
-            x = x_o;
-            y = y_o;
-            width = width_o;
-        }
-    }
-    */
 
     @Override
     public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
