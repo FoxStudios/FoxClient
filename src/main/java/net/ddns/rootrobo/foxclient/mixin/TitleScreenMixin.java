@@ -60,7 +60,7 @@ public abstract class TitleScreenMixin extends Screen {
     private void init(CallbackInfo ci) {
         ci.cancel();
         this.client.setScreen(new FoxClientTitleScreen(false));
-        return;
+
         /*
         assert this.client != null;
         this.clearChildren();
@@ -75,23 +75,6 @@ public abstract class TitleScreenMixin extends Screen {
             this.client.setScreen(new RealmsMainScreen(this));
         }));
 
-        /*
-        try {
-            InputStream in = MinecraftClient.getInstance().getResourcePackProvider().getPack().open(
-                    ResourceType.CLIENT_RESOURCES,
-                    new Identifier("foxclient", "textures/ui/main_box.png"));
-
-            NativeImage menu_box_texture_image = NativeImage.read(in);
-
-            menu_box_texture_image_width = menu_box_texture_image.getWidth();
-
-            menu_box_texture_image_height = menu_box_texture_image.getHeight();
-            menu_box_texture = MinecraftClient.getInstance().getTextureManager().registerDynamicTexture("menu_box_texture",
-                    new NativeImageBackedTexture(menu_box_texture_image));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
 
         // things
         /*
@@ -100,16 +83,6 @@ public abstract class TitleScreenMixin extends Screen {
         }, new TranslatableText("narrator.button.language")));
         */
 
-        /*
-        this.addDrawableChild(new NicerButtonWidget(this.width / 2 - 100, y + 72 + 12, 98, 20, new TranslatableText("menu.options"), (button) -> {
-            this.client.setScreen(new OptionsScreen(this, this.client.options));
-        }));
-
-        this.addDrawableChild(new NicerButtonWidget(this.width / 2 + 2, y + 72 + 12, 98, 20, new TranslatableText("menu.quit"), (button) -> {
-            this.client.scheduleStop();
-        }));
-
-         */
         /*
         this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 104, y + 72 + 12, 20, 20, 0, 0, 20, ACCESSIBILITY_ICON_TEXTURE, 32, 64, (button) -> {
             this.client.setScreen(new AccessibilityOptionsScreen(this, this.client.options));

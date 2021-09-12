@@ -14,6 +14,7 @@ import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
+import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
@@ -24,7 +25,6 @@ import net.minecraft.util.math.MathHelper;
 
 @Environment(EnvType.CLIENT)
 public class FoxClientTitleScreen extends Screen {
-
     // ui
     private static final Identifier BACKGROUND = new Identifier("foxclient", "textures/ui/title/bg.png");
     private static final Identifier BUTTON_BOX = new Identifier("foxclient", "textures/ui/main_box.png");
@@ -32,6 +32,11 @@ public class FoxClientTitleScreen extends Screen {
     // bg
     private static final Identifier EXIT_BUTTON = new Identifier("foxclient", "textures/ui/buttons/exit.png");
     private static final Identifier OPTIONS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/options.png");
+    private static final Identifier EMPTY_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
+    private static final Identifier ACCESSIBILITY_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
+    private static final Identifier MODS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
+    private static final Identifier REPLAYMOD_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
+    private static final Identifier UPDATE_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
 
 
     private static final String mojangCopyrightText = "Copyright Mojang AB. Do not distribute!";
@@ -59,7 +64,7 @@ public class FoxClientTitleScreen extends Screen {
         assert this.client != null;
         this.client.keyboard.setRepeatEvents(true);
 
-        int y = this.height / 2 + 16;
+        int y = this.height / 2 + 10;
         int spacingY = 24;
 
         // VANILLA BUTTONS
@@ -74,15 +79,29 @@ public class FoxClientTitleScreen extends Screen {
             this.client.setScreen(new MultiplayerScreen(this));
         }));
 
+        // - small buttons
+        int button_id = 3; // set amount of buttons here
+        spacingY = spacingY + 2;
+
+        // realms button
+
+
+        this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, EMPTY_BUTTON, 32, 64, (button) -> {
+            this.client.setScreen(new RealmsMainScreen(this));
+        }, new TranslatableText("menu.online")));
+
+        // options button
+        button_id--;
+        this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, OPTIONS_BUTTON, 32, 64, (button) -> {
+            this.client.setScreen(new OptionsScreen(this, this.client.options));
+        }, new TranslatableText("options.title")));
+
         // quit button
-        this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20, y + spacingY * 2, 20, 20, 0, 0, 20, EXIT_BUTTON, 32, 64, (button) -> {
+        button_id--;
+        this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, EXIT_BUTTON, 32, 64, (button) -> {
             this.client.scheduleStop();
         }, new TranslatableText("menu.quit")));
 
-        // options button
-        this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*2 - 8, y + spacingY * 2, 20, 20, 0, 0, 20, OPTIONS_BUTTON, 32, 64, (button) -> {
-            this.client.setScreen(new OptionsScreen(this, this.client.options));
-        }, new TranslatableText("options.title")));
 
         // copyright
         this.mojangCopyrightTextWidth = this.textRenderer.getWidth(mojangCopyrightText);
@@ -158,7 +177,7 @@ public class FoxClientTitleScreen extends Screen {
             return true;
         }
         if (mouseX > (double)this.mojangCopyrightTextX && mouseX < (double)(this.mojangCopyrightTextX + this.mojangCopyrightTextWidth) && mouseY > (double)(this.height - 10) && mouseY < (double)this.height) {
-            this.client.setScreen(new CreditsScreen(false, Runnables.doNothing()));
+            this.client.setScreen(new CreditsScreen(true, Runnables.doNothing()));
         }
         return false;
     }
