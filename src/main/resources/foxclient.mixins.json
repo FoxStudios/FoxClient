@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "net.ddns.rootrobo.foxclient.mixin",
+  "package": "net.foxes4life.foxclient.mixin",
   "compatibilityLevel": "JAVA_16",
   "client": [
     "ClientPlayNetworkHandlerMixin",

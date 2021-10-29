@@ -17,10 +17,10 @@
   "environment": "client",
   "entrypoints": {
     "main": [
-      "net.ddns.rootrobo.foxclient.Main"
+      "net.foxes4life.foxclient.Main"
     ],
     "client": [
-      "net.ddns.rootrobo.foxclient.MainClient"
+      "net.foxes4life.foxclient.MainClient"
     ]
   },
   "mixins": [
