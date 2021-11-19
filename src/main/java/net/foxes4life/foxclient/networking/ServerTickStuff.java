@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Paths;
 
+@SuppressWarnings("UnstableApiUsage")
 public class ServerTickStuff {
     // https://github.com/FliegendeWurst/ServerTPS <3 (ported to fabric and a little bit modified)
     public static EvictingQueue<Float> clientTicks = EvictingQueue.create(20);

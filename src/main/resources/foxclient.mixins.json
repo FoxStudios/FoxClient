@@ -11,12 +11,15 @@
     "MinecraftClientMixin",
     "MouseMixin",
     "SplashOverlayMixin",
+    "TexturedButtonWidgetMixin",
     "TitleScreenMixin",
     "TranslationStorageMixin",
-    "TexturedButtonWidgetMixin",
     "WindowMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "mixins": [
+    "MixinPlayerListEntry"
+  ]
 }

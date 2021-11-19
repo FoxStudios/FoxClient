@@ -54,8 +54,6 @@ public class Toaster implements Toast {
             manager.getGame().textRenderer.draw(matrices, this.title, 30.0F, 7.0F, -11534256);
             manager.getGame().textRenderer.draw(matrices, this.description, 30.0F, 18.0F, -16777216);
 
-            //RenderSystem.scalef(0.6F, 0.6F, 1.0F);
-
             try {
                 if(icon == null) {
                     // default steve icon
@@ -65,12 +63,10 @@ public class Toaster implements Toast {
 
                 Identifier id = manager.getGame().getTextureManager().registerDynamicTexture("toaster_icon_"+icon.hashCode(), new NativeImageBackedTexture(NativeImage.read(icon)));
 
-                //RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderTexture(0, id);
-                //RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
                 manager.getGame().getTextureManager().bindTexture(id);
-                //noinspection SpellCheckingInspection
+
                 // 38
                 DrawableHelper.drawTexture(matrices, 5, 5, 0, 0, 0, 22, 22, 22, 22);
                 manager.getGame().getTextureManager().destroyTexture(id);

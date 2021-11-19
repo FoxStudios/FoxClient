@@ -26,7 +26,6 @@ public class Updater {
     private static String name;
     public static int prepareUpdate() {
         if(!FabricLoader.getInstance().getModContainer(Main.MOD_ID).isPresent()) return -1;
-        //String thisVersion = FabricLoader.getInstance().getModContainer(Main.MODID).get().getMetadata().getVersion().getFriendlyString();
 
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet(updateUrl);
@@ -103,12 +102,8 @@ public class Updater {
         }
 
         System.out.println("Hash is different, updating!");
-        //int tv = Integer.parseInt(thisVersion.replace(".", ""));
-        //int lv = Integer.parseInt(version.replace(".", ""));
-        //if(tv >= lv) return false;
 
         name = json.get("name").getAsString();
-        //version = json.get("version").getAsJsonObject().get("id").getAsString();
         downloadUrl = json.get("download").getAsString();
         return 0;
     }

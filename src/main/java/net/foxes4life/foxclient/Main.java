@@ -1,5 +1,6 @@
 package net.foxes4life.foxclient;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.foxes4life.foxclient.config.Config;
 import net.foxes4life.foxclient.config.ConfigData;
 import net.foxes4life.foxclient.discord.Discord;
@@ -11,6 +12,7 @@ import net.fabricmc.api.ModInitializer;
 public class Main implements ModInitializer {
 	public static final String MOD_ID = "foxclient";
 	public static String VERSION = null;
+	public static String JAVA_VERSION = "unknown";
 	public static Config config_instance;
 	public static ConfigData config;
 
@@ -26,6 +28,9 @@ public class Main implements ModInitializer {
 		if(net.fabricmc.loader.api.FabricLoader.getInstance().getModContainer(Main.MOD_ID).isPresent()) {
 			VERSION = net.fabricmc.loader.api.FabricLoader.getInstance().getModContainer(Main.MOD_ID).get().getMetadata().getVersion().getFriendlyString();
 			System.out.println("FoxClient v"+VERSION);
+		}
+		if(FabricLoader.getInstance().getModContainer("java").isPresent()) {
+			JAVA_VERSION = FabricLoader.getInstance().getModContainer("java").get().getMetadata().getVersion().getFriendlyString();
 		}
 
 		hudEnabled = config_instance.getBoolean("hud_enabled");
