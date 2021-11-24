@@ -46,13 +46,4 @@ public abstract class SplashOverlayMixin {
         MOJANG_RED = bgColor.getRGB();
         BRAND_ARGB = () -> MinecraftClient.getInstance().options.monochromeLogo ? MONOCHROME_BLACK : MOJANG_RED;
     }
-
-    /*
-    @Mixin(targets = "net.minecraft.client.gui.screen.SplashScreen$LogoTexture")
-    private static class LogoTexture extends ResourceTexture {
-        private LogoTexture() {
-            super(new Identifier("foxclient", "textures/mojangstudios2.png"));
-        }
-    }
-    */
 }

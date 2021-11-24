@@ -44,11 +44,7 @@ public class ClientOverlayHud extends DrawableHelper {
 
     public void render(MatrixStack matrices) {
         if (!this.client.options.debugEnabled) {
-            //noinspection deprecation
-            //RenderSystem.;
             this.renderLeftText(matrices);
-            //noinspection deprecation
-            //RenderSystem.popMatrix();
         }
     }
 
@@ -123,17 +119,13 @@ public class ClientOverlayHud extends DrawableHelper {
             Text text = list.get(i);
             if (!(text == null || text == Text.EMPTY)) {
                 int j = 9;
-                //int k = this.fontRenderer.getWidth(text.getString());
                 int y = 2 + j * i;
-                //fill(matrices, 1, y - 1, 2 + k + 1, y + j - 1, -1873784752); // background
 
                 if(text.getString().equals("FoxClient "+Main.VERSION)) {
                     this.fontRenderer.draw(matrices, text, x, (float)y, colors.get(rgb).getRGB());
                 } else {
                     this.fontRenderer.draw(matrices, text, x, (float)y, 16777215);
                 }
-
-                //drawCenteredText(matrices, fontRenderer, text, 2.0F, (float)m);
             }
         }
     }

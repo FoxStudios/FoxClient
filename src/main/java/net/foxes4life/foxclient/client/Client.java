@@ -83,9 +83,6 @@ public class Client {
             }
         }
 
-        /*
-
-        */
         return fps;
     }
 
@@ -119,12 +116,6 @@ public class Client {
 
         Path target = Paths.get(dir.toString(), name);
 
-        /*
-        if(target.toFile().exists() && overwrite) {
-            //noinspection ResultOfMethodCallIgnored
-            target.toFile().delete();
-        }
-        */
         try {
             if(overwrite && stream != null) {
                 Files.copy(Objects.requireNonNull(stream), target, StandardCopyOption.REPLACE_EXISTING);

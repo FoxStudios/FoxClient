@@ -35,21 +35,6 @@ public class Main implements ModInitializer {
 
 		hudEnabled = config_instance.getBoolean("hud_enabled");
 
-		//TODO: fix client chat lag issue when server is offline/other server running on same port
-		//TODO: -> ISSUE #1
-		/*
-		Thread ClientChatThread = new Thread(() -> {
-			try {
-				ClientChat.start();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
-
-		ClientChatThread.setName("FoxClientChatThread");
-		ClientChatThread.start();
-		 */
-
 		// start discord rpc
 		Discord.init();
 	}

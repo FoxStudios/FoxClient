@@ -50,7 +50,6 @@ public class Toaster implements Toast {
         if (this.description == null) {
             manager.getGame().textRenderer.draw(matrices, this.title, 30.0F, 12.0F, -11534256);
         } else {
-            //manager.drawTexture(matrices, 0, 0, 0, 32, this.getWidth(), this.getHeight());
             manager.getGame().textRenderer.draw(matrices, this.title, 30.0F, 7.0F, -11534256);
             manager.getGame().textRenderer.draw(matrices, this.description, 30.0F, 18.0F, -16777216);
 

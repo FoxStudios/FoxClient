@@ -55,7 +55,6 @@ public class MainClient implements ClientModInitializer {
             PresenceUpdater.setState(DiscordMinecraftClient.getState(MinecraftClient.getInstance().getNetworkHandler()));
         });
 
-        //Registry.register(Registry.SOUND_EVENT, MOJANG_INTRO_SOUND_ID, MOJANG_INTRO_SOUND_EVENT);
         ClientOverlayHud.colors = new ArrayList<>();
         int steps = 120;
         for (int r=0; r<steps; r++) ClientOverlayHud.colors.add(new Color(r*255/steps,       255,         0));
@@ -76,38 +75,4 @@ public class MainClient implements ClientModInitializer {
             ServerTickStuff.onClientTickEnd();
         });
     }
-
-    /*
-    private void playMojangIntroSound() {
-        try {
-            InputStream thing = MinecraftClient.getInstance().getResourcePackDownloader().getPack().open(ResourceType.CLIENT_RESOURCES, new Identifier("foxclient", "sounds/mojang_intro.wav"));
-            if(thing == null) {
-                System.out.println("NO INTRO SOUND");
-            } else {
-                BufferedInputStream bis = new BufferedInputStream(thing);
-
-                AudioInputStream audioIn = AudioSystem.getAudioInputStream(bis);
-
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioIn);
-                FloatControl vol = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-
-                float range = vol.getMaximum() - vol.getMinimum();
-                float volume = (range * MinecraftClient.getInstance().options.getSoundVolume(SoundCategory.MASTER)) + vol.getMinimum();
-
-                vol.setValue(volume);
-
-                clip.start();
-            }
-        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
-            e.printStackTrace();
-        }
-    }
-    */
-
-    /*
-    private SoundEvent getLoadingSound() {
-        return Registry.SOUND_EVENT.get(MOJANG_INTRO_SOUND_EVENT.getId());
-    }
-    */
 }

@@ -77,8 +77,6 @@ public class ServerTickStuff {
     public static void onClientTickEnd() {
         long newSystemTime = System.currentTimeMillis();
         float newClientTick = ((float) newSystemTime) - systemTime2;
-        //System.out.printf("adding %s to client TPS [%s, %s]\n", newClientTick, systemTime2, newSystemTime);
-        //System.out.printf("client tick took: %s ms\n", newSystemTime - systemTime2);
         clientTicks.add(newClientTick);
     }
 

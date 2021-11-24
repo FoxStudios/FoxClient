@@ -1,7 +1,5 @@
 package net.foxes4life.foxclient.util;
 
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
 import net.foxes4life.foxclient.Main;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;

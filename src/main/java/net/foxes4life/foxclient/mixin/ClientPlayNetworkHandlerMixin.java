@@ -28,9 +28,6 @@ import java.nio.charset.StandardCharsets;
 
 @Mixin(ClientPlayNetworkHandler.class)
 public abstract class ClientPlayNetworkHandlerMixin implements ClientPlayPacketListener {
-	//private static int oldviewdistance;
-	//private static boolean revert = false;
-
 	@Shadow @Final private MinecraftClient client;
 
 	@Inject(at = @At("RETURN"), method = "onGameJoin")
@@ -58,16 +55,6 @@ public abstract class ClientPlayNetworkHandlerMixin implements ClientPlayPacketL
 					}
 				}
 			}
-			/*
-			if(((ChatMessageC2SPacket)packet).getChatMessage().startsWith("c.")) {
-				if(!ClientChat.send(((ChatMessageC2SPacket)packet).getChatMessage().substring("c.".length()))) {
-					if (MinecraftClient.getInstance().player != null) {
-						MinecraftClient.getInstance().player.sendMessage(new TranslatableText("foxclient.chat.clientchat.send_failed"), false);
-					}
-				}
-				ci.cancel();
-			}
-			 */
 		}
 	}
 
