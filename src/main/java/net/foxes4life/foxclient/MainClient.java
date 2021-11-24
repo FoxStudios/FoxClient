@@ -19,14 +19,22 @@ import java.util.ArrayList;
 public class MainClient implements ClientModInitializer {
 
     public static KeyBinding toggleHud;
+    public static KeyBinding freeLook;
 
     @Override
     public void onInitializeClient() {
         toggleHud = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.foxclient.toggle_hud", // The translation key of the keybinding's name
-                InputUtil.Type.KEYSYM, // The type of the keybinding, KEYSYM for keyboard, MOUSE for mouse.
-                GLFW.GLFW_KEY_F6, // The keycode of the key
-                "category.foxclient.hud" // The translation key of the keybinding's category.
+                "key.foxclient.toggle_hud",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_F6,
+                "category.foxclient.hud"
+        ));
+
+        freeLook = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.foxclient.freelook",
+                InputUtil.Type.MOUSE,
+                GLFW.GLFW_MOUSE_BUTTON_5,
+                "category.foxclient.main"
         ));
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {

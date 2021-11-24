@@ -14,12 +14,12 @@
     "TexturedButtonWidgetMixin",
     "TitleScreenMixin",
     "TranslationStorageMixin",
-    "WindowMixin"
+    "WindowMixin",
+    "MixinPlayerListEntry",
+    "CameraMixin",
+    "EntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "mixins": [
-    "MixinPlayerListEntry"
-  ]
+  }
 }
