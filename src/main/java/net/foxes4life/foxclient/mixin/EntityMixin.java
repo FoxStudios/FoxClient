@@ -20,11 +20,11 @@ public class EntityMixin implements Freelook {
         //noinspection ConstantConditions
         if(!((Object) this instanceof ClientPlayerEntity)) return;
         if(MainClient.freeLook.isPressed()) {
-            float f = (float)cursorDeltaY * 0.15F;
             float g = (float)cursorDeltaX * 0.15F;
+            float f = (float)cursorDeltaY * 0.15F;
 
-            this.cameraY = MathHelper.clamp(this.cameraY + f, -90F, 90F);
             this.cameraX += g;
+            this.cameraY = MathHelper.clamp(this.cameraY + f, -90F, 90F);
             ci.cancel();
         }
     }

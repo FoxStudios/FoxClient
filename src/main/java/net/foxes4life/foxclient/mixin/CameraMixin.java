@@ -31,8 +31,8 @@ public abstract class CameraMixin {
             Freelook fl = (Freelook) focusedEntity;
 
             if(MinecraftClient.getInstance().player != null && startFreelook) {
-                fl.setCameraY(MinecraftClient.getInstance().player.getPitch());
                 fl.setCameraX(MinecraftClient.getInstance().player.getYaw());
+                fl.setCameraY(MinecraftClient.getInstance().player.getPitch());
                 startFreelook = false;
             }
 
