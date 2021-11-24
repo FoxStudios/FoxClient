@@ -2,8 +2,10 @@ package net.foxes4life.foxclient.client;
 
 import net.foxes4life.foxclient.Main;
 import net.fabricmc.loader.api.FabricLoader;
+import net.foxes4life.foxclient.MainClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.PlayerListEntry;
+import net.minecraft.client.option.Perspective;
 
 import java.io.*;
 import java.lang.reflect.Field;
@@ -26,6 +28,9 @@ public class Client {
 
     public static double mouseX = 0;
     public static double mouseY = 0;
+
+    public static boolean freeLooking = false;
+    private static Perspective freeLookLastPerspective;
 
     public static int getLeftCPS() {
         clicks_left.removeIf(clickTime -> System.currentTimeMillis() - clickTime >= 1000);
@@ -183,5 +188,25 @@ public class Client {
             return null;
         }
         return jarPath;
+    }
+
+    public static void clientTick() {
+        if(MainClient.freeLook.isPressed()) {
+            if(!freeLooking) {
+                freeLookLastPerspective = MinecraftClient.getInstance().options.getPerspective();
+                if(freeLookLastPerspective == Perspective.FIRST_PERSON) MinecraftClient.getInstance().options.setPerspective(Perspective.THIRD_PERSON_BACK);
+                freeLooking = true;
+            }
+        } else {
+            if(MinecraftClient.getInstance().player != null) {
+                ((Freelook)(MinecraftClient.getInstance().player)).setCameraX(MinecraftClient.getInstance().player.getYaw());
+                ((Freelook)(MinecraftClient.getInstance().player)).setCameraY(MinecraftClient.getInstance().player.getPitch());
+            }
+
+            if(freeLooking) {
+                MinecraftClient.getInstance().options.setPerspective(freeLookLastPerspective);
+                freeLooking = false;
+            }
+        }
     }
 }

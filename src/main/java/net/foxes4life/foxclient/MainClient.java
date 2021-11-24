@@ -1,5 +1,6 @@
 package net.foxes4life.foxclient;
 
+import net.foxes4life.foxclient.client.Client;
 import net.foxes4life.foxclient.discord.DiscordMinecraftClient;
 import net.foxes4life.foxclient.discord.PresenceUpdater;
 import net.foxes4life.foxclient.hud.ClientOverlayHud;
@@ -67,6 +68,7 @@ public class MainClient implements ClientModInitializer {
         System.out.println("Color array size: "+ClientOverlayHud.colors.size());
 
         ClientTickEvents.START_CLIENT_TICK.register((client) -> {
+            Client.clientTick();
             ServerTickStuff.onClientTick();
         });
 

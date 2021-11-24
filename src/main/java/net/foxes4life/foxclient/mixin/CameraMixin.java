@@ -1,6 +1,6 @@
 package net.foxes4life.foxclient.mixin;
 
-import net.foxes4life.foxclient.MainClient;
+import net.foxes4life.foxclient.client.Client;
 import net.foxes4life.foxclient.client.Freelook;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
@@ -21,13 +21,9 @@ public abstract class CameraMixin {
 
     @Inject(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/Camera;setRotation(FF)V", ordinal = 0, shift = At.Shift.AFTER))
     public void update(BlockView area, Entity focusedEntity, boolean thirdPerson, boolean inverseView, float tickDelta, CallbackInfo ci) {
-        if(!(focusedEntity instanceof PlayerEntity)) {
-            System.out.println("no");
-            System.out.println(focusedEntity.getClass().getName());
-            return;
-        }
+        if(!(focusedEntity instanceof PlayerEntity)) return;
 
-        if(MainClient.freeLook.isPressed()) {
+        if(Client.freeLooking) {
             Freelook fl = (Freelook) focusedEntity;
 
             if(MinecraftClient.getInstance().player != null && startFreelook) {
