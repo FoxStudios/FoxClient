@@ -32,7 +32,7 @@ public abstract class ClientPlayNetworkHandlerMixin implements ClientPlayPacketL
 
 	@Inject(at = @At("RETURN"), method = "onGameJoin")
 	public void onGameJoin(GameJoinS2CPacket packet, CallbackInfo ci) {
-		System.out.println("Server Render Distance: "+packet.getViewDistance());
+		System.out.println("Server Render Distance: "+packet.viewDistance());
 		ServerTickStuff.onJoin();
 		System.out.println("Registering \"foxclient:msgreceive\" payload.");
 		ClientPlayNetworking.registerReceiver(new Identifier("foxclient", "msgreceive"), ClientNetworking::onClientMessageReceived);

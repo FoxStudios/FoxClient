@@ -25,6 +25,7 @@ import java.lang.reflect.Field;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
+import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class AddAltAccountScreen extends Screen {
@@ -88,7 +89,7 @@ public class AddAltAccountScreen extends Screen {
             boolean success = validateToken(token);
             if(success) {
                 System.out.println("TOKEN VALID!");
-                Session s = new Session(username, uuid, token, "mojang");
+                Session s = new Session(username, uuid, token, Optional.of("mojang"), this.client.getSession().getClientId(), Session.AccountType.MOJANG); //todo: change
                 try {
                     setSession(s);
                     buttonWidget.setMessage(new TranslatableText("foxclient.gui.altmanager.logged_in"));
@@ -97,7 +98,7 @@ public class AddAltAccountScreen extends Screen {
                 }
             } else {
                 System.out.println("TOKEN INVALID!");
-                Session s = new Session(username, uuid, token, "mojang");
+                Session s = new Session(username, uuid, token, Optional.of("mojang"), this.client.getSession().getClientId(), Session.AccountType.MOJANG); //todo: change
                 try {
                     setSession(s);
                 } catch (Exception e) {
