@@ -1,6 +1,6 @@
 package net.foxes4life.foxclient.discord;
 
-import de.jcm.discordgamesdk.activity.Activity;
+import net.arikia.dev.drpc.DiscordRichPresence;
 import net.foxes4life.foxclient.Main;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
@@ -32,16 +32,14 @@ public class PresenceUpdater {
             default -> stateLine = "unimplemented!";
         }
 
-        //noinspection unchecked
         if(Main.config_instance.getBoolean("discord-rpc") && Discord.initialised) {
             // update our discord rpc thingy lol
-            Activity dca = new Activity();
-            dca.setDetails("Playing Minecraft "+SharedConstants.getGameVersion().getName());
-            dca.setState(stateLine);
-            dca.assets().setLargeImage(largeImage);
-            dca.assets().setLargeText("FoxClient - A private Minecraft Mod");
-            dca.assets().setSmallText("assets by flustix uwu");
-            Discord.setActivity(dca);
+            DiscordRichPresence rpc = new DiscordRichPresence.Builder(stateLine)
+                    .setDetails("Playing Minecraft "+SharedConstants.getGameVersion().getName())
+                    .setBigImage(largeImage, "FoxClient - A private Minecraft Mod")
+                    .setSmallImage("", "assets by flustix uwu")
+                    .build();
+            DiscordInstance.get().setActivity(rpc);
         }
     }
 

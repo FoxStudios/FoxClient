@@ -39,6 +39,7 @@ public class FoxClientTitleScreen extends Screen {
     private static final Identifier EMPTY_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
     private static final Identifier ACCESSIBILITY_BUTTON = new Identifier("foxclient", "textures/ui/buttons/accessibility.png");
     private static final Identifier MODS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/modmenu.png");
+    private static final Identifier FOXCLIENT_OPTIONS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
     private static final Identifier REPLAYMOD_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
     private static final Identifier UPDATE_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
 
@@ -84,7 +85,7 @@ public class FoxClientTitleScreen extends Screen {
         }));
 
         // - small buttons
-        int button_id = 5; // set amount of buttons here
+        int button_id = 6; // set amount of buttons here
 
         button_id++;
         spacingY = spacingY + 2;
@@ -119,9 +120,15 @@ public class FoxClientTitleScreen extends Screen {
             this.client.setScreen(new RealmsMainScreen(this));
         }, new TranslatableText("menu.online")));
 
+        // foxclient options button (debug)
+        button_id--;
+        this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, FOXCLIENT_OPTIONS_BUTTON, 32, 64, (button) -> {
+            this.client.setScreen(new ConfigTestScreen(this));
+        }, new TranslatableText("foxclient.debug.gui.button.configtest")));
+
         // options button
         button_id--;
-        this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20 * button_id - 8 * (button_id - 1), y + spacingY * 2, 20, 20, 0, 0, 20, OPTIONS_BUTTON, 32, 64, (button) -> {
+        this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, OPTIONS_BUTTON, 32, 64, (button) -> {
             this.client.setScreen(new OptionsScreen(this, this.client.options));
         }, new TranslatableText("options.title")));
 

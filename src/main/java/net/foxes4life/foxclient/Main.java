@@ -3,10 +3,10 @@ package net.foxes4life.foxclient;
 import net.fabricmc.loader.api.FabricLoader;
 import net.foxes4life.foxclient.config.Config;
 import net.foxes4life.foxclient.config.ConfigData;
-import net.foxes4life.foxclient.discord.Discord;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
+import net.foxes4life.foxclient.discord.DiscordInstance;
 
 @Environment(EnvType.CLIENT)
 public class Main implements ModInitializer {
@@ -36,6 +36,6 @@ public class Main implements ModInitializer {
 		hudEnabled = config_instance.getBoolean("hud_enabled");
 
 		// start discord rpc
-		Discord.init();
+		DiscordInstance.get().init();
 	}
 }

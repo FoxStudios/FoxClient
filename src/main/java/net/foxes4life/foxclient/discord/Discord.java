@@ -1,24 +1,22 @@
 package net.foxes4life.foxclient.discord;
 
-import de.jcm.discordgamesdk.Core;
-import de.jcm.discordgamesdk.CreateParams;
-import de.jcm.discordgamesdk.activity.Activity;
+import net.arikia.dev.drpc.DiscordEventHandlers;
+import net.arikia.dev.drpc.DiscordRPC;
+import net.arikia.dev.drpc.DiscordRichPresence;
+import net.arikia.dev.drpc.DiscordUser;
+import net.arikia.dev.drpc.callbacks.ReadyCallback;
 import net.foxes4life.foxclient.Main;
 import net.minecraft.client.MinecraftClient;
 
-import java.io.File;
-import java.io.IOException;
-import java.time.Instant;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Discord {
-    public static Core CORE = null;
-    public static Thread CALLBACK_THREAD = null;
-    public static Instant START_TIME = null;
-    public static File dcLib = null;
+public class Discord implements ReadyCallback {
+    public Thread CALLBACK_THREAD = null;
+    public long START_TIME = 0L;
     public static boolean initialised = false;
-    public static void init() {
+
+    public void init() {
             Thread initDiscordLib = new Thread(() -> {
                 while(!(MinecraftClient.getInstance() != null && !MinecraftClient.getInstance().fpsDebugString.equals(""))) {
                     try {
@@ -28,21 +26,15 @@ public class Discord {
                     }
                 }
 
-                File discordLibrary = null;
-                try {
-                    discordLibrary = DownloadNativeLibrary.getNativeLibrary();
-                } catch (IOException ignored) {
-                }
-
-                if(discordLibrary == null) {
-                    System.err.println("Error getting Discord SDK.");
-                    return;
-                }
-                dcLib = discordLibrary;
                 if(Main.config_instance.getBoolean("discord-rpc")) {
-                    initDC();
                     try {
-                        Thread.sleep(6969);
+                        System.out.println("init dc");
+                        initDC();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        Thread.sleep(2000);
                     } catch (InterruptedException ignored) {
                     }
                     initialised = true;
@@ -52,56 +44,57 @@ public class Discord {
             initDiscordLib.start();
     }
 
-    public static void stfu() {
-        CORE.close();
+    public void stfu() {
+        DiscordRPC.discordClearPresence();
+        DiscordRPC.discordShutdown();
+        CALLBACK_THREAD.stop();
         initialised = false;
     }
 
-    public static void initDC() {
-        Core.init(dcLib);
+    public void initDC() {
+        System.out.println("init");
+        START_TIME = System.currentTimeMillis();
+        DiscordRPC.discordInitialize("805552222985388063", new DiscordEventHandlers.Builder().setReadyEventHandler(this).build(), true);
+        DiscordRPC.discordRunCallbacks();
 
-        try(CreateParams params = new CreateParams()) {
-            params.setClientID(805552222985388063L);
-            params.setFlags(CreateParams.getDefaultFlags());
+        System.out.println("discord - set activity");
+        DiscordRPC.discordUpdatePresence(new DiscordRichPresence.Builder("Initialising")
+                .setStartTimestamps(START_TIME)
+                .setBigImage("main", null).build());
 
-            CORE = new Core(params);
+        // Run callbacks forever
+        CALLBACK_THREAD = new Thread(() -> new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                runCallback();
+            }
+        }, 100, 1024));
+        CALLBACK_THREAD.setName("discordCallbackThread");
+        CALLBACK_THREAD.start();
+    }
 
-            try(Activity activity = new Activity()) {
-                activity.setDetails("FoxClient");
-                activity.setState("Initialising ...");
-                START_TIME = Instant.now();
-                activity.timestamps().setStart(START_TIME);
-                activity.assets().setLargeImage("main");
-                CORE.activityManager().updateActivity(activity);
+    public void setActivity(DiscordRichPresence presence) {
+        if(Main.config_instance.getBoolean("discord-rpc")) {
+            if (START_TIME == 0L) {
+                START_TIME = System.currentTimeMillis();
             }
 
-            // Run callbacks forever
-            CALLBACK_THREAD = new Thread(() -> new Timer().scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    runCallback();
-                }
-            }, 100, 256));
-            CALLBACK_THREAD.setName("discordCallbackThread");
-            CALLBACK_THREAD.start();
+            presence.largeImageText = "FoxClient " + Main.VERSION;
+            presence.startTimestamp = START_TIME;
+            DiscordRPC.discordUpdatePresence(presence);
         }
     }
 
-    public static void setActivity(Activity activity) {
+    private void runCallback() {
         if(Main.config_instance.getBoolean("discord-rpc")) {
-            if(CORE == null) return;
-            if (START_TIME == null) {
-                START_TIME = Instant.now();
-            }
-            activity.assets().setLargeText("FoxClient " + Main.VERSION);
-            activity.timestamps().setStart(START_TIME);
-            CORE.activityManager().updateActivity(activity);
+            System.out.println("callback");
+            DiscordRPC.discordRunCallbacks();
         }
     }
 
-    private static void runCallback() {
-        if(Main.config_instance.getBoolean("discord-rpc")) {
-            CORE.runCallbacks();
-        }
+    @Override
+    public void apply(DiscordUser user) {
+        System.out.println("RPC loaded!");
+        System.out.println("Username: " + user.username);
     }
 }

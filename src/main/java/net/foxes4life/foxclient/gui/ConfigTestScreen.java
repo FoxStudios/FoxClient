@@ -2,7 +2,7 @@ package net.foxes4life.foxclient.gui;
 
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.config.ConfigData;
-import net.foxes4life.foxclient.discord.Discord;
+import net.foxes4life.foxclient.discord.DiscordInstance;
 import net.foxes4life.foxclient.egg.EggManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -66,10 +66,10 @@ public class ConfigTestScreen extends Screen {
 
             if(Main.config_instance.getBoolean("discord-rpc")) {
                 Main.config_instance.set("discord-rpc", false);
-                Discord.stfu();
+                DiscordInstance.get().stfu();
             } else {
                 Main.config_instance.set("discord-rpc", true);
-                Discord.initDC();
+                DiscordInstance.get().init();
             }
 
             dcButtonEnabled = false;
@@ -79,7 +79,7 @@ public class ConfigTestScreen extends Screen {
 
             new Thread(() -> {
                 try {
-                    Thread.sleep(6969);
+                    Thread.sleep(2000);
                 } catch (InterruptedException ignored) {
                 }
 
