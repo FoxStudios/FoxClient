@@ -17,7 +17,7 @@ public class Discord implements ReadyCallback {
     public static boolean initialised = false;
 
     public void init() {
-            Thread initDiscordLib = new Thread(() -> {
+            Thread initDiscord = new Thread(() -> {
                 while(!(MinecraftClient.getInstance() != null && !MinecraftClient.getInstance().fpsDebugString.equals(""))) {
                     try {
                         //noinspection BusyWait
@@ -40,8 +40,8 @@ public class Discord implements ReadyCallback {
                     initialised = true;
                 }
             });
-            initDiscordLib.setName("initDiscord");
-            initDiscordLib.start();
+            initDiscord.setName("initDiscord");
+            initDiscord.start();
     }
 
     public void stfu() {
@@ -87,7 +87,6 @@ public class Discord implements ReadyCallback {
 
     private void runCallback() {
         if(Main.config_instance.getBoolean("discord-rpc")) {
-            System.out.println("callback");
             DiscordRPC.discordRunCallbacks();
         }
     }
@@ -95,6 +94,6 @@ public class Discord implements ReadyCallback {
     @Override
     public void apply(DiscordUser user) {
         System.out.println("RPC loaded!");
-        System.out.println("Username: " + user.username);
+        System.out.println("Username: " + user.username + "#" + user.discriminator);
     }
 }
