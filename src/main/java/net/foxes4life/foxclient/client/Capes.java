@@ -13,6 +13,11 @@ public class Capes {
         } else {
             System.out.println("[Capes] obtaining new cape");
             PlayerCape cape = new PlayerCape(uuid);
+            try {
+                cape.updateCapeTexture();
+            } catch (NullPointerException ignored) {
+                System.out.println("yoo nullpointer!!11");
+            }
             capes.put(uuid, cape);
             return cape;
         }

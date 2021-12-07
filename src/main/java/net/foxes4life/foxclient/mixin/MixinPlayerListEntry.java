@@ -33,13 +33,13 @@ public class MixinPlayerListEntry {
         }
 
         PlayerCape cape = Capes.getCape(uuid);
-        if(cape != null) {
-            new Thread(() -> {
+        new Thread(() -> {
+            if(cape != null) {
                 Identifier capeTexture = cape.getTexture();
                 if(capeTexture != null) {
                     this.textures.put(MinecraftProfileTexture.Type.CAPE, capeTexture);
                 }
-            }).start();
-        }
+            }
+        }).start();
     }
 }

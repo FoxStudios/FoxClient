@@ -38,6 +38,7 @@ public class PlayerCape {
         try {
             System.out.println("[PlayerCape] updating cape texture "+this.uuid.toString());
             HttpResponse response = Http.get("https://foxes4life.net/capes/get.php?uuid=" + this.uuid.toString().replace("-", ""));
+            //HttpResponse response = Http.get("https://foxes4life.net/capes/get.php?uuid=45d32810c78940269aacf17c78eca92c");
             if(response != null && response.getStatusLine().getStatusCode() == 200) {
                 String responseBody = Http.getResponseBody(response);
                 JsonParser jsonParser = new JsonParser();
@@ -67,7 +68,7 @@ public class PlayerCape {
                     "fcc_"+uuid.toString().replace("-", ""),
                     new NativeImageBackedTexture(capeImg)
             );
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }
     }
