@@ -3,6 +3,7 @@ package net.foxes4life.foxclient.client;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
+import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.util.Http;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.NativeImage;
@@ -37,7 +38,7 @@ public class PlayerCape {
     public void updateCapeTexture() {
         try {
             System.out.println("[PlayerCape] updating cape texture "+this.uuid.toString());
-            HttpResponse response = Http.get("https://foxes4life.net/capes/get.php?uuid=" + this.uuid.toString().replace("-", ""));
+            HttpResponse response = Http.get("https://client.foxes4life.net/capes/get.php?uuid=" + this.uuid.toString().replace("-", ""));
             //HttpResponse response = Http.get("https://foxes4life.net/capes/get.php?uuid=45d32810c78940269aacf17c78eca92c");
             if(response != null && response.getStatusLine().getStatusCode() == 200) {
                 String responseBody = Http.getResponseBody(response);
@@ -57,8 +58,14 @@ public class PlayerCape {
     }
 
     private void setCapeBase64(String base64) {
-        byte[] img = Base64.getDecoder().decode(base64);
-        setCapeTexture(new ByteArrayInputStream(img));
+        byte[] img = null;
+        try {
+            img = Base64.getDecoder().decode(base64);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            System.err.println("FAILED TO LOAD CAPE TEXTURE: '" + base64 + "'");
+        }
+        if(img != null) setCapeTexture(new ByteArrayInputStream(img));
     }
 
     private void setCapeTexture(InputStream img) {

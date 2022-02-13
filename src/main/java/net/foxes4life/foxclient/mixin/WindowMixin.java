@@ -13,6 +13,7 @@ import java.io.InputStream;
 
 @Mixin(Window.class)
 public abstract class WindowMixin {
+    /*
     @ModifyVariable(method = "setIcon", at = @At(value = "INVOKE"), ordinal = 0)
     private InputStream setIcon16(InputStream icon16, InputStream icon32) {
         try {
@@ -29,4 +30,5 @@ public abstract class WindowMixin {
             return icon32;
         }
     }
+     */
 }
