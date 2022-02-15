@@ -24,8 +24,9 @@
 
   "foxclient.debug.gui.button.configtest": "Debug Config",
 
-  "category.foxclient.hud": "FoxClient HUD",
+  "category.foxclient.main": "FoxClient HUD",
   "key.foxclient.toggle_hud": "Toggle HUD",
+  "key.foxclient.freelook": "Freelook",
 
   "foxclient.rpc.state.idle": "Idle",
   "foxclient.rpc.state.singleplayer": "Playing Singleplayer",

@@ -28,7 +28,7 @@ public class MainClient implements ClientModInitializer {
                 "key.foxclient.toggle_hud",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_F6,
-                "category.foxclient.hud"
+                "category.foxclient.main"
         ));
 
         freeLook = KeyBindingHelper.registerKeyBinding(new KeyBinding(
