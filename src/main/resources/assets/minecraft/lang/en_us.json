@@ -24,7 +24,7 @@
 
   "foxclient.debug.gui.button.configtest": "Debug Config",
 
-  "category.foxclient.main": "FoxClient HUD",
+  "category.foxclient.main": "FoxClient",
   "key.foxclient.toggle_hud": "Toggle HUD",
   "key.foxclient.freelook": "Freelook",
 
