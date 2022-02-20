@@ -20,8 +20,6 @@
 
   "foxclient.gui.button.reconnect": "Reconnect",
 
-  "foxclient.chat.clientchat.send_failed": "§cCould not send Client Chat message!",
-
   "foxclient.debug.gui.button.configtest": "Debug Config",
 
   "category.foxclient.main": "FoxClient",
