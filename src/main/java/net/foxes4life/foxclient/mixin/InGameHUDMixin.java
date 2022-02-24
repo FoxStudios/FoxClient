@@ -1,7 +1,6 @@
 package net.foxes4life.foxclient.mixin;
 
-import net.foxes4life.foxclient.Main;
-import net.foxes4life.foxclient.hud.ClientOverlayHud;
+import net.foxes4life.foxclient.gui.FoxClientHUD;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
@@ -13,16 +12,11 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InGameHud.class)
-public class InGameHudMixin {
-    @Shadow
-    @Final
-    private MinecraftClient client;
+public class InGameHUDMixin {
+    @Shadow @Final private MinecraftClient client;
 
-    @Inject(at = @At("RETURN"), method = "render")
+    @Inject(at = @At("HEAD"), method = "render")
     public void render(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
-        if(Main.hudEnabled) {
-            ClientOverlayHud foxhud = new ClientOverlayHud(this.client);
-            foxhud.render(matrices);
-        }
+        new FoxClientHUD(this.client).render(matrices);
     }
 }

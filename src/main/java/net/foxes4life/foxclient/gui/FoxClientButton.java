@@ -1,4 +1,4 @@
-package net.foxes4life.foxclient.gui.widgets;
+package net.foxes4life.foxclient.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
@@ -11,9 +11,9 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
-public class NicerButtonWidget extends ButtonWidget {
+public class FoxClientButton extends ButtonWidget {
 
-    public NicerButtonWidget(int x, int y, int width, int height, Text message, PressAction onPress) {
+    public FoxClientButton(int x, int y, int width, int height, Text message, PressAction onPress) {
         super(x, y, width, height, message, onPress);
     }
 

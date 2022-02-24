@@ -1,16 +1,17 @@
-package net.foxes4life.foxclient.gui;
+package net.foxes4life.foxclient.screen;
 
 import com.google.common.util.concurrent.Runnables;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.foxes4life.foxclient.Main;
-import net.foxes4life.foxclient.gui.widgets.NicerButtonWidget;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
+import net.foxes4life.foxclient.Main;
+import net.foxes4life.foxclient.gui.FoxClientButton;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.screen.CreditsScreen;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.option.AccessibilityOptionsScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
@@ -40,11 +41,11 @@ public class FoxClientTitleScreen extends Screen {
     private static final Identifier ACCESSIBILITY_BUTTON = new Identifier("foxclient", "textures/ui/buttons/accessibility.png");
     private static final Identifier MODS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/modmenu.png");
     private static final Identifier FOXCLIENT_OPTIONS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
-    private static final Identifier REPLAYMOD_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
-    private static final Identifier UPDATE_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
+    //private static final Identifier REPLAYMOD_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
+    //private static final Identifier UPDATE_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
 
 
-    private static final String mojangCopyrightText = "Copyright Mojang AB. Do not distribute!";
+    private static final String mojangCopyrightText = TitleScreen.COPYRIGHT;
     private int mojangCopyrightTextWidth;
     private int mojangCopyrightTextX;
 
@@ -73,16 +74,14 @@ public class FoxClientTitleScreen extends Screen {
         int spacingY = 24;
 
         // VANILLA BUTTONS
-        this.addDrawableChild(new NicerButtonWidget(this.width / 2 - 100, y, 200, 20, new TranslatableText("menu.singleplayer"),
+        this.addDrawableChild(new FoxClientButton(this.width / 2 - 100, y, 200, 20, new TranslatableText("menu.singleplayer"),
                 (button) -> {
                     assert this.client != null;
                     this.client.setScreen(new SelectWorldScreen(this));
                 })
         );
 
-        this.addDrawableChild(new NicerButtonWidget(this.width / 2 - 100, y + spacingY, 200, 20, new TranslatableText("menu.multiplayer"), (button) -> {
-            this.client.setScreen(new MultiplayerScreen(this));
-        }));
+        this.addDrawableChild(new FoxClientButton(this.width / 2 - 100, y + spacingY, 200, 20, new TranslatableText("menu.multiplayer"), (button) -> this.client.setScreen(new MultiplayerScreen(this))));
 
         // - small buttons
         int button_id = 6; // set amount of buttons here
@@ -92,9 +91,7 @@ public class FoxClientTitleScreen extends Screen {
 
         // accessibility button
         button_id--;
-        this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, ACCESSIBILITY_BUTTON, 32, 64, (button) -> {
-            this.client.setScreen(new AccessibilityOptionsScreen(this, this.client.options));
-        }, new TranslatableText("narrator.button.accessibility")));
+        this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, ACCESSIBILITY_BUTTON, 32, 64, (button) -> this.client.setScreen(new AccessibilityOptionsScreen(this, this.client.options)), new TranslatableText("narrator.button.accessibility")));
 
         // mods button
         button_id--;
@@ -109,6 +106,7 @@ public class FoxClientTitleScreen extends Screen {
                 }
             } else {
                 // todo: add a popup of some sort to inform the user that mod menu is required for this
+                // amogus balls
             }
         }, new TranslatableText("mods")));
         if(!FabricLoader.getInstance().isModLoaded("modmenu")) {
@@ -123,7 +121,7 @@ public class FoxClientTitleScreen extends Screen {
         // foxclient options button (debug)
         button_id--;
         this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, FOXCLIENT_OPTIONS_BUTTON, 32, 64, (button) -> {
-            this.client.setScreen(new ConfigTestScreen(this));
+            //this.client.setScreen(new ConfigTestScreen(this));
         }, new TranslatableText("foxclient.debug.gui.button.configtest")));
 
         // options button
@@ -134,6 +132,7 @@ public class FoxClientTitleScreen extends Screen {
 
         // quit button
         button_id--;
+        //noinspection ConstantConditions
         this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, EXIT_BUTTON, 32, 64, (button) -> {
             this.client.scheduleStop();
         }, new TranslatableText("menu.quit")));
@@ -180,7 +179,7 @@ public class FoxClientTitleScreen extends Screen {
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.doBackgroundFade ? (float) MathHelper.ceil(MathHelper.clamp(f, 0.0F, 1.0F)) : 1.0F);
         int fomxSize = 118;
-        drawTexture(matrices, (width/2) - (fomxSize/2), height/2 - fomxSize + 32, 0, 0, 128, fomxSize, fomxSize,fomxSize, fomxSize);
+        drawTexture(matrices, (width/2) - (fomxSize/2), height/2 - fomxSize + 32, 0, 0, 128, fomxSize, fomxSize, fomxSize, fomxSize);
 
         // draw texts
         int transparent = MathHelper.ceil(0.5f * 255.0F) << 24;
@@ -199,6 +198,7 @@ public class FoxClientTitleScreen extends Screen {
         } else {
             gameVersion = gameVersion + ("release".equalsIgnoreCase(this.client.getVersionType()) ? "" : "/" + this.client.getVersionType());
         }
+
         drawStringWithShadow(matrices, this.textRenderer, gameVersion, 4, this.height - 10, 16777215 | transparent);
         drawStringWithShadow(matrices, this.textRenderer, "FoxClient "+ Main.VERSION, 4, this.height - 20, 16777215 | transparent);
 
@@ -213,6 +213,7 @@ public class FoxClientTitleScreen extends Screen {
             return true;
         }
         if (mouseX > (double)this.mojangCopyrightTextX && mouseX < (double)(this.mojangCopyrightTextX + this.mojangCopyrightTextWidth) && mouseY > (double)(this.height - 10) && mouseY < (double)this.height) {
+            assert this.client != null;
             this.client.setScreen(new CreditsScreen(true, Runnables.doNothing()));
         }
         return false;
