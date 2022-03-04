@@ -94,7 +94,6 @@ public class Discord implements ReadyCallback {
         System.out.println("Username: " + user.username + "#" + user.discriminator);
         initialised = true;
 
-        System.out.println("discord - set activity");
         DiscordRPC.discordUpdatePresence(new DiscordRichPresence.Builder("Initialising")
                 .setStartTimestamps(START_TIME)
                 .setBigImage("main", null).build());
