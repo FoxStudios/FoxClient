@@ -1,6 +1,9 @@
 package net.foxes4life.foxclient.mixin;
 
+import net.arikia.dev.drpc.DiscordRPC;
 import net.foxes4life.foxclient.Main;
+import net.foxes4life.foxclient.rpc.DiscordMinecraftClient;
+import net.foxes4life.foxclient.rpc.PresenceUpdater;
 import net.foxes4life.foxclient.util.MiscUtil;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
@@ -49,6 +52,10 @@ public abstract class MinecraftClientMixin {
         title += " | Minecraft " + SharedConstants.getGameVersion().getName();
 
         ClientPlayNetworkHandler clientPlayNetworkHandler = MinecraftClient.getInstance().getNetworkHandler();
+
+        if(Main.config_instance.getBoolean("discord-rpc")) {
+            PresenceUpdater.setState(DiscordMinecraftClient.getState(clientPlayNetworkHandler));
+        }
 
         if(clientPlayNetworkHandler != null && clientPlayNetworkHandler.getConnection().isOpen()) {
             title += " - ";

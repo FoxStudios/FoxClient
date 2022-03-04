@@ -25,16 +25,14 @@ public abstract class SplashOverlayMixin extends Overlay {
     @Final @Mutable @Shadow
     private static int MONOCHROME_BLACK;
 
-    private static final Identifier BACKGROUND = new Identifier("foxclient", "textures/ui/title/bg.png");
-
     @Mutable
     @Final
-    @Shadow static Identifier LOGO = new Identifier("textures/gui/title/mojangstudios.png");
+    @Shadow static Identifier LOGO;
 
     @Inject(at = @At("TAIL"), method = "init")
     private static void init(MinecraftClient client, CallbackInfo ci) {
         LOGO = new Identifier("foxclient", "textures/foxclientsplash.png");
-        client.getTextureManager().registerTexture(BACKGROUND, TextureUtil.fromIdentifier(BACKGROUND));
+        //client.getTextureManager().registerTexture(BACKGROUND, TextureUtil.fromIdentifier(BACKGROUND));
 
         MOJANG_RED = ColorHelper.Argb.getArgb(255, 32, 32, 32);
         MONOCHROME_BLACK = ColorHelper.Argb.getArgb(255, 16, 16, 16);
