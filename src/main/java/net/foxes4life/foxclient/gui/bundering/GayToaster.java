@@ -51,6 +51,6 @@ public class GayToaster implements Toast {
             RenderSystem.enableBlend();
         }
 
-        return startTime - this.startTime >= 1000L ? Visibility.HIDE : Visibility.SHOW;
+        return startTime - this.startTime >= 2500L ? Visibility.HIDE : Visibility.SHOW;
     }
 }
