@@ -29,11 +29,9 @@ import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Random;
 
 @Environment(EnvType.CLIENT)
 public class FoxClientTitleScreen extends Screen {
-    private static Random rng = new Random();
     private static int backgroundIndex = 0;
     private static final int backgroundAmount = 2;
 
@@ -85,8 +83,10 @@ public class FoxClientTitleScreen extends Screen {
         int y = this.height / 2 + 10;
         int spacingY = 24;
 
-        backgroundIndex = rng.nextInt(backgroundAmount);
-        this.BACKGROUND = new Identifier("foxclient", "textures/ui/title/bg/" + backgroundIndex + ".png");
+        backgroundIndex++;
+        if(backgroundIndex >= backgroundAmount) backgroundIndex = 0;
+
+        BACKGROUND = new Identifier("foxclient", "textures/ui/title/bg/" + backgroundIndex + ".png");
         System.out.println(backgroundIndex);
 
         // VANILLA BUTTONS
