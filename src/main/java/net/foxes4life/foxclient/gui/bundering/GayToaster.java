@@ -3,7 +3,6 @@ package net.foxes4life.foxclient.gui.bundering;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.toast.Toast;
 import net.minecraft.client.toast.ToastManager;
@@ -52,6 +51,6 @@ public class GayToaster implements Toast {
             RenderSystem.enableBlend();
         }
 
-        return startTime - this.startTime >= 5000L ? Visibility.HIDE : Visibility.SHOW;
+        return startTime - this.startTime >= 1000L ? Visibility.HIDE : Visibility.SHOW;
     }
 }

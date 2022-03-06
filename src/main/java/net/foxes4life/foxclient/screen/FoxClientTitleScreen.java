@@ -124,9 +124,11 @@ public class FoxClientTitleScreen extends Screen {
             } else {
                 // todo: add a popup of some sort to inform the user that mod menu is required for this
                 // amogus balls
+
                 GayToaster toast = MinecraftClient.getInstance().getToastManager().getToast(GayToaster.class, Toast.TYPE);
                 if (toast == null) {
-                    MinecraftClient.getInstance().getToastManager().add(new GayToaster(Text.of("FoxClient"), Text.of("ModMenu is missing!")));
+                    MinecraftClient.getInstance().getToastManager().add(new GayToaster(
+                            Text.of("FoxClient"), new TranslatableText("foxclient.gui.toast.modmenu.missing")));
                 }
             }
         }, new TranslatableText("mods")));

@@ -20,6 +20,9 @@
 
   "foxclient.gui.button.reconnect": "Reconnect",
 
+  "foxclient.gui.toast.title": "FoxClient",
+  "foxclient.gui.toast.modmenu.missing": "ModMenu isn't installed",
+
   "foxclient.debug.gui.button.configtest": "Debug Config",
 
   "category.foxclient.main": "FoxClient",
