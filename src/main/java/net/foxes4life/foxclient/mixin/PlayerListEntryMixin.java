@@ -32,7 +32,7 @@ public final class PlayerListEntryMixin {
     private void loadTextures(CallbackInfo info) {
         if(texturesLoaded) return;
         Provider.loadCape(this.profile, id -> {
-            if(!this.textures.get(MinecraftProfileTexture.Type.CAPE).equals(id)) {
+            if(!id.equals(this.textures.get(MinecraftProfileTexture.Type.CAPE))) {
                 this.textures.put(MinecraftProfileTexture.Type.CAPE, id);
             }
         });
