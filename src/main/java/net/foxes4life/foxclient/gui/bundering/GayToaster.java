@@ -25,7 +25,7 @@ public class GayToaster implements Toast {
     private long startTime;
     private boolean justUpdated;
 
-    private static final Identifier ICON = new Identifier("foxclient", "textures/ui/icon.png");
+    private static final Identifier bgTex = new Identifier("foxclient", "textures/ui/toasts.png");
 
     public GayToaster(Text title, @Nullable Text description) {
         this.title = title;
@@ -38,23 +38,18 @@ public class GayToaster implements Toast {
             this.justUpdated = false;
         }
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, TEXTURE);
+        RenderSystem.setShaderTexture(0, bgTex);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
-        manager.getClient().getTextureManager().bindTexture(TEXTURE);
+        manager.getClient().getTextureManager().bindTexture(bgTex);
         manager.drawTexture(matrices, 0, 0, 0, 0, this.getWidth(), this.getHeight());
 
         if (this.description == null) {
-            manager.getClient().textRenderer.draw(matrices, this.title, 30.0F, 12.0F, -11534256);
+            manager.getClient().textRenderer.draw(matrices, this.title, 30.0F, 12.0F, 0xf77622);
         } else {
-            manager.getClient().textRenderer.draw(matrices, this.title, 30.0F, 7.0F, -11534256);
-            manager.getClient().textRenderer.draw(matrices, this.description, 30.0F, 18.0F, -16777216);
-
-            RenderSystem.setShaderTexture(0, ICON);
+            manager.getClient().textRenderer.draw(matrices, this.title, 30.0F, 7.0F, 0xf77622);
+            manager.getClient().textRenderer.draw(matrices, this.description, 30.0F, 18.0F, 0xffffff);
             RenderSystem.enableBlend();
-
-            // 38
-            DrawableHelper.drawTexture(matrices, 5, 5, 0, 0, 0, 22, 22, 22, 22);
         }
 
         return startTime - this.startTime >= 5000L ? Visibility.HIDE : Visibility.SHOW;
