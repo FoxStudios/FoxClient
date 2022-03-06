@@ -9,7 +9,9 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.gui.FoxClientButton;
 import net.foxes4life.foxclient.gui.FoxClientMiniButton;
+import net.foxes4life.foxclient.gui.bundering.GayToaster;
 import net.minecraft.SharedConstants;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.CreditsScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
@@ -20,6 +22,10 @@ import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.toast.AdvancementToast;
+import net.minecraft.client.toast.SystemToast;
+import net.minecraft.client.toast.ToastManager;
+import net.minecraft.client.toast.TutorialToast;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
@@ -123,11 +129,11 @@ public class FoxClientTitleScreen extends Screen {
             } else {
                 // todo: add a popup of some sort to inform the user that mod menu is required for this
                 // amogus balls
+                System.out.println("a");
+                MinecraftClient.getInstance().getToastManager().add(new GayToaster(Text.of("FoxClient"), Text.of("ya need mod menu owo")));
             }
         }, new TranslatableText("mods")));
-        if(!FabricLoader.getInstance().isModLoaded("modmenu")) {
-            modButton.active = false;
-        }
+
         // realms button
         button_id--;
         this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, REALMS_BUTTON, 32, 64, (button) -> {
