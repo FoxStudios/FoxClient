@@ -36,6 +36,7 @@ public class GayToaster implements Toast {
             this.startTime = startTime;
             this.justUpdated = false;
         }
+
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, bgTex);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
@@ -43,13 +44,9 @@ public class GayToaster implements Toast {
         manager.getClient().getTextureManager().bindTexture(bgTex);
         manager.drawTexture(matrices, 0, 0, 0, 0, this.getWidth(), this.getHeight());
 
-        if (this.description == null) {
-            manager.getClient().textRenderer.draw(matrices, this.title, 25.0F, 12.0F, 0xf77622);
-        } else {
-            manager.getClient().textRenderer.draw(matrices, this.title, 25.0F, 7.0F, 0xf77622);
-            manager.getClient().textRenderer.draw(matrices, this.description, 30.0F, 18.0F, 0xffffff);
-            RenderSystem.enableBlend();
-        }
+        manager.getClient().textRenderer.draw(matrices, this.title, 25, 7, 0xf77622);
+        manager.getClient().textRenderer.draw(matrices, this.description, 30, 18, 0xffffff);
+        RenderSystem.enableBlend();
 
         return startTime - this.startTime >= 2500L ? Visibility.HIDE : Visibility.SHOW;
     }

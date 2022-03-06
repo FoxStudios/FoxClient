@@ -19,7 +19,6 @@ import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.option.AccessibilityOptionsScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
-import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.toast.*;
@@ -125,8 +124,8 @@ public class FoxClientTitleScreen extends Screen {
                 // todo: add a popup of some sort to inform the user that mod menu is required for this
                 // amogus balls
 
-                GayToaster toast = MinecraftClient.getInstance().getToastManager().getToast(GayToaster.class, Toast.TYPE);
-                if (toast == null) {
+                GayToaster toaster = MinecraftClient.getInstance().getToastManager().getToast(GayToaster.class, Toast.TYPE);
+                if (toaster == null) {
                     MinecraftClient.getInstance().getToastManager().add(new GayToaster(
                             Text.of("FoxClient"), new TranslatableText("foxclient.gui.toast.modmenu.missing")));
                 }
