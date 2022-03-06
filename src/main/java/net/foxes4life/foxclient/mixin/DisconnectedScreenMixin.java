@@ -33,6 +33,11 @@ public abstract class DisconnectedScreenMixin extends Screen {
                 new TranslatableText("foxclient.gui.button.reconnect"),
                 (button -> {
             assert client != null;
+
+            if(SessionConstants.LAST_SERVER == null) {
+                button.setMessage(Text.of("ERROR"));
+                return;
+            }
             ConnectScreen.connect(this.parent, client, ServerAddress.parse(SessionConstants.LAST_SERVER.address),
                     SessionConstants.LAST_SERVER);
         })));

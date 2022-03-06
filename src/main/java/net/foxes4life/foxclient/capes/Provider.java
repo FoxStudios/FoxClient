@@ -5,10 +5,8 @@
 package net.foxes4life.foxclient.capes;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigInteger;
-import java.net.URL;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -46,20 +44,6 @@ public final class Provider {
             }
         };
         Util.getMainWorkerExecutor().execute(runnable);
-    }
-
-    // Gets the URL to change your cape
-    public static String getChangeUrl(Session session) {
-        BigInteger intA = new BigInteger(128, new Random());
-        BigInteger intB = new BigInteger(128, new Random(System.identityHashCode(new Object())));
-        String fakeId = intA.xor(intB).toString(16);
-        try {
-            MinecraftClient.getInstance().getSessionService().joinServer(session.getProfile(), session.getAccessToken(),
-                    fakeId);
-        } catch (Exception e) {
-            return null;
-        }
-        return "https://optifine.net/capeChange?n=" + session.getUsername() + "&u=" + session.getUuid() + "&s=" + fakeId;
     }
 
     public interface CapeTextureAvailableCallback {
