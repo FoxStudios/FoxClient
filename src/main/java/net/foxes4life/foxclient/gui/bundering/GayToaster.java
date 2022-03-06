@@ -44,9 +44,9 @@ public class GayToaster implements Toast {
         manager.drawTexture(matrices, 0, 0, 0, 0, this.getWidth(), this.getHeight());
 
         if (this.description == null) {
-            manager.getClient().textRenderer.draw(matrices, this.title, 30.0F, 12.0F, 0xf77622);
+            manager.getClient().textRenderer.draw(matrices, this.title, 25.0F, 12.0F, 0xf77622);
         } else {
-            manager.getClient().textRenderer.draw(matrices, this.title, 30.0F, 7.0F, 0xf77622);
+            manager.getClient().textRenderer.draw(matrices, this.title, 25.0F, 7.0F, 0xf77622);
             manager.getClient().textRenderer.draw(matrices, this.description, 30.0F, 18.0F, 0xffffff);
             RenderSystem.enableBlend();
         }
