@@ -4,7 +4,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.foxes4life.foxclient.config.Config;
 import net.foxes4life.foxclient.config.ConfigData;
-import net.foxes4life.foxclient.rpc.DiscordInstance;
 
 public class Main implements ModInitializer {
     public static final String FOXCLIENT_MOD_ID = "foxclient";
@@ -24,6 +23,7 @@ public class Main implements ModInitializer {
         if(FabricLoader.getInstance().getModContainer(Main.FOXCLIENT_MOD_ID).isPresent()) {
             VERSION = FabricLoader.getInstance().getModContainer(Main.FOXCLIENT_MOD_ID).get().getMetadata().getVersion().getFriendlyString();
         }
+
         if(FabricLoader.getInstance().getModContainer("java").isPresent()) {
             JAVA_VERSION = FabricLoader.getInstance().getModContainer("java").get().getMetadata().getVersion().getFriendlyString();
         }
