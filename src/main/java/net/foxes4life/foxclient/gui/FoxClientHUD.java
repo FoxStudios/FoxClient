@@ -27,7 +27,7 @@ public class FoxClientHUD extends DrawableHelper {
         int width = this.client.getWindow().getScaledWidth();
         int height = this.client.getWindow().getScaledHeight();
 
-        fill(matrices, 0, 0, 69, 69, 0x45454545);
+        fill(matrices, 2, 2, 98, 44, 0x45454545);
 
         // draw logo
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -35,7 +35,7 @@ public class FoxClientHUD extends DrawableHelper {
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        drawTexture(matrices, 0, 0, 0, 48, 96, 48, 96, 48);
+        drawTexture(matrices, 4, 4, 0, 48, 96, 48, 96, 48);
 
         //this.fontRenderer.draw(matrices, "yes (actually no)", 0, (float)0, 16777215);
     }

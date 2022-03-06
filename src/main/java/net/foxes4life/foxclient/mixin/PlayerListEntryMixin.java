@@ -29,7 +29,7 @@ public final class PlayerListEntryMixin {
     // Note that loadTextures()V might be called like a foxton,
     // so rejecting to run it has to be really fast
     @Inject(at = @At("HEAD"), method = "loadTextures()V")
-    private void ltHInject(CallbackInfo info) {
+    private void loadTextures(CallbackInfo info) {
         if(texturesLoaded) return;
         Provider.loadCape(this.profile, id -> {
             if(!this.textures.get(MinecraftProfileTexture.Type.CAPE).equals(id)) {
