@@ -19,11 +19,8 @@ public class SettingsMenuScreen extends Screen {
     private static final Identifier BACKGROUND = new Identifier("foxclient", "textures/ui/title/bg.png");
     private static final Identifier X_BUTTON = new Identifier("foxclient", "textures/ui/buttons/x.png");
 
-    private final Screen parent;
-
-    public SettingsMenuScreen(Screen parent) {
+    public SettingsMenuScreen() {
         super(new LiteralText("FoxClient"));
-        this.parent = parent;
     }
 
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
