@@ -22,6 +22,7 @@ import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
@@ -47,7 +48,7 @@ public class FoxClientTitleScreen extends Screen {
     //private static final Identifier UPDATE_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
 
 
-    private static final String mojangCopyrightText = TitleScreen.COPYRIGHT;
+    private static final Text mojangCopyrightText = TitleScreen.COPYRIGHT;
     private int mojangCopyrightTextWidth;
     private int mojangCopyrightTextX;
 
@@ -126,8 +127,8 @@ public class FoxClientTitleScreen extends Screen {
 
         // foxclient options button (debug)
         button_id--;
-        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, FOXCLIENT_OPTIONS_BUTTON, 32, 64, (button) -> {
-            //this.client.setScreen(new ConfigTestScreen(this));
+        this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, FOXCLIENT_OPTIONS_BUTTON, 32, 64, (button) -> {
+            this.client.setScreen(new SettingsMenuScreen(this));
         }, new TranslatableText("foxclient.debug.gui.button.configtest")));
 
         // options button
@@ -194,7 +195,7 @@ public class FoxClientTitleScreen extends Screen {
         int transparent = MathHelper.ceil(0.5f * 255.0F) << 24;
 
         // -> copyright
-        drawStringWithShadow(matrices, this.textRenderer, mojangCopyrightText, this.mojangCopyrightTextX, this.height - 10, 16777215 | transparent);
+        drawStringWithShadow(matrices, this.textRenderer, mojangCopyrightText.asString(), this.mojangCopyrightTextX, this.height - 10, 16777215 | transparent);
         // -> copyright hover
         if (mouseX > this.mojangCopyrightTextX && mouseX < this.mojangCopyrightTextX + this.mojangCopyrightTextWidth && mouseY > this.height - 10 && mouseY < this.height) {
             fill(matrices, this.mojangCopyrightTextX, this.height - 1, this.mojangCopyrightTextX + this.mojangCopyrightTextWidth, this.height, 16777215 | transparent);
