@@ -168,10 +168,6 @@ public class FoxClientTitleScreen extends Screen {
         this.foxclientCopyrightTextX = this.width - this.foxclientCopyrightTextWidth - 4;
     }
 
-    public void onClose() {
-
-    }
-
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         if (this.backgroundFadeStart == 0L && this.doBackgroundFade) {
             this.backgroundFadeStart = Util.getMeasuringTimeMs();
