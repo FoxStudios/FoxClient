@@ -16,7 +16,7 @@ import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
 public class SettingsMenuScreen extends Screen {
-    private static final Identifier BACKGROUND = new Identifier("foxclient", "textures/ui/title/bg.png");
+    private static final Identifier BACKGROUND = new Identifier("foxclient", "textures/ui/title/bg/0.png");
     private static final Identifier X_BUTTON = new Identifier("foxclient", "textures/ui/buttons/x.png");
 
     public SettingsMenuScreen() {

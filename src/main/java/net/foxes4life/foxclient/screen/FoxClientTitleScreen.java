@@ -29,11 +29,16 @@ import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Random;
 
 @Environment(EnvType.CLIENT)
 public class FoxClientTitleScreen extends Screen {
+    private static Random rng = new Random();
+    private static int backgroundIndex = 0;
+    private static final int backgroundAmount = 2;
+
     // ui
-    private static final Identifier BACKGROUND = new Identifier("foxclient", "textures/ui/title/bg.png");
+    private static Identifier BACKGROUND = new Identifier("foxclient", "textures/ui/title/0.png");
     private static final Identifier BUTTON_BOX = new Identifier("foxclient", "textures/ui/main_box.png");
     private static final Identifier FOMX = new Identifier("foxclient", "textures/ui/title/fomx.png");
     // bg
@@ -52,7 +57,7 @@ public class FoxClientTitleScreen extends Screen {
     private int mojangCopyrightTextWidth;
     private int mojangCopyrightTextX;
 
-    private static final String foxclientCopyrightText = "FoxClient 2021-2022";
+    private static final String foxclientCopyrightText = "© FoxClient 2021-2022";
     private int foxclientCopyrightTextWidth;
     private int foxclientCopyrightTextX;
 
@@ -79,6 +84,10 @@ public class FoxClientTitleScreen extends Screen {
 
         int y = this.height / 2 + 10;
         int spacingY = 24;
+
+        backgroundIndex = rng.nextInt(backgroundAmount);
+        this.BACKGROUND = new Identifier("foxclient", "textures/ui/title/bg/" + backgroundIndex + ".png");
+        System.out.println(backgroundIndex);
 
         // VANILLA BUTTONS
         this.addDrawableChild(new FoxClientButton(this.width / 2 - 100, y, 200, 20, new TranslatableText("menu.singleplayer"),
