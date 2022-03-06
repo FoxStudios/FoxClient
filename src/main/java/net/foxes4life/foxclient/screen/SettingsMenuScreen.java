@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.foxes4life.foxclient.config.ConfigData;
 import net.foxes4life.foxclient.gui.FoxClientButton;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
@@ -51,13 +52,14 @@ public class SettingsMenuScreen extends Screen {
                 })
         );
 
+        // exit
         this.addDrawableChild(
                 new TexturedButtonWidget(
                         this.client.getWindow().getScaledWidth()-24,
                         4, 20, 20, 0, 0, 20,
                         X_BUTTON, 32, 64,
                         (button) -> this.close(),
-                        new TranslatableText("narrator.button.accessibility")));
+                        new TranslatableText("your mom")));
     }
 
     @Override
@@ -67,18 +69,14 @@ public class SettingsMenuScreen extends Screen {
     }
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, BACKGROUND);
-        RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        drawTexture(matrices, 0, 0, this.width, this.height, 0.0F, 0.0F, 16, 128, 16, 128);
+        fill(matrices, 0, 0, this.client.getWindow().getScaledWidth(), this.client.getWindow().getScaledHeight(), 0xFF282828);
+        fill(matrices, 0, 0, 64, this.client.getWindow().getScaledHeight(), 0xFF383838);
 
+        drawStringWithShadow(matrices, this.textRenderer, "FoxClient Settings", 64 + 20, 20, 0xffffff);
 
         //drawStringWithShadow(matrices, this.textRenderer, "FoxClient "+ Main.VERSION, 4, this.height - 20, 16777215);
 
         assert this.client != null;
-        fill(matrices, 0, 0, 64, this.client.getWindow().getScaledHeight(), 0xFF262626);
 
         // draw buttons
         super.render(matrices, mouseX, mouseY, delta);

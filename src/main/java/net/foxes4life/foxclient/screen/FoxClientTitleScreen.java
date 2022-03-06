@@ -22,10 +22,7 @@ import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.toast.AdvancementToast;
-import net.minecraft.client.toast.SystemToast;
-import net.minecraft.client.toast.ToastManager;
-import net.minecraft.client.toast.TutorialToast;
+import net.minecraft.client.toast.*;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
@@ -91,9 +88,7 @@ public class FoxClientTitleScreen extends Screen {
 
         backgroundIndex++;
         if(backgroundIndex >= backgroundAmount) backgroundIndex = 0;
-
         BACKGROUND = new Identifier("foxclient", "textures/ui/title/bg/" + backgroundIndex + ".png");
-        System.out.println(backgroundIndex);
 
         // VANILLA BUTTONS
         this.addDrawableChild(new FoxClientButton(this.width / 2 - 100, y, 200, 20, new TranslatableText("menu.singleplayer"),
@@ -129,9 +124,12 @@ public class FoxClientTitleScreen extends Screen {
             } else {
                 // todo: add a popup of some sort to inform the user that mod menu is required for this
                 // amogus balls
-                System.out.println("a");
-                MinecraftClient.getInstance().getToastManager().add(new GayToaster(
-                        Text.of("FoxClient"), new TranslatableText("foxclient.gui.toast.modmenu.missing")));
+
+                GayToaster toast = MinecraftClient.getInstance().getToastManager().getToast(GayToaster.class, Toast.TYPE);
+                if (toast == null) {
+                    MinecraftClient.getInstance().getToastManager().add(new GayToaster(
+                            Text.of("FoxClient"), new TranslatableText("foxclient.gui.toast.modmenu.missing")));
+                }
             }
         }, new TranslatableText("mods")));
 
@@ -167,10 +165,6 @@ public class FoxClientTitleScreen extends Screen {
 
         this.foxclientCopyrightTextWidth = this.textRenderer.getWidth(foxclientCopyrightText);
         this.foxclientCopyrightTextX = this.width - this.foxclientCopyrightTextWidth - 4;
-    }
-
-    public void onClose() {
-
     }
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
