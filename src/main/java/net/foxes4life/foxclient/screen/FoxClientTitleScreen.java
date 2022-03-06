@@ -8,6 +8,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.gui.FoxClientButton;
+import net.foxes4life.foxclient.gui.FoxClientMiniButton;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.screen.CreditsScreen;
 import net.minecraft.client.gui.screen.Screen;
@@ -41,7 +42,8 @@ public class FoxClientTitleScreen extends Screen {
     private static final Identifier EMPTY_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
     private static final Identifier ACCESSIBILITY_BUTTON = new Identifier("foxclient", "textures/ui/buttons/accessibility.png");
     private static final Identifier MODS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/modmenu.png");
-    private static final Identifier FOXCLIENT_OPTIONS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
+    private static final Identifier REALMS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/realms.png");
+    private static final Identifier FOXCLIENT_OPTIONS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/tail.png");
     //private static final Identifier REPLAYMOD_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
     //private static final Identifier UPDATE_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
 
@@ -49,6 +51,10 @@ public class FoxClientTitleScreen extends Screen {
     private static final Text mojangCopyrightText = TitleScreen.COPYRIGHT;
     private int mojangCopyrightTextWidth;
     private int mojangCopyrightTextX;
+
+    private static final String foxclientCopyrightText = "FoxClient 2021-2022";
+    private int foxclientCopyrightTextWidth;
+    private int foxclientCopyrightTextX;
 
     private final boolean doBackgroundFade;
 
@@ -92,11 +98,11 @@ public class FoxClientTitleScreen extends Screen {
 
         // accessibility button
         button_id--;
-        this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, ACCESSIBILITY_BUTTON, 32, 64, (button) -> this.client.setScreen(new AccessibilityOptionsScreen(this, this.client.options)), new TranslatableText("narrator.button.accessibility")));
+        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, ACCESSIBILITY_BUTTON, 32, 64, (button) -> this.client.setScreen(new AccessibilityOptionsScreen(this, this.client.options)), new TranslatableText("narrator.button.accessibility")));
 
         // mods button
         button_id--;
-        TexturedButtonWidget modButton = this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, MODS_BUTTON, 32, 64, (button) -> {
+        FoxClientMiniButton modButton = this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, MODS_BUTTON, 32, 64, (button) -> {
             if(FabricLoader.getInstance().isModLoaded("modmenu")) {
                 try {
                     Class<?> modMenuGui = Class.forName("com.terraformersmc.modmenu.gui.ModsScreen");
@@ -115,7 +121,7 @@ public class FoxClientTitleScreen extends Screen {
         }
         // realms button
         button_id--;
-        this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, EMPTY_BUTTON, 32, 64, (button) -> {
+        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, REALMS_BUTTON, 32, 64, (button) -> {
             this.client.setScreen(new RealmsMainScreen(this));
         }, new TranslatableText("menu.online")));
 
@@ -127,21 +133,24 @@ public class FoxClientTitleScreen extends Screen {
 
         // options button
         button_id--;
-        this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, OPTIONS_BUTTON, 32, 64, (button) -> {
+        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, OPTIONS_BUTTON, 32, 64, (button) -> {
             this.client.setScreen(new OptionsScreen(this, this.client.options));
         }, new TranslatableText("options.title")));
 
         // quit button
         button_id--;
         //noinspection ConstantConditions
-        this.addDrawableChild(new TexturedButtonWidget(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, EXIT_BUTTON, 32, 64, (button) -> {
+        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, EXIT_BUTTON, 32, 64, (button) -> {
             this.client.scheduleStop();
         }, new TranslatableText("menu.quit")));
 
 
         // copyright
         this.mojangCopyrightTextWidth = this.textRenderer.getWidth(mojangCopyrightText);
-        this.mojangCopyrightTextX = this.width - this.mojangCopyrightTextWidth - 2;
+        this.mojangCopyrightTextX = this.width - this.mojangCopyrightTextWidth - 4;
+
+        this.foxclientCopyrightTextWidth = this.textRenderer.getWidth(foxclientCopyrightText);
+        this.foxclientCopyrightTextX = this.width - this.foxclientCopyrightTextWidth - 4;
     }
 
     public void onClose() {
@@ -202,6 +211,7 @@ public class FoxClientTitleScreen extends Screen {
 
         drawStringWithShadow(matrices, this.textRenderer, gameVersion, 4, this.height - 10, 16777215 | transparent);
         drawStringWithShadow(matrices, this.textRenderer, "FoxClient "+ Main.VERSION, 4, this.height - 20, 16777215 | transparent);
+        drawStringWithShadow(matrices, this.textRenderer, foxclientCopyrightText, this.foxclientCopyrightTextX, this.height - 20, 16777215 | transparent);
 
         // draw buttons
         super.render(matrices, mouseX, mouseY, delta);
