@@ -62,7 +62,7 @@ public class SettingsMenuScreen extends Screen {
 
     @Override
     public void close() {
-        System.out.println("aaa adsdasd"); // <- rooot has a stroke
+        System.out.println("aaa adsdasd"); // <- rooot has a stroke <- yes uwu
         super.close();
     }
 
