@@ -91,6 +91,7 @@ public class Config {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         return gson.toJson(data);
     }
+
     // config set methods
     public void set(String name, Object value) {
         data.things.put(name, value);
