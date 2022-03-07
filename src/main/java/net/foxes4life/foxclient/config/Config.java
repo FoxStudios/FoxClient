@@ -124,6 +124,10 @@ public class Config {
         return null;
     }
 
+    public CategoryEntry<?> getEntry(String category, String name) {
+        return data.things.get(category).settings.get(name);
+    }
+
     public Object getObject(String category, String name) {
         return data.things.get(category).settings.get(name).getValue();
     }
