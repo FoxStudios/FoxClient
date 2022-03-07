@@ -43,8 +43,9 @@ public class Discord implements ReadyCallback {
     public void stfu() {
         DiscordRPC.discordClearPresence();
         DiscordRPC.discordShutdown();
-        //noinspection deprecation
-        CALLBACK_THREAD.stop();
+
+        if(CALLBACK_THREAD != null) //noinspection deprecation
+            CALLBACK_THREAD.stop();
         initialised = false;
     }
 
@@ -77,7 +78,7 @@ public class Discord implements ReadyCallback {
             }
 
             presenceBuilder.setBigImage(PresenceUpdater.largeImage, "FoxClient " + Main.VERSION);
-            presenceBuilder.setStartTimestamps(START_TIME - 100000000000L);
+            presenceBuilder.setStartTimestamps(START_TIME);
 
             DiscordRPC.discordUpdatePresence(presenceBuilder.build());
         }

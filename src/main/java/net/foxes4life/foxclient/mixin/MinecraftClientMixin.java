@@ -65,7 +65,7 @@ public abstract class MinecraftClientMixin {
             } else if(MinecraftClient.getInstance().isConnectedToRealms()) {
                 title += I18n.translate("title.multiplayer.realms");
             } else if(this.server == null && (this.currentServerEntry == null || ! this.currentServerEntry.isLocal())) {
-                if(this.currentServerEntry != null && this.currentServerEntry.address != null) {
+                if(this.currentServerEntry != null && this.currentServerEntry.address != null || Main.config_instance.getBoolean("misc", "discord-rpc-show-ip")) {
                     title += I18n.translate("title.multiplayer.other2", this.currentServerEntry.address);
                 } else {
                     title += I18n.translate("title.multiplayer.other");

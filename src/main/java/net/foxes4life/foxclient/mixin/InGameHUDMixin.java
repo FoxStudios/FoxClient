@@ -1,5 +1,6 @@
 package net.foxes4life.foxclient.mixin;
 
+import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.gui.FoxClientHUD;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -17,6 +18,8 @@ public class InGameHUDMixin {
 
     @Inject(at = @At("HEAD"), method = "render")
     public void render(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
-        new FoxClientHUD(this.client).render(matrices);
+        if(Main.config_instance.getBoolean("misc", "hud-enabled")) {
+            new FoxClientHUD(this.client).render(matrices);
+        }
     }
 }

@@ -1,22 +1,17 @@
-package net.foxes4life.foxclient.gui;
+package net.foxes4life.foxclient.gui.settings;
 
-import com.mojang.blaze3d.systems.RenderSystem;
+import net.foxes4life.foxclient.gui.FoxClientButton;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
-public class FoxClientButton extends ButtonWidget {
-    public FoxClientButton(int x, int y, int width, int height, Text message, PressAction onPress) {
+public class SettingsCategorySidebarButton extends FoxClientButton {
+    public SettingsCategorySidebarButton(int x, int y, int width, int height, Text message, PressAction onPress) {
         super(x, y, width, height, message, onPress);
     }
-
-    private static final Identifier WIDGET_TEXTURE = new Identifier("foxclient", "textures/ui/widgets.png");
 
     @Override
     public void onPress() {
@@ -32,15 +27,10 @@ public class FoxClientButton extends ButtonWidget {
     public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         MinecraftClient minecraftClient = MinecraftClient.getInstance();
         TextRenderer textRenderer = minecraftClient.textRenderer;
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, WIDGET_TEXTURE);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
-        int i = this.getYImage(this.isHovered());
-        RenderSystem.enableBlend();
-        RenderSystem.defaultBlendFunc();
-        RenderSystem.enableDepthTest();
-        this.drawTexture(matrices, this.x, this.y, 0, 46 + i * 20, this.width / 2, this.height);
-        this.drawTexture(matrices, this.x + this.width / 2, this.y, 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
+
+        int color = 0x2dffffff;
+        if(this.isHovered()) color = 0x45ffffff;
+        fill(matrices, this.x, this.y, this.x + this.width, this.y + this.height, color);
         this.renderBackground(matrices, minecraftClient, mouseX, mouseY);
         int j = this.active ? 16777215 : 10526880;
 

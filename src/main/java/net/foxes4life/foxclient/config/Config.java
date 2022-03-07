@@ -4,7 +4,6 @@ import com.google.common.reflect.TypeToken;
 import com.google.gson.*;
 import net.foxes4life.foxclient.Main;
 import net.fabricmc.loader.api.FabricLoader;
-import org.apache.http.util.TextUtils;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -96,7 +95,7 @@ public class Config {
     }
 
     // config set methods
-    public void set(String category, String key, Object value) {
+    public void set(String category, String key, CategoryEntry<?> value) {
         data.things.get(category).set(key, value);
         instance.toFile(instance.configFile);
     }
@@ -126,6 +125,6 @@ public class Config {
     }
 
     public Object getObject(String category, String name) {
-        return data.things.get(category).get(name);
+        return data.things.get(category).settings.get(name).getValue();
     }
 }
