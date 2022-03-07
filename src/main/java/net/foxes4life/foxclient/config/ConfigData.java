@@ -27,9 +27,11 @@ public class ConfigData {
         things.put("eastereggs", eastereggs);
 
         Category ingameHUD = new Category("Overlay HUD");
-        ingameHUD.addSetting("coords", new CategoryEntry<>(true, "Coordinates"));
         ingameHUD.addSetting("version", new CategoryEntry<>(true, "Version"));
+        ingameHUD.addSetting("coords", new CategoryEntry<>(true, "Coordinates"));
         ingameHUD.addSetting("fps", new CategoryEntry<>(true, "FPS"));
+        ingameHUD.addSetting("ping", new CategoryEntry<>(true, "Ping"));
+        ingameHUD.addSetting("tps", new CategoryEntry<>(true, "TPS"));
         things.put("ingame-hud", ingameHUD);
     }
 

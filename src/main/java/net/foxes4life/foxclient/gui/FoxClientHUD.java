@@ -5,6 +5,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.util.ClientUtils;
+import net.foxes4life.foxclient.util.ServerTickUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;
@@ -58,6 +59,12 @@ public class FoxClientHUD extends DrawableHelper {
 
         if (Main.config_instance.getBoolean("ingame-hud", "fps"))
             textList.add(new LiteralText("[FPS] " + ClientUtils.getFPS()));
+
+        if (Main.config_instance.getBoolean("ingame-hud", "ping"))
+            textList.add(new LiteralText(String.format("[Ping] " + ClientUtils.getPing() + "ms")));
+
+        if (Main.config_instance.getBoolean("ingame-hud", "tps"))
+            textList.add(new LiteralText(String.format("[TPS] " + ServerTickUtils.calculateServerTPS())));
 
         for (Text text : textList) {
             boxHeight += 10;

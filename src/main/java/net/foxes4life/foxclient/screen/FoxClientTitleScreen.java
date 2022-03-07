@@ -30,7 +30,11 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 
+import java.awt.*;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 @Environment(EnvType.CLIENT)
 public class FoxClientTitleScreen extends Screen {
@@ -49,6 +53,7 @@ public class FoxClientTitleScreen extends Screen {
     private static final Identifier MODS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/modmenu.png");
     private static final Identifier REALMS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/realms.png");
     private static final Identifier FOXCLIENT_OPTIONS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/tail.png");
+    private static final Identifier DISCORD_BUTTON = new Identifier("foxclient", "textures/ui/buttons/discord.png");
     //private static final Identifier REPLAYMOD_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
     //private static final Identifier UPDATE_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
 
@@ -100,10 +105,20 @@ public class FoxClientTitleScreen extends Screen {
         this.addDrawableChild(new FoxClientButton(this.width / 2 - 100, y + spacingY, 200, 20, new TranslatableText("menu.multiplayer"), (button) -> this.client.setScreen(new MultiplayerScreen(this))));
 
         // - small buttons
-        int button_id = 6; // set amount of buttons here
+        int button_id = 7; // set amount of buttons here
 
         button_id++;
         spacingY = spacingY + 2;
+
+        // discord button
+        button_id--;
+        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, DISCORD_BUTTON, 32, 64, (button) -> {
+            try {
+                Desktop.getDesktop().browse(new URL("https://discord.gg/JG99fvjCtU").toURI());
+            } catch (IOException | URISyntaxException e) {
+                e.printStackTrace();
+            }
+        }, new TranslatableText("discord")));
 
         // accessibility button
         button_id--;
@@ -189,7 +204,6 @@ public class FoxClientTitleScreen extends Screen {
         this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, EXIT_BUTTON, 32, 64, (button) -> {
             this.client.scheduleStop();
         }, new TranslatableText("menu.quit")));
-
 
         // copyright
         this.mojangCopyrightTextWidth = this.textRenderer.getWidth(mojangCopyrightText);

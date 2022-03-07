@@ -2,6 +2,7 @@ package net.foxes4life.foxclient.util;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.PlayerListEntry;
 
 import java.lang.reflect.Field;
 
@@ -34,5 +35,34 @@ public class ClientUtils {
         }
 
         return fps;
+    }
+
+
+    private static long lastPing = System.currentTimeMillis();
+    private static int PING = 69;
+    
+    public static int getPing() {
+        if(MinecraftClient.getInstance().isInSingleplayer()) {
+            return 0;
+        }
+
+        if(System.currentTimeMillis() - lastPing > 2000) {
+            lastPing = System.currentTimeMillis();
+            PING = ping();
+        }
+        return PING;
+    }
+
+    private static int ping() {
+        int ping = 0;
+        if(MinecraftClient.getInstance() != null && MinecraftClient.getInstance().player != null) {
+            PlayerListEntry e = MinecraftClient.getInstance().player.networkHandler.getPlayerListEntry(MinecraftClient.getInstance().player.getUuid());
+            if(e != null) {
+                ping = e.getLatency();
+            } else {
+                ping = 0;
+            }
+        }
+        return ping;
     }
 }
