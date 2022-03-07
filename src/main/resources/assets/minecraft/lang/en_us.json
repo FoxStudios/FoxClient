@@ -30,6 +30,7 @@
   "category.foxclient.main": "FoxClient",
   "key.foxclient.toggle_hud": "Toggle HUD",
   "key.foxclient.freelook": "Freelook",
+  "key.foxclient.zoom": "Zoom",
 
   "foxclient.rpc.state.idle": "Idle",
   "foxclient.rpc.state.singleplayer": "Playing Singleplayer",

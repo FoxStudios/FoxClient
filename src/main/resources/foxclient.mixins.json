@@ -10,7 +10,8 @@
     "DisconnectedScreenMixin",
     "InGameHUDMixin",
     "PlayerListEntryMixin",
-    "MinecraftClientMixin"
+    "MinecraftClientMixin",
+    "GameRendererMixin"
   ],
   "injectors": {
     "defaultRequire": 1
