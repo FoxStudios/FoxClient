@@ -30,11 +30,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 
-import java.awt.*;
-import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URISyntaxException;
-import java.net.URL;
 
 @Environment(EnvType.CLIENT)
 public class FoxClientTitleScreen extends Screen {
@@ -48,7 +44,7 @@ public class FoxClientTitleScreen extends Screen {
     // bg
     private static final Identifier EXIT_BUTTON = new Identifier("foxclient", "textures/ui/buttons/exit.png");
     private static final Identifier OPTIONS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/options.png");
-    private static final Identifier EMPTY_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
+    //private static final Identifier EMPTY_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
     private static final Identifier ACCESSIBILITY_BUTTON = new Identifier("foxclient", "textures/ui/buttons/accessibility.png");
     private static final Identifier MODS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/modmenu.png");
     private static final Identifier REALMS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/realms.png");
@@ -63,7 +59,6 @@ public class FoxClientTitleScreen extends Screen {
     private int mojangCopyrightTextX;
 
     private static final String foxclientCopyrightText = "© FoxClient 2021-2022";
-    private int foxclientCopyrightTextWidth;
     private int foxclientCopyrightTextX;
 
     private final boolean doBackgroundFade;
@@ -112,13 +107,7 @@ public class FoxClientTitleScreen extends Screen {
 
         // discord button
         button_id--;
-        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, DISCORD_BUTTON, 32, 64, (button) -> {
-            try {
-                Desktop.getDesktop().browse(new URL("https://discord.gg/JG99fvjCtU").toURI());
-            } catch (IOException | URISyntaxException e) {
-                e.printStackTrace();
-            }
-        }, new TranslatableText("discord")));
+        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, DISCORD_BUTTON, 32, 64, (button) -> Util.getOperatingSystem().open("https://discord.gg/JG99fvjCtU"), new TranslatableText("discord")));
 
         // accessibility button
         button_id--;
@@ -126,7 +115,7 @@ public class FoxClientTitleScreen extends Screen {
 
         // mods button
         button_id--;
-        FoxClientMiniButton modButton = this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, MODS_BUTTON, 32, 64, (button) -> {
+        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, MODS_BUTTON, 32, 64, (button) -> {
             if(FabricLoader.getInstance().isModLoaded("modmenu")) {
                 try {
                     Class<?> modMenuGui = Class.forName("com.terraformersmc.modmenu.gui.ModsScreen");
@@ -182,35 +171,27 @@ public class FoxClientTitleScreen extends Screen {
 
         // realms button
         button_id--;
-        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, REALMS_BUTTON, 32, 64, (button) -> {
-            this.client.setScreen(new RealmsMainScreen(this));
-        }, new TranslatableText("menu.online")));
+        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, REALMS_BUTTON, 32, 64, (button) -> this.client.setScreen(new RealmsMainScreen(this)), new TranslatableText("menu.online")));
 
         // foxclient options button (debug)
         button_id--;
-        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, FOXCLIENT_OPTIONS_BUTTON, 32, 64, (button) -> {
-            this.client.setScreen(new SettingsMenuScreen());
-        }, new TranslatableText("foxclient.debug.gui.button.configtest")));
+        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, FOXCLIENT_OPTIONS_BUTTON, 32, 64, (button) -> this.client.setScreen(new SettingsMenuScreen()), new TranslatableText("foxclient.debug.gui.button.configtest")));
 
         // options button
         button_id--;
-        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, OPTIONS_BUTTON, 32, 64, (button) -> {
-            this.client.setScreen(new OptionsScreen(this, this.client.options));
-        }, new TranslatableText("options.title")));
+        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, OPTIONS_BUTTON, 32, 64, (button) -> this.client.setScreen(new OptionsScreen(this, this.client.options)), new TranslatableText("options.title")));
 
         // quit button
         button_id--;
         //noinspection ConstantConditions
-        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, EXIT_BUTTON, 32, 64, (button) -> {
-            this.client.scheduleStop();
-        }, new TranslatableText("menu.quit")));
+        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, EXIT_BUTTON, 32, 64, (button) -> this.client.scheduleStop(), new TranslatableText("menu.quit")));
 
         // copyright
         this.mojangCopyrightTextWidth = this.textRenderer.getWidth(mojangCopyrightText);
         this.mojangCopyrightTextX = this.width - this.mojangCopyrightTextWidth - 4;
 
-        this.foxclientCopyrightTextWidth = this.textRenderer.getWidth(foxclientCopyrightText);
-        this.foxclientCopyrightTextX = this.width - this.foxclientCopyrightTextWidth - 4;
+        int foxclientCopyrightTextWidth = this.textRenderer.getWidth(foxclientCopyrightText);
+        this.foxclientCopyrightTextX = this.width - foxclientCopyrightTextWidth - 4;
     }
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
@@ -218,9 +199,6 @@ public class FoxClientTitleScreen extends Screen {
             this.backgroundFadeStart = Util.getMeasuringTimeMs();
         }
         float f = this.doBackgroundFade ? (float)(Util.getMeasuringTimeMs() - this.backgroundFadeStart) / 1000.0F : 1.0F;
-
-        float g = this.doBackgroundFade ? MathHelper.clamp(f - 1.0F, 0.0F, 1.0F) : 1.0F;
-        int l = MathHelper.ceil(g * 255.0F) << 24;
 
         // draw background
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
