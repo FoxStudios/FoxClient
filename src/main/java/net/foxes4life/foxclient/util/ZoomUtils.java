@@ -1,7 +1,6 @@
 package net.foxes4life.foxclient.util;
 
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.foxes4life.foxclient.MainClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import org.lwjgl.glfw.GLFW;
@@ -9,13 +8,14 @@ import org.lwjgl.glfw.GLFW;
 public class ZoomUtils {
     private static final KeyBinding zoomKey = new KeyBinding("key.foxclient.zoom", GLFW.GLFW_KEY_C, "category.foxclient.main");
     static boolean isZoomin = false;
+    public static float zoomModifier = 0.2F;
 
     public static void initZoom () {
         KeyBindingHelper.registerKeyBinding(zoomKey);
         isZoomin = false;
     }
 
-    public static boolean zoomin () {
+    public static boolean zoomin() {
         return zoomKey.isPressed();
     }
 

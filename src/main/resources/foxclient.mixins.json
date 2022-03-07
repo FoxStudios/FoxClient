@@ -11,7 +11,8 @@
     "InGameHUDMixin",
     "PlayerListEntryMixin",
     "MinecraftClientMixin",
-    "GameRendererMixin"
+    "GameRendererMixin",
+    "MouseMixin"
   ],
   "injectors": {
     "defaultRequire": 1

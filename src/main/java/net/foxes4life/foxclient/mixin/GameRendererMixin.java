@@ -14,7 +14,9 @@ public class GameRendererMixin {
     @Inject(at = @At("TAIL"), method = "getFov", cancellable = true)
     private void getFov(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Double> cir) {
         if(ZoomUtils.zoomin()) {
-            cir.setReturnValue(cir.getReturnValue() * 0.2);
+            cir.setReturnValue(cir.getReturnValue() * ZoomUtils.zoomModifier);
+        } else {
+            ZoomUtils.zoomModifier = 0.2F;
         }
         ZoomUtils.smoothCam();
     }
