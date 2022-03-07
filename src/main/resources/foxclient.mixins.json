@@ -4,15 +4,17 @@
   "package": "net.foxes4life.foxclient.mixin",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "TitleScreenMixin",
-    "SplashOverlayMixin",
     "ClientPlayNetworkHandlerMixin",
     "DisconnectedScreenMixin",
-    "InGameHUDMixin",
-    "PlayerListEntryMixin",
-    "MinecraftClientMixin",
     "GameRendererMixin",
-    "MouseMixin"
+    "InGameHUDMixin",
+    "LiteralTextMixin",
+    "TranslationStorageMixin",
+    "MinecraftClientMixin",
+    "MouseMixin",
+    "PlayerListEntryMixin",
+    "SplashOverlayMixin",
+    "TitleScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
