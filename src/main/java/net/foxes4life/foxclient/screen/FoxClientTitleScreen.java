@@ -19,6 +19,7 @@ import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.option.AccessibilityOptionsScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
+import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.toast.*;
@@ -44,7 +45,7 @@ public class FoxClientTitleScreen extends Screen {
     // bg
     private static final Identifier EXIT_BUTTON = new Identifier("foxclient", "textures/ui/buttons/exit.png");
     private static final Identifier OPTIONS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/options.png");
-    //private static final Identifier EMPTY_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
+    private static final Identifier EMPTY_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
     private static final Identifier ACCESSIBILITY_BUTTON = new Identifier("foxclient", "textures/ui/buttons/accessibility.png");
     private static final Identifier MODS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/modmenu.png");
     private static final Identifier REALMS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/realms.png");
@@ -99,92 +100,7 @@ public class FoxClientTitleScreen extends Screen {
 
         this.addDrawableChild(new FoxClientButton(this.width / 2 - 100, y + spacingY, 200, 20, new TranslatableText("menu.multiplayer"), (button) -> this.client.setScreen(new MultiplayerScreen(this))));
 
-        // - small buttons
-        int button_id = 7; // set amount of buttons here
-
-        button_id++;
-        spacingY = spacingY + 2;
-
-        // discord button
-        button_id--;
-        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, DISCORD_BUTTON, 32, 64, (button) -> Util.getOperatingSystem().open("https://discord.gg/JG99fvjCtU"), new TranslatableText("discord")));
-
-        // accessibility button
-        button_id--;
-        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, ACCESSIBILITY_BUTTON, 32, 64, (button) -> this.client.setScreen(new AccessibilityOptionsScreen(this, this.client.options)), new TranslatableText("narrator.button.accessibility")));
-
-        // mods button
-        button_id--;
-        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, MODS_BUTTON, 32, 64, (button) -> {
-            if(FabricLoader.getInstance().isModLoaded("modmenu")) {
-                try {
-                    Class<?> modMenuGui = Class.forName("com.terraformersmc.modmenu.gui.ModsScreen");
-
-                    this.client.setScreen((Screen) modMenuGui.getDeclaredConstructor(Screen.class).newInstance(this));
-                } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | ClassNotFoundException | InstantiationException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                // todo: add a popup of some sort to inform the user that mod menu is required for this
-                // amogus balls
-
-                GayToaster toaster = MinecraftClient.getInstance().getToastManager().getToast(GayToaster.class, Toast.TYPE);
-                if (toaster == null) {
-                    MinecraftClient.getInstance().getToastManager().add(new GayToaster(
-                            Text.of("FoxClient"), new TranslatableText("foxclient.gui.toast.modmenu.missing")));
-                } else {
-                    System.out.println("""
-                            we do a little trolling
-                            QQQQQQQQQQQQQQQQQQQWQQQQQWWWBBBHHHHHHHHHBWWWQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
-                            QQQQQQQQQQQQQQQD!`__ssaaaaaaaaaass_ass_s____.  -~""??9VWQQQQQQQQQQQQQQQQQQQ
-                            QQQQQQQQQQQQQP'_wmQQQWWBWV?GwwwmmWQmwwwwwgmZUVVHAqwaaaac,"?9$QQQQQQQQQQQQQQ
-                            QQQQQQQQQQQW! aQWQQQQW?qw#TTSgwawwggywawwpY?T?TYTYTXmwwgZ$ma/-?4QQQQQQQQQQQ
-                            QQQQQQQQQQW' jQQQQWTqwDYauT9mmwwawww?WWWWQQQQQ@TT?TVTT9HQQQQQQw,-4QQQQQQQQQ
-                            QQQQQQQQQQ[ jQQQQQyWVw2$wWWQQQWWQWWWW7WQQQQQQQQPWWQQQWQQw7WQQQWWc)WWQQQQQQQ
-                            QQQQQQQQQf jQQQQQWWmWmmQWU???????9WWQmWQQQQQQQWjWQQQQQQQWQmQQQQWL 4QQQQQQQQ
-                            QQQQQQQP'.yQQQQQQQQQQQP"       <wa,.!4WQQQQQQQWdWP??!"??4WWQQQWQQc ?QWQQQQQ
-                            QQQQQP'_a.<aamQQQW!<yF "!` ..  "??$Qa "WQQQWTVP'    "??' =QQmWWV?46/ ?QQQQQ
-                            QQQP'sdyWQP?!`.-"?46mQQQQQQT!mQQgaa. <wWQQWQaa _aawmWWQQQQQQQQQWP4a7g -WWQQ
-                            QQ[ j@mQP'adQQP4ga, -????" <jQQQQQWQQQQQQQQQWW;)WQWWWW9QQP?"`  -?QzQ7L ]QQQ
-                            QW jQkQ@ jWQQD'-?$QQQQQQQQQQQQQQQQQWWQWQQQWQQQc "4QQQQa   .QP4QQQQfWkl jQQQ
-                            QE ]QkQk $D?`  waa "?9WWQQQP??T?47`_aamQQQQQQWWQw,-?QWWQQQQQ`"QQQD\\Qf(.QWQQ
-                            QQ,-Qm4Q/-QmQ6 "WWQma/  "??QQQQQQL 4W"- -?$QQQQWP`s,awT$QQQ@  "QW@?$:.yQQQQ
-                            QQm/-4wTQgQWQQ,  ?4WWk 4waac -???$waQQQQQQQQF??'<mWWWWWQW?^  ` ]6QQ' yQQQQQ
-                            QQQQw,-?QmWQQQQw  a,    ?QWWQQQw _.  "????9VWaamQWV???"  a j/  ]QQf jQQQQQQ
-                            QQQQQQw,"4QQQQQQm,-$Qa     ???4F jQQQQQwc <aaas _aaaaa 4QW ]E  )WQ`=QQQQQQQ
-                            QQQQQQWQ/ $QQQQQQQa ?H ]Wwa,     ???9WWWh dQWWW,=QWWU?  ?!     )WQ ]QQQQQQQ
-                            QQQQQQQQQc-QWQQQQQW6,  QWQWQQQk <c                             jWQ ]QQQQQQQ
-                            QQQQQQQQQQ,"$WQQWQQQQg,."?QQQQ'.mQQQmaa,.,                . .; QWQ.]QQQQQQQ
-                            QQQQQQQQQWQa ?$WQQWQQQQQa,."?( mQQQQQQW[:QQQQm[ ammF jy! j( } jQQQ(:QQQQQQQ
-                            QQQQQQQQQQWWma "9gw?9gdB?QQwa, -??T$WQQ;:QQQWQ ]WWD _Qf +?! _jQQQWf QQQQQQQ
-                            QQQQQQQQQQQQQQQws "Tqau?9maZ?WQmaas,,    --~-- ---  . _ssawmQQQQQQk 3QQQQWQ
-                            QQQQQQQQQQQQQQQQWQga,-?9mwad?1wdT9WQQQQQWVVTTYY?YTVWQQQQWWD5mQQPQQQ ]QQQQQQ
-                            QQQQQQQWQQQQQQQQQQQWQQwa,-??$QwadV}<wBHHVHWWBHHUWWBVTTTV5awBQQD6QQQ ]QQQQQQ
-                            QQQQQQQQQQQQQQQQQQQQQQWWQQga,-"9$WQQmmwwmBUUHTTVWBWQQQQWVT?96aQWQQQ ]QQQQQQ
-                            QQQQQQQQQQWQQQQWQQQQQQQQQQQWQQma,-?9$QQWWQQQQQQQWmQmmmmmQWQQQQWQQW(.yQQQQQW
-                            QQQQQQQQQQQQQWQQQQQQWQQQQQQQQQQQQQga%,.  -??9$QQQQQQQQQQQWQQWQQV? sWQQQQQQQ
-                            QQQQQQQQQWQQQQQQQQQQQQQQWQQQQQQQQQQQWQQQQmywaa,;~^"!???????!^`_saQWWQQQQQQQ
-                            QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQWWWWQQQQQmwywwwwwwmQQWQQQQQQQQQQQ""");
-                }
-            }
-        }, new TranslatableText("mods")));
-
-        // realms button
-        button_id--;
-        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, REALMS_BUTTON, 32, 64, (button) -> this.client.setScreen(new RealmsMainScreen(this)), new TranslatableText("menu.online")));
-
-        // foxclient options button (debug)
-        button_id--;
-        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, FOXCLIENT_OPTIONS_BUTTON, 32, 64, (button) -> this.client.setScreen(new SettingsMenuScreen()), new TranslatableText("foxclient.debug.gui.button.configtest")));
-
-        // options button
-        button_id--;
-        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, OPTIONS_BUTTON, 32, 64, (button) -> this.client.setScreen(new OptionsScreen(this, this.client.options)), new TranslatableText("options.title")));
-
-        // quit button
-        button_id--;
-        //noinspection ConstantConditions
-        this.addDrawableChild(new FoxClientMiniButton(this.width / 2 + 100 - 20*button_id - 8*(button_id-1), y + spacingY * 2, 20, 20, 0, 0, 20, EXIT_BUTTON, 32, 64, (button) -> this.client.scheduleStop(), new TranslatableText("menu.quit")));
+        loadMiniButtons();
 
         // copyright
         this.mojangCopyrightTextWidth = this.textRenderer.getWidth(mojangCopyrightText);
@@ -262,5 +178,111 @@ public class FoxClientTitleScreen extends Screen {
             this.client.setScreen(new CreditsScreen(true, Runnables.doNothing()));
         }
         return false;
+    }
+
+    void loadMiniButtons () {
+        int spacingY = 26;
+        int y = this.height / 2 + 10;
+        int center = (this.width / 2) - 10;
+
+        for (int i = 0; i < 7; ++i) {
+            Identifier tex = EMPTY_BUTTON;
+            ButtonWidget.PressAction pressAction = null;
+            int x = center;
+
+            switch (i + 1) {
+                case 1: {
+                    tex = DISCORD_BUTTON;
+                    pressAction = (button) -> Util.getOperatingSystem().open("https://discord.gg/JG99fvjCtU");
+                    x -= 30 * 3;
+                    break;
+                }
+                case 2: {
+                    tex = ACCESSIBILITY_BUTTON;
+                    pressAction = (button) -> this.client.setScreen(new AccessibilityOptionsScreen(this, this.client.options));
+                    x -= 30 * 2;
+                    break;
+                }
+                case 3: {
+                    tex = MODS_BUTTON;
+                    pressAction = (button) -> {
+                        if(FabricLoader.getInstance().isModLoaded("modmenu")) {
+                            try {
+                                Class<?> modMenuGui = Class.forName("com.terraformersmc.modmenu.gui.ModsScreen");
+
+                                this.client.setScreen((Screen) modMenuGui.getDeclaredConstructor(Screen.class).newInstance(this));
+                            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | ClassNotFoundException | InstantiationException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            GayToaster toaster = MinecraftClient.getInstance().getToastManager().getToast(GayToaster.class, Toast.TYPE);
+                            if (toaster == null) {
+                                MinecraftClient.getInstance().getToastManager().add(new GayToaster(
+                                        Text.of("FoxClient"), new TranslatableText("foxclient.gui.toast.modmenu.missing")));
+                            } else {
+                                System.out.println("""
+                            we do a little trolling
+                            QQQQQQQQQQQQQQQQQQQWQQQQQWWWBBBHHHHHHHHHBWWWQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ
+                            QQQQQQQQQQQQQQQD!`__ssaaaaaaaaaass_ass_s____.  -~""??9VWQQQQQQQQQQQQQQQQQQQ
+                            QQQQQQQQQQQQQP'_wmQQQWWBWV?GwwwmmWQmwwwwwgmZUVVHAqwaaaac,"?9$QQQQQQQQQQQQQQ
+                            QQQQQQQQQQQW! aQWQQQQW?qw#TTSgwawwggywawwpY?T?TYTYTXmwwgZ$ma/-?4QQQQQQQQQQQ
+                            QQQQQQQQQQW' jQQQQWTqwDYauT9mmwwawww?WWWWQQQQQ@TT?TVTT9HQQQQQQw,-4QQQQQQQQQ
+                            QQQQQQQQQQ[ jQQQQQyWVw2$wWWQQQWWQWWWW7WQQQQQQQQPWWQQQWQQw7WQQQWWc)WWQQQQQQQ
+                            QQQQQQQQQf jQQQQQWWmWmmQWU???????9WWQmWQQQQQQQWjWQQQQQQQWQmQQQQWL 4QQQQQQQQ
+                            QQQQQQQP'.yQQQQQQQQQQQP"       <wa,.!4WQQQQQQQWdWP??!"??4WWQQQWQQc ?QWQQQQQ
+                            QQQQQP'_a.<aamQQQW!<yF "!` ..  "??$Qa "WQQQWTVP'    "??' =QQmWWV?46/ ?QQQQQ
+                            QQQP'sdyWQP?!`.-"?46mQQQQQQT!mQQgaa. <wWQQWQaa _aawmWWQQQQQQQQQWP4a7g -WWQQ
+                            QQ[ j@mQP'adQQP4ga, -????" <jQQQQQWQQQQQQQQQWW;)WQWWWW9QQP?"`  -?QzQ7L ]QQQ
+                            QW jQkQ@ jWQQD'-?$QQQQQQQQQQQQQQQQQWWQWQQQWQQQc "4QQQQa   .QP4QQQQfWkl jQQQ
+                            QE ]QkQk $D?`  waa "?9WWQQQP??T?47`_aamQQQQQQWWQw,-?QWWQQQQQ`"QQQD\\Qf(.QWQQ
+                            QQ,-Qm4Q/-QmQ6 "WWQma/  "??QQQQQQL 4W"- -?$QQQQWP`s,awT$QQQ@  "QW@?$:.yQQQQ
+                            QQm/-4wTQgQWQQ,  ?4WWk 4waac -???$waQQQQQQQQF??'<mWWWWWQW?^  ` ]6QQ' yQQQQQ
+                            QQQQw,-?QmWQQQQw  a,    ?QWWQQQw _.  "????9VWaamQWV???"  a j/  ]QQf jQQQQQQ
+                            QQQQQQw,"4QQQQQQm,-$Qa     ???4F jQQQQQwc <aaas _aaaaa 4QW ]E  )WQ`=QQQQQQQ
+                            QQQQQQWQ/ $QQQQQQQa ?H ]Wwa,     ???9WWWh dQWWW,=QWWU?  ?!     )WQ ]QQQQQQQ
+                            QQQQQQQQQc-QWQQQQQW6,  QWQWQQQk <c                             jWQ ]QQQQQQQ
+                            QQQQQQQQQQ,"$WQQWQQQQg,."?QQQQ'.mQQQmaa,.,                . .; QWQ.]QQQQQQQ
+                            QQQQQQQQQWQa ?$WQQWQQQQQa,."?( mQQQQQQW[:QQQQm[ ammF jy! j( } jQQQ(:QQQQQQQ
+                            QQQQQQQQQQWWma "9gw?9gdB?QQwa, -??T$WQQ;:QQQWQ ]WWD _Qf +?! _jQQQWf QQQQQQQ
+                            QQQQQQQQQQQQQQQws "Tqau?9maZ?WQmaas,,    --~-- ---  . _ssawmQQQQQQk 3QQQQWQ
+                            QQQQQQQQQQQQQQQQWQga,-?9mwad?1wdT9WQQQQQWVVTTYY?YTVWQQQQWWD5mQQPQQQ ]QQQQQQ
+                            QQQQQQQWQQQQQQQQQQQWQQwa,-??$QwadV}<wBHHVHWWBHHUWWBVTTTV5awBQQD6QQQ ]QQQQQQ
+                            QQQQQQQQQQQQQQQQQQQQQQWWQQga,-"9$WQQmmwwmBUUHTTVWBWQQQQWVT?96aQWQQQ ]QQQQQQ
+                            QQQQQQQQQQWQQQQWQQQQQQQQQQQWQQma,-?9$QQWWQQQQQQQWmQmmmmmQWQQQQWQQW(.yQQQQQW
+                            QQQQQQQQQQQQQWQQQQQQWQQQQQQQQQQQQQga%,.  -??9$QQQQQQQQQQQWQQWQQV? sWQQQQQQQ
+                            QQQQQQQQQWQQQQQQQQQQQQQQWQQQQQQQQQQQWQQQQmywaa,;~^"!???????!^`_saQWWQQQQQQQ
+                            QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQWWWWQQQQQmwywwwwwwmQQWQQQQQQQQQQQ""");
+                            }
+                        }};
+                    x -= 30;
+                    break;
+                }
+                case 4: {
+                    tex = REALMS_BUTTON;
+                    pressAction = (button) -> this.client.setScreen(new RealmsMainScreen(this));
+                    break;
+                }
+                case 5: {
+                    tex = FOXCLIENT_OPTIONS_BUTTON;
+                    pressAction = (button) -> this.client.setScreen(new SettingsMenuScreen());
+                    x += 30;
+                    break;
+                }
+                case 6: {
+                    tex = OPTIONS_BUTTON;
+                    pressAction = (button) -> this.client.setScreen(new OptionsScreen(this, this.client.options));
+                    x += 30 * 2;
+                    break;
+                }
+                case 7: {
+                    tex = EXIT_BUTTON;
+                    pressAction = (button) -> this.client.scheduleStop();
+                    x += 30 * 3;
+                    break;
+                }
+            }
+
+            this.addDrawableChild(new FoxClientMiniButton(x, y + spacingY * 2, 20, 20,0,0,20, tex, 32, 64, pressAction, new TranslatableText("")));
+        }
     }
 }
