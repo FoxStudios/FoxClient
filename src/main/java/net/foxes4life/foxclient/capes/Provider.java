@@ -1,16 +1,14 @@
 /*
  The entire cape code is sto- borrowed from Kappa (https://github.com/Hibiii/Kappa)
  Kappa is licensed under the UNLICENSE.
- */
+*/
 package net.foxes4life.foxclient.capes;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -20,7 +18,6 @@ import net.foxes4life.foxclient.util.Http;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.texture.NativeImage;
 import net.minecraft.client.texture.NativeImageBackedTexture;
-import net.minecraft.client.util.Session;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import org.apache.http.HttpResponse;

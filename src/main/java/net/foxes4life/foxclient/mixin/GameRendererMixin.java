@@ -1,6 +1,5 @@
 package net.foxes4life.foxclient.mixin;
 
-import net.foxes4life.foxclient.MainClient;
 import net.foxes4life.foxclient.util.ZoomUtils;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.GameRenderer;

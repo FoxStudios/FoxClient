@@ -1,6 +1,5 @@
 package net.foxes4life.foxclient.mixin;
 
-import net.arikia.dev.drpc.DiscordRPC;
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.rpc.DiscordMinecraftClient;
 import net.foxes4life.foxclient.rpc.PresenceUpdater;
@@ -25,8 +24,6 @@ import java.io.InputStream;
 @Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin {
     @Shadow @Nullable private IntegratedServer server;
-
-    @Shadow @Nullable public abstract ServerInfo getCurrentServerEntry();
 
     @Shadow @Nullable private ServerInfo currentServerEntry;
 

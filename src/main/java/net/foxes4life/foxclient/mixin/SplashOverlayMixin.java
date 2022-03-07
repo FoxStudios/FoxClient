@@ -1,6 +1,5 @@
 package net.foxes4life.foxclient.mixin;
 
-import net.foxes4life.foxclient.util.TextureUtil;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Overlay;
 import net.minecraft.client.gui.screen.SplashOverlay;
@@ -39,7 +38,6 @@ public abstract class SplashOverlayMixin extends Overlay {
     @Inject(at = @At("TAIL"), method = "init")
     private static void init(MinecraftClient client, CallbackInfo ci) {
         LOGO = new Identifier("foxclient", "textures/foxclientsplash.png");
-        //client.getTextureManager().registerTexture(BACKGROUND, TextureUtil.fromIdentifier(BACKGROUND));
 
         MOJANG_RED = ColorHelper.Argb.getArgb(255, 32, 32, 32);
         MONOCHROME_BLACK = ColorHelper.Argb.getArgb(255, 16, 16, 16);

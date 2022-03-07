@@ -8,14 +8,12 @@ import net.foxes4life.foxclient.util.ClientUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.gui.hud.DebugHud;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
-import java.awt.*;
 import java.util.List;
 
 public class FoxClientHUD extends DrawableHelper {
@@ -24,7 +22,7 @@ public class FoxClientHUD extends DrawableHelper {
 
     private int boxHeight = 44;
     private int boxWidth = 98;
-    private List<Text> textList = Lists.newArrayList();
+    private final List<Text> textList = Lists.newArrayList();
 
     private static final Identifier FOXCLIENT_TEXT = new Identifier("foxclient", "textures/ui/foxclient_text.png");
 

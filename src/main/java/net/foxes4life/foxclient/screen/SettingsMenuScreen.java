@@ -24,7 +24,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Environment(EnvType.CLIENT)
 public class SettingsMenuScreen extends Screen {
-    private static final Identifier BACKGROUND = new Identifier("foxclient", "textures/ui/title/bg/0.png");
     private static final Identifier X_BUTTON = new Identifier("foxclient", "textures/ui/buttons/x.png");
 
     private static String currentCategoryId;
@@ -50,12 +49,7 @@ public class SettingsMenuScreen extends Screen {
         assert this.client != null;
         this.client.keyboard.setRepeatEvents(true);
 
-        int y = this.height / 2 + 10;
-        int spacingY = 24;
-
         LinkedHashMap<String, Category> categories = Main.config.things;
-
-        //Main.config_instance.set("misc", "discord-rpc", true);
 
         AtomicInteger cat = new AtomicInteger();
 

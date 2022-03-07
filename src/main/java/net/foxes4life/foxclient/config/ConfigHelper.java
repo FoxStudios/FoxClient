@@ -1,10 +1,8 @@
 package net.foxes4life.foxclient.config;
 
 import net.foxes4life.foxclient.rpc.DiscordInstance;
-import net.foxes4life.foxclient.rpc.DiscordMinecraftClient;
 import net.foxes4life.foxclient.rpc.PresenceUpdater;
 import net.foxes4life.foxclient.rpc.State;
-import net.minecraft.client.MinecraftClient;
 
 public class ConfigHelper {
     // called whenever something needs to be done extra
