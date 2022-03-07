@@ -7,17 +7,17 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.foxes4life.foxclient.rpc.DiscordInstance;
 import net.foxes4life.foxclient.rpc.DiscordMinecraftClient;
 import net.foxes4life.foxclient.rpc.PresenceUpdater;
+import net.foxes4life.foxclient.util.ZoomUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import org.lwjgl.glfw.GLFW;
 
 public class MainClient implements ClientModInitializer {
-    private static final KeyBinding zoomKey = new KeyBinding("key.foxclient.zoom", GLFW.GLFW_KEY_C, "category.foxclient.main");
     private static final KeyBinding toggleHud = new KeyBinding("key.foxclient.toggle_hud", GLFW.GLFW_KEY_F6, "category.foxclient.main");
 
     @Override
     public void onInitializeClient() {
-        KeyBindingHelper.registerKeyBinding(zoomKey);
+        ZoomUtils.initZoom();
         KeyBindingHelper.registerKeyBinding(toggleHud);
 
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
@@ -37,9 +37,5 @@ public class MainClient implements ClientModInitializer {
                 }
             }
         });
-    }
-
-    public static boolean zoomEnabled() {
-        return zoomKey.isPressed();
     }
 }
