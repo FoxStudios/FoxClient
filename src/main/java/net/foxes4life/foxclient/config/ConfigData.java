@@ -12,7 +12,6 @@ public class ConfigData {
         misc.addSetting("discord-rpc", new CategoryEntry<>(true, "Discord RPC"));
         misc.addSetting("discord-rpc-show-ip", new CategoryEntry<>(true, "RPC: Show Server IP"));
         misc.addSetting("hud-enabled", new CategoryEntry<>(true, "Show HUD"));
-        things.put("misc", misc);
 
         Category debug = new Category("Debug");
         debug.addSetting("boolean-uwu", new CategoryEntry<>(true, "Boolean Test"));
@@ -20,11 +19,9 @@ public class ConfigData {
         debug.addSetting("float-rawr", new CategoryEntry<>(0.1F, "Float Test"));
         debug.addSetting("int-nya", new CategoryEntry<>(621, "Integer Test"));
         debug.addSetting("identifier", new CategoryEntry<>(new Identifier("among", "us"), "ID Test"));
-        things.put("debug", debug);
 
-        Category eastereggs = new Category("easter eggs");
+        Category eastereggs = new Category("Easter Eggs");
         eastereggs.addSetting("owo", new CategoryEntry<>(false, "owo whats this?"));
-        things.put("eastereggs", eastereggs);
 
         Category ingameHUD = new Category("Overlay HUD");
         ingameHUD.addSetting("version", new CategoryEntry<>(true, "Version"));
@@ -32,7 +29,11 @@ public class ConfigData {
         ingameHUD.addSetting("fps", new CategoryEntry<>(true, "FPS"));
         ingameHUD.addSetting("ping", new CategoryEntry<>(true, "Ping"));
         ingameHUD.addSetting("tps", new CategoryEntry<>(true, "TPS"));
+
         things.put("ingame-hud", ingameHUD);
+        things.put("misc", misc);
+        things.put("eastereggs", eastereggs);
+//        things.put("debug", debug);
     }
 
     public ConfigData(LinkedHashMap<String, Category> in) {
