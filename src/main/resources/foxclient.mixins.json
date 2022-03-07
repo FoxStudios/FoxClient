@@ -14,7 +14,9 @@
     "MouseMixin",
     "PlayerListEntryMixin",
     "SplashOverlayMixin",
-    "TitleScreenMixin"
+    "TitleScreenMixin",
+    "EntityMixin",
+    "CameraMixin"
   ],
   "injectors": {
     "defaultRequire": 1
