@@ -53,7 +53,8 @@ public abstract class MinecraftClientMixin {
 
         ClientPlayNetworkHandler clientPlayNetworkHandler = MinecraftClient.getInstance().getNetworkHandler();
 
-        if(Main.config_instance.getBoolean("discord-rpc")) {
+        if(Main.config_instance.getBoolean("misc", "discord-rpc")) {
+            System.out.println("yes");
             PresenceUpdater.setState(DiscordMinecraftClient.getState(clientPlayNetworkHandler));
         }
 

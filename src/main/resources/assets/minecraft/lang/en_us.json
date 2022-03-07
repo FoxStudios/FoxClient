@@ -20,6 +20,8 @@
 
   "foxclient.gui.button.reconnect": "Reconnect",
 
+  "foxclient.gui.button.close": "Close",
+
   "foxclient.gui.toast.title": "FoxClient",
   "foxclient.gui.toast.modmenu.missing": "ModMenu isn't installed",
 

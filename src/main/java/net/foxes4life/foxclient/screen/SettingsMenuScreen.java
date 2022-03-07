@@ -4,6 +4,8 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.foxes4life.foxclient.Main;
+import net.foxes4life.foxclient.config.Category;
 import net.foxes4life.foxclient.config.ConfigData;
 import net.foxes4life.foxclient.gui.FoxClientButton;
 import net.minecraft.client.gui.screen.Screen;
@@ -14,6 +16,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
+
+import java.util.Set;
 
 @Environment(EnvType.CLIENT)
 public class SettingsMenuScreen extends Screen {
@@ -39,6 +43,25 @@ public class SettingsMenuScreen extends Screen {
         int y = this.height / 2 + 10;
         int spacingY = 24;
 
+        try {
+            Set<String> categories = Main.config.things.keySet();
+
+            for (String category : categories) {
+                Category c = Main.config.things.get(category);
+                String name = c.name;
+                System.out.println(name);
+                for (String s : c.settings.keySet()) {
+                    System.out.println(name + " -> " + s + ": " + c.settings.get(s));
+                }
+            }
+
+            Main.config_instance.set("misc", "discord-rpc", true);
+
+            System.out.println(Main.config_instance.getBoolean("misc", "discord-rpc"));
+        } catch (Exception nuuu) {
+            nuuu.printStackTrace();
+        }
+
         // VANILLA BUTTONS
         this.addDrawableChild(
                 new FoxClientButton(this.width / 2 - 100,
@@ -52,14 +75,8 @@ public class SettingsMenuScreen extends Screen {
                 })
         );
 
-        // exit
-        this.addDrawableChild(
-                new TexturedButtonWidget(
-                        this.client.getWindow().getScaledWidth()-24,
-                        4, 20, 20, 0, 0, 20,
-                        X_BUTTON, 32, 64,
-                        (button) -> this.close(),
-                        new TranslatableText("your mom")));
+        // close
+        this.addDrawableChild(new TexturedButtonWidget(this.client.getWindow().getScaledWidth()-24, 4, 20, 20, 0, 0, 20, X_BUTTON, 32, 64, (button) -> this.close(), new TranslatableText("foxclient.gui.button.close")));
     }
 
     @Override
