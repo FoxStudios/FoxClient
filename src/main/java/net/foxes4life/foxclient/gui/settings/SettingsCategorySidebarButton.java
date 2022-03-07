@@ -9,8 +9,12 @@ import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 
 public class SettingsCategorySidebarButton extends FoxClientButton {
-    public SettingsCategorySidebarButton(int x, int y, int width, int height, Text message, PressAction onPress) {
+    public boolean selected;
+    public String categoryId;
+    public SettingsCategorySidebarButton(int x, int y, int width, int height, Text message, boolean selected, String categoryId, PressAction onPress) {
         super(x, y, width, height, message, onPress);
+        this.selected = selected;
+        this.categoryId = categoryId;
     }
 
     @Override
@@ -29,7 +33,7 @@ public class SettingsCategorySidebarButton extends FoxClientButton {
         TextRenderer textRenderer = minecraftClient.textRenderer;
 
         int color = 0x2dffffff;
-        if(this.isHovered()) color = 0x45ffffff;
+        if(this.isHovered() || this.selected) color = 0x45ffffff;
         fill(matrices, this.x, this.y, this.x + this.width, this.y + this.height, color);
         this.renderBackground(matrices, minecraftClient, mouseX, mouseY);
         int j = this.active ? 16777215 : 10526880;
