@@ -25,6 +25,12 @@ public class ConfigData {
         Category eastereggs = new Category("easter eggs");
         eastereggs.addSetting("owo", new CategoryEntry<>(false, "owo whats this?"));
         things.put("eastereggs", eastereggs);
+
+        Category ingameHUD = new Category("Overlay HUD");
+        ingameHUD.addSetting("coords", new CategoryEntry<>(true, "Coordinates"));
+        ingameHUD.addSetting("version", new CategoryEntry<>(true, "Version"));
+        ingameHUD.addSetting("fps", new CategoryEntry<>(true, "FPS"));
+        things.put("ingame-hud", ingameHUD);
     }
 
     public ConfigData(LinkedHashMap<String, Category> in) {
