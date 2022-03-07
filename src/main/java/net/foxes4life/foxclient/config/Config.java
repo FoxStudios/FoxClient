@@ -96,11 +96,6 @@ public class Config {
     }
 
     // config set methods
-    public void setCategory(String name, Category value) {
-        data.things.put(name, value);
-        instance.toFile(instance.configFile);
-    }
-
     public void set(String category, String key, Object value) {
         data.things.get(category).set(key, value);
         instance.toFile(instance.configFile);
