@@ -49,13 +49,15 @@ public class FoxClientHUD extends DrawableHelper {
 
     void loadList () {
         if (Main.config_instance.getBoolean("ingame-hud", "version"))
-            textList.add(new LiteralText(String.format(Main.VERSION)));
+            textList.add(new LiteralText(Main.VERSION));
 
-        if (Main.config_instance.getBoolean("ingame-hud", "coords"))
+        if (Main.config_instance.getBoolean("ingame-hud", "coords")) {
+            assert this.client.player != null;
             textList.add(new LiteralText(String.format("[XYZ] %s %s %s", this.client.player.getBlockPos().getX(), this.client.player.getBlockPos().getY(), this.client.player.getBlockPos().getZ())));
+        }
 
         if (Main.config_instance.getBoolean("ingame-hud", "fps"))
-            textList.add(new LiteralText(String.format("[FPS] " + ClientUtils.getFPS())));
+            textList.add(new LiteralText("[FPS] " + ClientUtils.getFPS()));
 
         for (Text text : textList) {
             boxHeight += 10;
