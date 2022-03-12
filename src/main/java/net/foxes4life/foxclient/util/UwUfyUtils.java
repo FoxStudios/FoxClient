@@ -6,7 +6,9 @@ public class UwUfyUtils {
                 .replace("R", "W")
                 .replace("r", "w")
                 .replace("L", "W")
-                .replace("l", "w");
+                .replace("l", "w")
+                .replace("N", "Ny")
+                .replace("n", "ny");
         return in;
     }
 }

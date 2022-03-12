@@ -3,6 +3,7 @@ package net.foxes4life.foxclient.mixin;
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.rpc.DiscordMinecraftClient;
 import net.foxes4life.foxclient.rpc.PresenceUpdater;
+import net.foxes4life.foxclient.screen.pause.FoxClientPauseMenu;
 import net.foxes4life.foxclient.util.MiscUtil;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
@@ -16,12 +17,13 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyArgs;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import java.io.InputStream;
 
-@Mixin(MinecraftClient.class)
+@Mixin(value = MinecraftClient.class)
 public abstract class MinecraftClientMixin {
     @Shadow @Nullable private IntegratedServer server;
 
@@ -72,5 +74,13 @@ public abstract class MinecraftClientMixin {
         }
 
         cir.setReturnValue(title);
+    }
+
+    @Inject(at = @At("HEAD"), method = "openPauseMenu", cancellable = true)
+    public void openPauseMenu(boolean pause, CallbackInfo ci) {
+        ci.cancel();
+        if (MinecraftClient.getInstance().currentScreen == null) {
+            MinecraftClient.getInstance().setScreen(new FoxClientPauseMenu());
+        }
     }
 }

@@ -1,4 +1,4 @@
-package net.foxes4life.foxclient.screen;
+package net.foxes4life.foxclient.screen.mainmenu;
 
 import com.google.common.util.concurrent.Runnables;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -10,6 +10,7 @@ import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.gui.FoxClientButton;
 import net.foxes4life.foxclient.gui.FoxClientMiniButton;
 import net.foxes4life.foxclient.gui.bundering.GayToaster;
+import net.foxes4life.foxclient.screen.settings.client.SettingsMenuScreen;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.CreditsScreen;
@@ -72,6 +73,7 @@ public class FoxClientTitleScreen extends Screen {
     }
 
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
+        System.out.println(amount);
         return super.mouseScrolled(mouseX, mouseY, amount);
     }
 

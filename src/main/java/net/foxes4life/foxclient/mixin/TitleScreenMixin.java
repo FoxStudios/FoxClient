@@ -1,6 +1,6 @@
 package net.foxes4life.foxclient.mixin;
 
-import net.foxes4life.foxclient.screen.FoxClientTitleScreen;
+import net.foxes4life.foxclient.screen.mainmenu.FoxClientTitleScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.util.math.MatrixStack;
