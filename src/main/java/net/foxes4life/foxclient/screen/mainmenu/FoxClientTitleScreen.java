@@ -11,6 +11,7 @@ import net.foxes4life.foxclient.gui.FoxClientButton;
 import net.foxes4life.foxclient.gui.FoxClientMiniButton;
 import net.foxes4life.foxclient.gui.bundering.GayToaster;
 import net.foxes4life.foxclient.screen.settings.client.SettingsMenuScreen;
+import net.foxes4life.foxclient.screen.worldselect.FoxClientWorldSelect;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.CreditsScreen;
@@ -96,7 +97,7 @@ public class FoxClientTitleScreen extends Screen {
         this.addDrawableChild(new FoxClientButton(this.width / 2 - 100, y, 200, 20, new TranslatableText("menu.singleplayer"),
                 (button) -> {
                     assert this.client != null;
-                    this.client.setScreen(new SelectWorldScreen(this));
+                    this.client.setScreen(new FoxClientWorldSelect(this));
                 })
         );
 

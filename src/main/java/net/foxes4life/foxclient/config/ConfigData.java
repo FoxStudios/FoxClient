@@ -8,10 +8,13 @@ public class ConfigData {
     public LinkedHashMap<String, Category> things = new LinkedHashMap<>(); // linked to prevent messing up the config file
 
     public ConfigData() {
+        Category client = new Category("Client");
+        client.addSetting("hud-enabled", new CategoryEntry<>(true, "Show HUD"));
+        client.addSetting("customMenu", new CategoryEntry<>(true, "FoxClient Menus"));
+
         Category misc = new Category("Miscellaneous");
         misc.addSetting("discord-rpc", new CategoryEntry<>(true, "Discord RPC"));
         misc.addSetting("discord-rpc-show-ip", new CategoryEntry<>(true, "RPC: Show Server IP"));
-        misc.addSetting("hud-enabled", new CategoryEntry<>(true, "Show HUD"));
 
         Category debug = new Category("Debug");
         debug.addSetting("boolean-uwu", new CategoryEntry<>(true, "Boolean Test"));
@@ -30,6 +33,7 @@ public class ConfigData {
         ingameHUD.addSetting("ping", new CategoryEntry<>(true, "Ping"));
         ingameHUD.addSetting("tps", new CategoryEntry<>(true, "TPS"));
 
+        things.put("client", client);
         things.put("ingame-hud", ingameHUD);
         things.put("misc", misc);
         things.put("eastereggs", eastereggs);
