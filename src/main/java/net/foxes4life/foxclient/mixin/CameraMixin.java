@@ -1,29 +1,31 @@
 package net.foxes4life.foxclient.mixin;
 
-import net.foxes4life.foxclient.client.Client;
-import net.foxes4life.foxclient.client.Freelook;
+import net.foxes4life.foxclient.util.freelook.Freelook;
+import net.foxes4life.foxclient.util.freelook.FreelookUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.world.BlockView;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import javax.swing.text.html.BlockView;
+
 @Mixin(Camera.class)
 public abstract class CameraMixin {
-    @Shadow protected abstract void setRotation(float yaw, float pitch);
+    @Shadow
+    protected abstract void setRotation(float yaw, float pitch);
 
     private boolean startFreelook = true;
 
     @Inject(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/Camera;setRotation(FF)V", ordinal = 0, shift = At.Shift.AFTER))
-    public void update(BlockView area, Entity focusedEntity, boolean thirdPerson, boolean inverseView, float tickDelta, CallbackInfo ci) {
+    public void update(net.minecraft.world.BlockView area, Entity focusedEntity, boolean thirdPerson, boolean inverseView, float tickDelta, CallbackInfo ci) {
         if(!(focusedEntity instanceof PlayerEntity)) return;
 
-        if(Client.freeLooking) {
+        if(FreelookUtils.active()) {
             Freelook fl = (Freelook) focusedEntity;
 
             if(MinecraftClient.getInstance().player != null && startFreelook) {
