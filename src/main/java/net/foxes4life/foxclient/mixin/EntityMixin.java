@@ -1,7 +1,8 @@
 package net.foxes4life.foxclient.mixin;
 
-import net.foxes4life.foxclient.util.freelook.Freelook;
-import net.foxes4life.foxclient.util.freelook.FreelookUtils;
+import net.foxes4life.foxclient.MainClient;
+import net.foxes4life.foxclient.client.Client;
+import net.foxes4life.foxclient.client.Freelook;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
@@ -19,7 +20,7 @@ public class EntityMixin implements Freelook {
     public void changeLookDirection(double cursorDeltaX, double cursorDeltaY, CallbackInfo ci) {
         //noinspection ConstantConditions
         if(!((Object) this instanceof ClientPlayerEntity)) return;
-        if(FreelookUtils.active()) {
+        if(Client.freeLooking) {
             float g = (float)cursorDeltaX * 0.15F;
             float f = (float)cursorDeltaY * 0.15F;
 

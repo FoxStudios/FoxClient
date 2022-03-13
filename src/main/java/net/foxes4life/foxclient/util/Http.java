@@ -10,7 +10,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-// this class is not even recoded I just stole it from the old code lmao
 public class Http {
     public static HttpResponse get(String url) {
         HttpClient client = HttpClientBuilder.create().build();

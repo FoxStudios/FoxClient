@@ -1,2 +1,2 @@
 # FoxClient
-yes bread
+A small Minecraft mod lmao

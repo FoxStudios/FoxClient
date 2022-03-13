@@ -5,18 +5,19 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "ClientPlayNetworkHandlerMixin",
-    "DisconnectedScreenMixin",
-    "GameRendererMixin",
-    "InGameHUDMixin",
-    "LiteralTextMixin",
-    "TranslationStorageMixin",
+    "DisconnectScreenMixin",
+    "I18nInvoker",
+    "InGameHudMixin",
     "MinecraftClientMixin",
     "MouseMixin",
-    "PlayerListEntryMixin",
     "SplashOverlayMixin",
+    "TexturedButtonWidgetMixin",
     "TitleScreenMixin",
-    "EntityMixin",
-    "CameraMixin"
+    "TranslationStorageMixin",
+    "WindowMixin",
+    "MixinPlayerListEntry",
+    "CameraMixin",
+    "EntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

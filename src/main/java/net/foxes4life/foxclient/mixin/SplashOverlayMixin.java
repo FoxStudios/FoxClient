@@ -1,12 +1,10 @@
 package net.foxes4life.foxclient.mixin;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Overlay;
 import net.minecraft.client.gui.screen.SplashOverlay;
-import net.minecraft.client.util.math.MatrixStack;
+
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.ColorHelper;
-import net.minecraft.util.math.MathHelper;
+
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Mutable;
@@ -15,45 +13,37 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.awt.*;
+import java.util.function.IntSupplier;
+
 @Mixin(SplashOverlay.class)
-public abstract class SplashOverlayMixin extends Overlay {
-    protected SplashOverlayMixin() {
-    }
+public abstract class SplashOverlayMixin {
+    private static final Color bgColor = new Color(0x101318);
 
-    @Final @Mutable @Shadow
-    private static int MOJANG_RED;
-
-    @Final @Mutable @Shadow
+    @Mutable
+    @Final
+    @Shadow
     private static int MONOCHROME_BLACK;
 
     @Mutable
     @Final
-    @Shadow static Identifier LOGO;
-
     @Shadow
-    private float progress;
+    static Identifier LOGO;
 
-    @Shadow @Final private MinecraftClient client;
+    @Final
+    @Mutable @Shadow
+    private static
+    int MOJANG_RED;
+
+    @Final
+    @Mutable @Shadow
+    private static
+    IntSupplier BRAND_ARGB;
 
     @Inject(at = @At("TAIL"), method = "init")
     private static void init(MinecraftClient client, CallbackInfo ci) {
-        LOGO = new Identifier("foxclient", "textures/foxclientsplash.png");
-
-        MOJANG_RED = ColorHelper.Argb.getArgb(255, 32, 32, 32);
-        MONOCHROME_BLACK = ColorHelper.Argb.getArgb(255, 16, 16, 16);
-    }
-
-    @Inject(at = @At("HEAD"), method = "renderProgressBar", cancellable = true)
-    private void renderProgressBar(MatrixStack matrices, int minX, int minY, int maxX, int maxY, float opacity, CallbackInfo ci) {
-        minX = 0;
-        minY = this.client.getWindow().getScaledHeight();
-        maxX = this.client.getWindow().getScaledWidth();
-        maxY = this.client.getWindow().getScaledHeight()-8;
-
-        ci.cancel();
-        int i = MathHelper.ceil((float)(maxX - minX - 2) * this.progress);
-        int j = Math.round(opacity * 255.0F);
-        int k = ColorHelper.Argb.getArgb(j, 255, 255, 255);
-        fill(matrices, minX, minY, minX + i, maxY, k);
+        LOGO = new Identifier("foxclient", "textures/mojangstudios2.png");
+        MOJANG_RED = bgColor.getRGB();
+        BRAND_ARGB = () -> MinecraftClient.getInstance().options.monochromeLogo ? MONOCHROME_BLACK : MOJANG_RED;
     }
 }

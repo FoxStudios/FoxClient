@@ -20,18 +20,12 @@
 
   "foxclient.gui.button.reconnect": "Reconnect",
 
-  "foxclient.gui.button.close": "Close",
-
-  "foxclient.gui.toast.title": "FoxClient",
-  "foxclient.gui.toast.modmenu.missing": "ModMenu isn't installed",
+  "foxclient.chat.clientchat.send_failed": "§cCould not send Client Chat message!",
 
   "foxclient.debug.gui.button.configtest": "Debug Config",
 
-  "category.foxclient.main": "FoxClient",
+  "category.foxclient.hud": "FoxClient HUD",
   "key.foxclient.toggle_hud": "Toggle HUD",
-  "key.foxclient.freelook": "Freelook",
-  "key.foxclient.configKey": "FoxClient Config",
-  "key.foxclient.zoom": "Zoom",
 
   "foxclient.rpc.state.idle": "Idle",
   "foxclient.rpc.state.singleplayer": "Playing Singleplayer",

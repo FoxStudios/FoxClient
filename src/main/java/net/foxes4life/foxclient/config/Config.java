@@ -1,7 +1,8 @@
 package net.foxes4life.foxclient.config;
 
 import com.google.common.reflect.TypeToken;
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import net.foxes4life.foxclient.Main;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -13,7 +14,7 @@ import java.util.LinkedHashMap;
 // i literally copy-pasted this from https://github.com/frankred/json-config-file because I am lazy
 // (it is heavily modified tho)
 public class Config {
-    public static File configDir = Paths.get(FabricLoader.getInstance().getConfigDir().toString(), Main.FOXCLIENT_MOD_ID).toFile();
+    public static File configDir = Paths.get(FabricLoader.getInstance().getConfigDir().toString(), Main.MOD_ID).toFile();
     private String configFile;
 
     private static Config instance;
@@ -31,6 +32,7 @@ public class Config {
     public static ConfigData getData() {
         return data;
     }
+
     private static void load(File file) {
         data = fromFile(file);
         //instance = fromFile(file);
@@ -58,8 +60,7 @@ public class Config {
     }
 
     private void toFile(File file) {
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
-                .setPrettyPrinting().create();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String jsonConfig = gson.toJson(data.things);
         FileWriter writer;
         try {
@@ -74,12 +75,11 @@ public class Config {
 
     private static ConfigData fromFile(File configFile) {
         try {
-            Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
-                    .setPrettyPrinting().create();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
             BufferedReader reader = new BufferedReader(new InputStreamReader(
                     new FileInputStream(configFile)));
             @SuppressWarnings("UnstableApiUsage")
-            Type type = new TypeToken<LinkedHashMap<String, Category>>() {
+            Type type = new TypeToken<LinkedHashMap<String, Object>>() {
             }.getType();
             return new ConfigData(gson.fromJson(reader, type));
         } catch (FileNotFoundException e) {
@@ -89,19 +89,18 @@ public class Config {
 
     @Override
     public String toString() {
-        Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
-                .setPrettyPrinting().create();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         return gson.toJson(data);
     }
 
     // config set methods
-    public void set(String category, String key, CategoryEntry<?> value) {
-        data.things.get(category).set(key, value);
+    public void set(String name, Object value) {
+        data.things.put(name, value);
         instance.toFile(instance.configFile);
     }
 
-    public boolean getBoolean(String category, String name) {
-        Object d = getObject(category, name);
+    public boolean getBoolean(String name) {
+        Object d = getObject(name);
         if (d != null) {
             try {
                 return (boolean) d;
@@ -112,8 +111,8 @@ public class Config {
         return false;
     }
 
-    public String getString(String category, String name) {
-        Object d = getObject(category, name);
+    public String getString(String name) {
+        Object d = getObject(name);
         if (d != null) {
             try {
                 return (String) d;
@@ -124,11 +123,7 @@ public class Config {
         return null;
     }
 
-    public CategoryEntry<?> getEntry(String category, String name) {
-        return data.things.get(category).settings.get(name);
-    }
-
-    public Object getObject(String category, String name) {
-        return data.things.get(category).settings.get(name).getValue();
+    public Object getObject(String name) {
+        return data.things.get(name);
     }
 }

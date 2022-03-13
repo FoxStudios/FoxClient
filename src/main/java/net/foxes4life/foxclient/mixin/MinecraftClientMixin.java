@@ -1,88 +1,85 @@
 package net.foxes4life.foxclient.mixin;
 
-import net.foxes4life.foxclient.Main;
-import net.foxes4life.foxclient.rpc.DiscordMinecraftClient;
-import net.foxes4life.foxclient.rpc.PresenceUpdater;
-import net.foxes4life.foxclient.screen.pause.FoxClientPauseMenu;
-import net.foxes4life.foxclient.util.MiscUtil;
+import net.foxes4life.foxclient.discord.DiscordMinecraftClient;
+import net.foxes4life.foxclient.discord.PresenceUpdater;
+import net.foxes4life.foxclient.hud.ClientOverlayHud;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ServerInfo;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.server.integrated.IntegratedServer;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
-import java.io.InputStream;
+import java.util.Objects;
 
-@Mixin(value = MinecraftClient.class)
+@Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin {
-    @Shadow @Nullable private IntegratedServer server;
+    @Shadow
+    private IntegratedServer server;
 
-    @Shadow @Nullable private ServerInfo currentServerEntry;
-
-    @ModifyArgs(at = @At(value = "INVOKE",
-                target = "Lnet/minecraft/client/util/Window;setIcon(Ljava/io/InputStream;Ljava/io/InputStream;)V"),
-            method = "<init>")
-    private void setWindowIcon(Args args) {
-        try {
-            InputStream inputStream = MiscUtil.getInputStreamFromModJar("assets/foxclient/icons/icon_16x16.png");
-            InputStream inputStream2 = MiscUtil.getInputStreamFromModJar("assets/foxclient/icons/icon_32x32.png");
-
-            args.setAll(inputStream, inputStream2);
-            System.out.println("[FoxClient] set icon");
-        } catch (ClassCastException e) {
-            e.printStackTrace();
-        }
-    }
+    @Shadow
+    private ServerInfo currentServerEntry;
 
     @Inject(at = @At("HEAD"), method = "getWindowTitle", cancellable = true)
     private void getWindowTitle(CallbackInfoReturnable<String> cir) {
-        String title = "FoxClient " + Main.VERSION;
+        StringBuilder stringBuilder = new StringBuilder("FoxClient");
 
-        title += " | Minecraft " + SharedConstants.getGameVersion().getName();
-
-        ClientPlayNetworkHandler clientPlayNetworkHandler = MinecraftClient.getInstance().getNetworkHandler();
-
-        if(Main.config_instance.getBoolean("misc", "discord-rpc")) {
-            PresenceUpdater.setState(DiscordMinecraftClient.getState(clientPlayNetworkHandler));
+        stringBuilder.append(" ");
+        if(FabricLoader.getInstance().getModContainer("foxclient").isPresent()) {
+            stringBuilder.append(FabricLoader.getInstance().getModContainer("foxclient").get().getMetadata().getVersion());
         }
 
-        if(clientPlayNetworkHandler != null && clientPlayNetworkHandler.getConnection().isOpen()) {
-            title += " - ";
-            if(this.server != null && !this.server.isRemote()) {
-                title += I18n.translate("title.singleplayer");
-            } else if(MinecraftClient.getInstance().isConnectedToRealms()) {
-                title += I18n.translate("title.multiplayer.realms");
-            } else if(this.server == null && (this.currentServerEntry == null || ! this.currentServerEntry.isLocal())) {
-                if(this.currentServerEntry != null && this.currentServerEntry.address != null || Main.config_instance.getBoolean("misc", "discord-rpc-show-ip")) {
-                    title += I18n.translate("title.multiplayer.other2", this.currentServerEntry.address);
-                } else {
-                    title += I18n.translate("title.multiplayer.other");
+        stringBuilder.append(" | ");
+        stringBuilder.append("Playing Minecraft ");
+        stringBuilder.append(SharedConstants.getGameVersion().getName());
+        ClientPlayNetworkHandler clientPlayNetworkHandler = MinecraftClient.getInstance().getNetworkHandler();
+        if (clientPlayNetworkHandler != null && clientPlayNetworkHandler.getConnection().isOpen()) {
+            stringBuilder.append(" - ");
+            if (this.server != null && !this.server.isRemote()) {
+                stringBuilder.append(I18n.translate("title.singleplayer"));
+            } else if (MinecraftClient.getInstance().isConnectedToRealms()) {
+                stringBuilder.append(I18n.translate("title.multiplayer.realms"));
+            } else if (this.server == null && (this.currentServerEntry == null || !this.currentServerEntry.isLocal())) {
+                try {
+                    if(Objects.requireNonNull(this.currentServerEntry).address != null) {
+                        stringBuilder.append(I18n.translate("title.multiplayer.other2", this.currentServerEntry.address));
+                    } else {
+                        stringBuilder.append(I18n.translate("title.multiplayer.other"));
+                    }
+                } catch (NullPointerException ignored) {
+                    stringBuilder.append(I18n.translate("title.multiplayer.other"));
                 }
             } else {
-                title += I18n.translate("title.multiplayer.lan");
+                stringBuilder.append(I18n.translate("title.multiplayer.lan"));
             }
         }
+        PresenceUpdater.setState(DiscordMinecraftClient.getState(clientPlayNetworkHandler));
+        stringBuilder.append(" ");
+        stringBuilder.append("(Logged in as ");
+        stringBuilder.append(MinecraftClient.getInstance().getSession().getUsername());
+        stringBuilder.append(")");
 
-        cir.setReturnValue(title);
+        cir.setReturnValue(stringBuilder.toString());
     }
 
-    @Inject(at = @At("HEAD"), method = "openPauseMenu", cancellable = true)
-    public void openPauseMenu(boolean pause, CallbackInfo ci) {
-        if (Main.config_instance.getBoolean("client", "customMenu")) {
-            ci.cancel();
-            if (MinecraftClient.getInstance().currentScreen == null) {
-                MinecraftClient.getInstance().setScreen(new FoxClientPauseMenu());
+    private int this_tick = 0;
+
+    @Inject(at = @At("HEAD"), method = "tick")
+    public void tick(CallbackInfo ci) {
+        if(MinecraftClient.getInstance() != null && !MinecraftClient.getInstance().fpsDebugString.equals("")) {
+            this_tick++;
+            if(this_tick >= 20) {
+                this_tick = 0;
+                PresenceUpdater.setState(DiscordMinecraftClient.getState(MinecraftClient.getInstance().getNetworkHandler()));
             }
+            ClientOverlayHud.tick();
         }
     }
 }

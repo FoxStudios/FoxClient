@@ -1,21 +1,30 @@
 package net.foxes4life.foxclient.mixin;
+import java.util.Map;
 
-import net.foxes4life.foxclient.Main;
-import net.foxes4life.foxclient.util.UwUfyUtils;
-import net.minecraft.client.resource.language.TranslationStorage;
+import net.foxes4life.foxclient.egg.EggManager;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Mutable;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+
+import net.foxes4life.foxclient.egg.UwUifier;
+
+import net.minecraft.client.resource.language.TranslationStorage;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = TranslationStorage.class)
-public abstract class TranslationStorageMixin {
-    @Inject(at = @At("RETURN"), method = "get", cancellable = true)
-    private void get(String key, CallbackInfoReturnable<String> cir) {
-        if(Main.config_instance.getBoolean("eastereggs", "owo")) {
-            String text = cir.getReturnValue();
-            text = UwUfyUtils.uwufy(text);
-            cir.setReturnValue(text);
+@Mixin(TranslationStorage.class)
+public class TranslationStorageMixin {
+    @Final
+    @Shadow
+    @Mutable
+    private Map<String, String> translations;
+
+    @Inject(at = @At("HEAD"), method = "get", cancellable = true)
+    public void get(String key, CallbackInfoReturnable<String> cir) {
+        if(EggManager.isOwOEnabled()) {
+            cir.setReturnValue(UwUifier.OwOify(translations.getOrDefault(key, key)));
         }
     }
 }

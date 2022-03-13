@@ -20,7 +20,11 @@
 
   "foxclient.gui.button.reconnect": "Reconnect",
 
+  "foxclient.chat.clientchat.send_failed": "§cCould not send Client Chat message!",
+
   "foxclient.debug.gui.button.configtest": "Debug Config",
+
+  "category.foxclient.hud": "FoxClient HUD",
   "key.foxclient.toggle_hud": "Toggle HUD",
 
   "foxclient.rpc.state.idle": "Idle",
@@ -28,7 +32,5 @@
   "foxclient.rpc.state.lan": "Playing on a LAN game",
   "foxclient.rpc.state.multiplayer": "Playing on %s",
   "foxclient.rpc.state.multiplayer.hide_ip": "Playing Multiplayer",
-  "foxclient.rpc.state.realms": "Playing on a Realm",
-  "category.foxclient.main": "FoxClient",
-  "key.foxclient.freelook": "Freelook"
+  "foxclient.rpc.state.realms": "Playing on a Realm"
 }
