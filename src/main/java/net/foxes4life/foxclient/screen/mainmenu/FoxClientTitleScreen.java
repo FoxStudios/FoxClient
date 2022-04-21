@@ -97,7 +97,7 @@ public class FoxClientTitleScreen extends Screen {
         this.addDrawableChild(new FoxClientButton(this.width / 2 - 100, y, 200, 20, new TranslatableText("menu.singleplayer"),
                 (button) -> {
                     assert this.client != null;
-                    this.client.setScreen(new FoxClientWorldSelect(this));
+                    this.client.setScreen(new SelectWorldScreen(this));
                 })
         );
 
