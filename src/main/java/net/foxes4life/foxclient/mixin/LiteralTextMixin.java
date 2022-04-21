@@ -22,11 +22,7 @@ public class LiteralTextMixin {
     @Inject(at = @At("RETURN"), method = "getRawString", cancellable = true)
     private void getRawString(CallbackInfoReturnable<String> cir) {
         String text = cir.getReturnValue();
-        text = text
-                .replace("R", "W")
-                .replace("r", "w")
-                .replace("L", "W")
-                .replace("l", "w");
+        text = UwUfyUtils.uwufy(text);
         cir.setReturnValue(text);
     }
 }
