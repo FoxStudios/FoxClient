@@ -16,7 +16,8 @@
     "SplashOverlayMixin",
     "TitleScreenMixin",
     "EntityMixin",
-    "CameraMixin"
+    "CameraMixin",
+    "LoadingScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1
