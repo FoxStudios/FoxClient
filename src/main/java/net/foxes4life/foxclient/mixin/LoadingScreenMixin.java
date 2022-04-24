@@ -24,6 +24,8 @@ public abstract class LoadingScreenMixin extends Screen{
     @Shadow @Final @Mutable private WorldGenerationProgressTracker progressProvider;
     @Shadow @Final @Mutable private static Object2IntMap<ChunkStatus> STATUS_TO_COLOR;
 
+    float progress;
+
     protected LoadingScreenMixin(Text title) {
         super(title);
     }
@@ -32,14 +34,16 @@ public abstract class LoadingScreenMixin extends Screen{
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         ci.cancel();
         renderBackground(matrices);
-        drawTextWithShadow(matrices, textRenderer, new LiteralText("Loading World... " + MathHelper.clamp(progressProvider.getProgressPercentage(), 0, 100) + "%"), 10, this.height - 20, 0xFFFFFF);
+        drawTextWithShadow(matrices, textRenderer, new LiteralText("Loading World... " + MathHelper.clamp(progressProvider.getProgressPercentage(), 0, 100) + "%"), 10, this.height - 22, 0xFFFFFF);
+        this.progress = MathHelper.clamp(this.progress * 0.95F + (progressProvider.getProgressPercentage()/ 100f) * 0.2F, 0.0F, 1.0F);
+        fill(matrices, 0, this.height - 3, (int) (this.width * progress), this.height, 0xFFFFFFFF);
         drawChunkThing(matrices, progressProvider);
     }
 
     public void drawChunkThing(MatrixStack matrices, WorldGenerationProgressTracker progressProvider) {
         int m = progressProvider.getSize() * 2;
         int n = this.width - 5 - m;
-        int o = this.height - 5 - m;
+        int o = this.height - 7 - m;
 
         for(int r = 0; r < progressProvider.getSize(); ++r) {
             for(int s = 0; s < progressProvider.getSize(); ++s) {
