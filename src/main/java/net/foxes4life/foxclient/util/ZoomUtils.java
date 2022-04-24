@@ -3,12 +3,16 @@ package net.foxes4life.foxclient.util;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.util.math.MathHelper;
 import org.lwjgl.glfw.GLFW;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 public class ZoomUtils {
     private static final KeyBinding zoomKey = new KeyBinding("key.foxclient.zoom", GLFW.GLFW_KEY_C, "category.foxclient.main");
     static boolean isZoomin = false;
     public static float zoomModifier = 0.2F;
+    public static double currentZoomLevel = 0.2F;
+    public static double actualZoomLevel = 0.2F;
 
     public static void initZoom () {
         KeyBindingHelper.registerKeyBinding(zoomKey);
@@ -31,5 +35,9 @@ public class ZoomUtils {
             isZoomin = false;
             MinecraftClient.getInstance().options.smoothCameraEnabled = false;
         }
+    }
+
+    public static void calculateZoom(CallbackInfoReturnable<Double> cir) {
+        ZoomUtils.actualZoomLevel = MathHelper.lerp(0.05f, ZoomUtils.actualZoomLevel, ZoomUtils.currentZoomLevel);
     }
 }
