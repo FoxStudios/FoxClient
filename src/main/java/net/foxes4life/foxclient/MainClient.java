@@ -17,7 +17,7 @@ import org.lwjgl.glfw.GLFW;
 
 public class MainClient implements ClientModInitializer {
     private static final KeyBinding toggleHud = new KeyBinding("key.foxclient.toggle_hud", GLFW.GLFW_KEY_F6, "category.foxclient.main");
-    private static final KeyBinding clientConfig = new KeyBinding("key.foxclient.configKey", GLFW.GLFW_KEY_LEFT_ALT, "category.foxclient.main");
+    private static final KeyBinding clientConfig = new KeyBinding("key.foxclient.configKey", GLFW.GLFW_KEY_RIGHT_CONTROL, "category.foxclient.main");
 
     @Override
     public void onInitializeClient() {
