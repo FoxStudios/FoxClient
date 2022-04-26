@@ -7,6 +7,8 @@ import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 
@@ -14,6 +16,7 @@ import java.util.LinkedHashMap;
 // (it is heavily modified tho)
 public class Config {
     public static File configDir = Paths.get(FabricLoader.getInstance().getConfigDir().toString(), Main.FOXCLIENT_MOD_ID).toFile();
+    static Path folderPath = Paths.get(FabricLoader.getInstance().getConfigDir().toString(), Main.FOXCLIENT_MOD_ID);
     private String configFile;
 
     private static Config instance;
@@ -32,6 +35,7 @@ public class Config {
         return data;
     }
     private static void load(File file) {
+        checkForPath();
         data = fromFile(file);
         //instance = fromFile(file);
 
@@ -58,6 +62,7 @@ public class Config {
     }
 
     private void toFile(File file) {
+        checkForPath();
         Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
                 .setPrettyPrinting().create();
         String jsonConfig = gson.toJson(data.things);
@@ -130,5 +135,15 @@ public class Config {
 
     public Object getObject(String category, String name) {
         return data.things.get(category).settings.get(name).getValue();
+    }
+
+    static void checkForPath(){
+        if (!Files.exists(folderPath)) {
+            try {
+                Files.createDirectory(folderPath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
