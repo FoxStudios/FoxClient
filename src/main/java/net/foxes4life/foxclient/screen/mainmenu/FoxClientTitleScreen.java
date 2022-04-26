@@ -57,7 +57,7 @@ public class FoxClientTitleScreen extends Screen {
     //private static final Identifier UPDATE_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
 
 
-    private static final Text mojangCopyrightText = TitleScreen.COPYRIGHT;
+    private static final Text mojangCopyrightText = new LiteralText("Copyright Mojang AB. Do not distribute!");
     private int mojangCopyrightTextWidth;
     private int mojangCopyrightTextX;
 
