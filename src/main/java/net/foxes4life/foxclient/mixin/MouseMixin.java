@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MouseMixin {
     @Inject(at = @At("HEAD"), method = "onMouseScroll", cancellable = true)
     private void onMouseScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
-        System.out.println(horizontal + " " + vertical);
         if(ZoomUtils.zoomin()) {
             ci.cancel();
             if(vertical > 0) {
