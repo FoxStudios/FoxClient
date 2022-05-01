@@ -34,8 +34,8 @@ public class MainClient implements ClientModInitializer {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (toggleHud.wasPressed()) {
-                Main.config_instance.set("misc", "hud-enabled",
-                        Main.config_instance.getEntry("misc", "hud-enabled").setValue(!Main.config_instance.getBoolean("misc", "hud-enabled")));
+                Main.config_instance.set("client", "hud-enabled",
+                        Main.config_instance.getEntry("client", "hud-enabled").setValue(!Main.config_instance.getBoolean("client", "hud-enabled")));
             }
         });
 
