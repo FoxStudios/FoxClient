@@ -47,23 +47,6 @@ public final class Provider {
         void onTexAvail(Identifier id);
     }
 
-    // This is a provider specific implementation.
-    // Images are usually 46x22 or 92x44, and these work as expected (64x32, 128x64).
-    // There are edge cages with sizes 184x88, 1024x512 and 2048x1024,
-    // but these should work alright.
-    private static NativeImage uncrop(NativeImage in) {
-        int srcHeight = in.getHeight(), srcWidth = in.getWidth();
-        int zoom = (int) Math.ceil(in.getHeight() / 32f);
-        NativeImage out = new NativeImage(64 * zoom, 32 * zoom, true);
-        // NativeImage.copyFrom doesn't work! :(
-        for (int x = 0; x < srcWidth; x++) {
-            for (int y = 0; y < srcHeight; y++) {
-                out.setColor(x, y, in.getColor(x, y));
-            }
-        }
-        return out;
-    }
-
     // This is where capes will be stored
     private static final Map<String, Identifier> capes = new HashMap<>();
 

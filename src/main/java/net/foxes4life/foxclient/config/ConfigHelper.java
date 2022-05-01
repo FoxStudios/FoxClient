@@ -5,8 +5,8 @@ import net.foxes4life.foxclient.rpc.PresenceUpdater;
 import net.foxes4life.foxclient.rpc.State;
 
 public class ConfigHelper {
-    // called whenever something needs to be done extra
 
+    // called whenever something needs to be done extra
     public static void onUpdate(String category, String key, Object value) {
         System.out.println("update " + category+"."+key + " to " + value);
         if(category.equals("misc")) {

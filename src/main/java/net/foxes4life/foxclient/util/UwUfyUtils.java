@@ -1,7 +1,5 @@
 package net.foxes4life.foxclient.util;
 
-import java.util.Random;
-
 public class UwUfyUtils {
     public static String uwufy(String in) {
         in = in

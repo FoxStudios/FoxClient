@@ -26,7 +26,7 @@ public class  FoxClientPauseMenu extends Screen {
 
     public void init () {
         this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 24 + -16, 204, 20, new TranslatableText("menu.returnToGame"), (button) -> {
-            this.client.setScreen((Screen)null);
+            this.client.setScreen(null);
             this.client.mouse.lockCursor();
         }));
         this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 48 + -16, 98, 20, new TranslatableText("gui.advancements"), (button) -> {
@@ -57,7 +57,7 @@ public class  FoxClientPauseMenu extends Screen {
         this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 96 + -16, 98, 20, new TranslatableText("menu.options"), (button) -> {
             this.client.setScreen(new OptionsScreen(this, this.client.options));
         }));
-        FoxClientButton buttonWidget = (FoxClientButton)this.addDrawableChild(new FoxClientButton(this.width / 2 + 4, this.height / 4 + 96 + -16, 98, 20, new TranslatableText("menu.shareToLan"), (button) -> {
+        FoxClientButton buttonWidget = this.addDrawableChild(new FoxClientButton(this.width / 2 + 4, this.height / 4 + 96 + -16, 98, 20, new TranslatableText("menu.shareToLan"), (button) -> {
             this.client.setScreen(new OpenToLanScreen(this));
         }));
         buttonWidget.active = this.client.isIntegratedServerRunning() && !this.client.getServer().isRemote();

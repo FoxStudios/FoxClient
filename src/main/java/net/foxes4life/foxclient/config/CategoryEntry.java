@@ -1,7 +1,6 @@
 package net.foxes4life.foxclient.config;
 
 import com.google.gson.annotations.Expose;
-import net.foxes4life.foxclient.Main;
 
 public class CategoryEntry<T> {
     @Expose

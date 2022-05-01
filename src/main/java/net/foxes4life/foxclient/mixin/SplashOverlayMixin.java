@@ -45,7 +45,6 @@ public abstract class SplashOverlayMixin extends Overlay {
 
     @Inject(at = @At("HEAD"), method = "renderProgressBar", cancellable = true)
     private void renderProgressBar(MatrixStack matrices, int minX, int minY, int maxX, int maxY, float opacity, CallbackInfo ci) {
-        minX = 0;
         minY = this.client.getWindow().getScaledHeight();
         maxX = this.client.getWindow().getScaledWidth();
         maxY = this.client.getWindow().getScaledHeight()-8;

@@ -21,8 +21,10 @@ public class LiteralTextMixin {
 
     @Inject(at = @At("RETURN"), method = "getRawString", cancellable = true)
     private void getRawString(CallbackInfoReturnable<String> cir) {
-        String text = cir.getReturnValue();
-        text = UwUfyUtils.uwufy(text);
-        cir.setReturnValue(text);
+        if(Main.config_instance.getBoolean("eastereggs", "owo")) {
+            String text = cir.getReturnValue();
+            text = UwUfyUtils.uwufy(text);
+            cir.setReturnValue(text);
+        }
     }
 }

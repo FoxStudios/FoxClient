@@ -9,7 +9,6 @@ import net.foxes4life.foxclient.rpc.DiscordMinecraftClient;
 import net.foxes4life.foxclient.rpc.PresenceUpdater;
 import net.foxes4life.foxclient.screen.settings.client.SettingsMenuScreen;
 import net.foxes4life.foxclient.util.ZoomUtils;
-import net.foxes4life.foxclient.util.freelook.Freelook;
 import net.foxes4life.foxclient.util.freelook.FreelookUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;

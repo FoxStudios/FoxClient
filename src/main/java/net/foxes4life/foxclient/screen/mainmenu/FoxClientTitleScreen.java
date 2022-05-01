@@ -11,12 +11,10 @@ import net.foxes4life.foxclient.gui.FoxClientButton;
 import net.foxes4life.foxclient.gui.FoxClientMiniButton;
 import net.foxes4life.foxclient.gui.bundering.GayToaster;
 import net.foxes4life.foxclient.screen.settings.client.SettingsMenuScreen;
-import net.foxes4life.foxclient.screen.worldselect.FoxClientWorldSelect;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.CreditsScreen;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.option.AccessibilityOptionsScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
@@ -188,33 +186,33 @@ public class FoxClientTitleScreen extends Screen {
         int y = this.height / 2 + 10;
         int center = (this.width / 2) - 10;
 
+        assert this.client != null;
         for (int i = 0; i < 7; ++i) {
             Identifier tex = EMPTY_BUTTON;
             ButtonWidget.PressAction pressAction = null;
             int x = center;
 
             switch (i + 1) {
-                case 1: {
+                case 1 -> {
                     tex = DISCORD_BUTTON;
                     pressAction = (button) -> Util.getOperatingSystem().open("https://discord.gg/JG99fvjCtU");
                     x -= 30 * 3;
-                    break;
                 }
-                case 2: {
+                case 2 -> {
                     tex = ACCESSIBILITY_BUTTON;
                     pressAction = (button) -> this.client.setScreen(new AccessibilityOptionsScreen(this, this.client.options));
                     x -= 30 * 2;
-                    break;
                 }
-                case 3: {
+                case 3 -> {
                     tex = MODS_BUTTON;
                     pressAction = (button) -> {
-                        if(FabricLoader.getInstance().isModLoaded("modmenu")) {
+                        if (FabricLoader.getInstance().isModLoaded("modmenu")) {
                             try {
                                 Class<?> modMenuGui = Class.forName("com.terraformersmc.modmenu.gui.ModsScreen");
 
                                 this.client.setScreen((Screen) modMenuGui.getDeclaredConstructor(Screen.class).newInstance(this));
-                            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException | ClassNotFoundException | InstantiationException e) {
+                            } catch (NoSuchMethodException | InvocationTargetException | IllegalAccessException |
+                                     ClassNotFoundException | InstantiationException e) {
                                 e.printStackTrace();
                             }
                         } else {
@@ -223,32 +221,28 @@ public class FoxClientTitleScreen extends Screen {
                                 MinecraftClient.getInstance().getToastManager().add(new GayToaster(
                                         Text.of("FoxClient"), new TranslatableText("foxclient.gui.toast.modmenu.missing")));
                             }
-                        }};
+                        }
+                    };
                     x -= 30;
-                    break;
                 }
-                case 4: {
+                case 4 -> {
                     tex = REALMS_BUTTON;
                     pressAction = (button) -> this.client.setScreen(new RealmsMainScreen(this));
-                    break;
                 }
-                case 5: {
+                case 5 -> {
                     tex = FOXCLIENT_OPTIONS_BUTTON;
                     pressAction = (button) -> this.client.setScreen(new SettingsMenuScreen());
                     x += 30;
-                    break;
                 }
-                case 6: {
+                case 6 -> {
                     tex = OPTIONS_BUTTON;
                     pressAction = (button) -> this.client.setScreen(new OptionsScreen(this, this.client.options));
                     x += 30 * 2;
-                    break;
                 }
-                case 7: {
+                case 7 -> {
                     tex = EXIT_BUTTON;
                     pressAction = (button) -> this.client.scheduleStop();
                     x += 30 * 3;
-                    break;
                 }
             }
 
