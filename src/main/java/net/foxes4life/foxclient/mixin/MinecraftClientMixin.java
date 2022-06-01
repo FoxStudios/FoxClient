@@ -78,7 +78,7 @@ public abstract class MinecraftClientMixin {
 
     @Inject(at = @At("HEAD"), method = "openPauseMenu", cancellable = true)
     public void openPauseMenu(boolean pause, CallbackInfo ci) {
-        if (Main.config_instance.getBoolean("client", "customMenu")) {
+        if (Main.config_instance.getBoolean("menus", "pause")) {
             ci.cancel();
             if (MinecraftClient.getInstance().currentScreen == null) {
                 MinecraftClient.getInstance().setScreen(new FoxClientPauseMenu());

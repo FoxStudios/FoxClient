@@ -10,7 +10,10 @@ public class ConfigData {
     public ConfigData() {
         Category client = new Category("Client");
         client.addSetting("hud-enabled", new CategoryEntry<>(true, "Show HUD"));
-        client.addSetting("customMenu", new CategoryEntry<>(true, "FoxClient Menus"));
+
+        Category menus = new Category("Menus");
+        menus.addSetting("mainmenu", new CategoryEntry<>(true, "Title Screen"));
+        menus.addSetting("pause", new CategoryEntry<>(false, "Pause Screen"));
 
         Category misc = new Category("Miscellaneous");
         misc.addSetting("discord-rpc", new CategoryEntry<>(true, "Discord RPC"));
@@ -34,6 +37,7 @@ public class ConfigData {
         ingameHUD.addSetting("tps", new CategoryEntry<>(true, "TPS"));
 
         things.put("client", client);
+        things.put("menus", menus);
         things.put("ingame-hud", ingameHUD);
         things.put("misc", misc);
         things.put("eastereggs", eastereggs);
