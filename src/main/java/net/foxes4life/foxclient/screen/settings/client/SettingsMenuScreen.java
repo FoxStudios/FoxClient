@@ -78,7 +78,7 @@ public class SettingsMenuScreen extends Screen {
         if(currentCategory == null) {
             currentCategoryId = (String) categories.keySet().toArray()[0];
             currentCategory = categories.get(currentCategoryId);
-            System.out.println("new category: "+ currentCategoryId);
+//            System.out.println("new category: "+ currentCategoryId);
         }
 
         // close
@@ -114,19 +114,19 @@ public class SettingsMenuScreen extends Screen {
             settingsThing.getAndIncrement();
 
             if (Boolean.class.equals(value.getValue().getClass())) {
-                System.out.println("boolean");
+//                System.out.println("boolean");
                 this.addDrawableChild(
                         new SettingsToggleButton(sidebarWidth+2,
                                 settingsThing.get()*bHeight+32,
                                 96,
                                 bHeight,
                                 Text.of(value.name), (Boolean) value.getValue(), (b) -> {
-                            System.out.println("clicked toggle!");
+//                            System.out.println("clicked toggle!");
                             Main.config_instance.set(name, key, value.setValue(!(boolean)value.getValue()));
                             ConfigHelper.onUpdate(name, key, value.getValue());
                         }));
             } else if (String.class.equals(value.getValue().getClass())) {
-                System.out.println("string");
+//                System.out.println("string");
                 this.addDrawableChild(new ButtonWidget(0,0,0,0, Text.of(""), (b) -> {}));
             } else {
                 System.out.println("UNKNOWN: " + value.getValue().getClass());

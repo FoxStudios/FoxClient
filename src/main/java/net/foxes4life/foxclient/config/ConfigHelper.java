@@ -8,7 +8,7 @@ public class ConfigHelper {
 
     // called whenever something needs to be done extra
     public static void onUpdate(String category, String key, Object value) {
-        System.out.println("update " + category+"."+key + " to " + value);
+//        System.out.println("update " + category+"."+key + " to " + value);
         if(category.equals("misc")) {
             if(key.equals("discord-rpc")) {
                 boolean enabled = (boolean) value;
