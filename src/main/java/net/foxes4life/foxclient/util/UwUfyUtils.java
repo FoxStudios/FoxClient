@@ -1,7 +1,12 @@
 package net.foxes4life.foxclient.util;
 
+import net.foxes4life.foxclient.Main;
+
 public class UwUfyUtils {
     public static String uwufy(String in) {
+        if(!Main.config_instance.getBoolean("eastereggs", "owo"))
+            return in;
+
         in = in
                 .replace("R", "W")
                 .replace("r", "w")

@@ -12,19 +12,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class LiteralTextMixin {
     @Inject(at = @At("RETURN"), method = "asString", cancellable = true)
     private void asString(CallbackInfoReturnable<String> cir) {
-        if(Main.config_instance.getBoolean("eastereggs", "owo")) {
-            String text = cir.getReturnValue();
-            text = UwUfyUtils.uwufy(text);
-            cir.setReturnValue(text);
-        }
+        cir.setReturnValue(UwUfyUtils.uwufy(cir.getReturnValue()));
     }
 
     @Inject(at = @At("RETURN"), method = "getRawString", cancellable = true)
     private void getRawString(CallbackInfoReturnable<String> cir) {
-        if(Main.config_instance.getBoolean("eastereggs", "owo")) {
-            String text = cir.getReturnValue();
-            text = UwUfyUtils.uwufy(text);
-            cir.setReturnValue(text);
-        }
+        cir.setReturnValue(UwUfyUtils.uwufy(cir.getReturnValue()));
     }
 }
