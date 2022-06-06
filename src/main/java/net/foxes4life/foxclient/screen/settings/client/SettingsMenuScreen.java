@@ -118,7 +118,7 @@ public class SettingsMenuScreen extends Screen {
                 this.addDrawableChild(
                         new SettingsToggleButton(sidebarWidth+2,
                                 settingsThing.get()*bHeight+32,
-                                96,
+                                width - sidebarWidth - 4,
                                 bHeight,
                                 Text.of(value.name), (Boolean) value.getValue(), (b) -> {
 //                            System.out.println("clicked toggle!");

@@ -4,6 +4,7 @@ import net.foxes4life.foxclient.gui.FoxClientButton;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 
@@ -27,15 +28,7 @@ public class SettingsToggleButton extends FoxClientButton {
         MinecraftClient minecraftClient = MinecraftClient.getInstance();
         TextRenderer textRenderer = minecraftClient.textRenderer;
 
-        int color = 0x2d22e26f;
-        if(!displayValue) color = 0x2dfc2d2d;
-        if(this.isHovered()) {
-            if(!displayValue) {
-                color = 0x45fc2d2d;
-            } else {
-                color = 0x4522e26f;
-            }
-        }
+        int color = isHovered() ? 0x33FFFFFF : 0x00000000;
 
         fill(matrices, this.x, this.y, this.x + this.width, this.y + this.height, color);
         this.renderBackground(matrices, minecraftClient, mouseX, mouseY);
@@ -46,7 +39,9 @@ public class SettingsToggleButton extends FoxClientButton {
             text_alpha = 0.75f;
         }
 
-        drawCenteredText(matrices, textRenderer, this.getMessage(),
+        String text = getMessage().asString() + ": " + (displayValue ? "§aON" : "§cOFF");
+
+        drawCenteredText(matrices, textRenderer, new LiteralText(text),
                 this.x + this.width / 2,
                 this.y + (this.height - 8) / 2,
                 j | MathHelper.ceil(text_alpha * 255.0F) << 24);
