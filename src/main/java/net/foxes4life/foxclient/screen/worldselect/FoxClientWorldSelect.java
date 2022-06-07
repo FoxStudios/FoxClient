@@ -1,10 +1,11 @@
 package net.foxes4life.foxclient.screen.worldselect;
 
 import net.foxes4life.foxclient.gui.FoxClientMiniButton;
+import net.foxes4life.foxclient.util.TextUtils;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.world.CreateWorldScreen;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
 import net.minecraft.util.Identifier;
 
 public class FoxClientWorldSelect extends Screen {
@@ -17,7 +18,7 @@ public class FoxClientWorldSelect extends Screen {
     Identifier createButtonTex = new Identifier("foxclient", "textures/ui/screen/worldselect/icons/create.png");
 
     public FoxClientWorldSelect (Screen parent) {
-        super(new LiteralText("WorldSelect"));
+        super(TextUtils.string("WorldSelect"));
         this.parent = parent;
     }
 
@@ -28,31 +29,31 @@ public class FoxClientWorldSelect extends Screen {
         this.addDrawableChild(new FoxClientMiniButton(0, this.height - 32, 32, 32, 0, 0, 20, closeButtonTex, 32, 64,
                 (button) -> {
                     this.close();
-                }, new LiteralText("close")));
+                }, TextUtils.string("close")));
 
         //delete
         this.addDrawableChild(new FoxClientMiniButton(this.width - 32, this.height - 32, 32, 32, 0, 0, 20, deleteButtonTex, 32, 64,
                 (button) -> {
                     // yes
-                }, new LiteralText("delete")));
+                }, TextUtils.string("delete")));
 
         //edit
         this.addDrawableChild(new FoxClientMiniButton(this.width - 64, this.height - 32, 32, 32, 0, 0, 20, editButtonTex, 32, 64,
                 (button) -> {
                     // yes
-                }, new LiteralText("edit")));
+                }, TextUtils.string("edit")));
 
         //create
         this.addDrawableChild(new FoxClientMiniButton(this.width - 96, this.height - 32, 32, 32, 0, 0, 20, createButtonTex, 32, 64,
                 (button) -> {
-                    this.client.setScreen(CreateWorldScreen.create(this));
-                }, new LiteralText("create")));
+                    CreateWorldScreen.create(MinecraftClient.getInstance(), this);
+                }, TextUtils.string("create")));
 
         //play
         this.addDrawableChild(new FoxClientMiniButton(this.width - 128, this.height - 32, 32, 32, 0, 0, 20, playButtonTex, 32, 64,
                 (button) -> {
                     // yes
-                },  new LiteralText("play")));
+                },  TextUtils.string("play")));
     }
 
     public void close() {

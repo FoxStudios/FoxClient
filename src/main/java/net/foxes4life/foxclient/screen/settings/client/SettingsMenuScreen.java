@@ -7,6 +7,7 @@ import net.foxes4life.foxclient.config.Category;
 import net.foxes4life.foxclient.config.ConfigHelper;
 import net.foxes4life.foxclient.gui.settings.SettingsCategorySidebarButton;
 import net.foxes4life.foxclient.gui.settings.SettingsToggleButton;
+import net.foxes4life.foxclient.util.TextUtils;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
@@ -14,9 +15,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 
 import java.util.LinkedHashMap;
@@ -34,7 +33,7 @@ public class SettingsMenuScreen extends Screen {
     private boolean initDone = false; // to prevent amountOfDrawableChilds from increasing after init is done
 
     public SettingsMenuScreen() {
-        super(new LiteralText("FoxClient"));
+        super(TextUtils.string("FoxClient"));
     }
 
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
@@ -82,7 +81,7 @@ public class SettingsMenuScreen extends Screen {
         }
 
         // close
-        this.addDrawableChild(new TexturedButtonWidget(this.client.getWindow().getScaledWidth()-24, 4, 20, 20, 0, 0, 20, X_BUTTON, 32, 64, (button) -> this.close(), new TranslatableText("foxclient.gui.button.close")));
+        this.addDrawableChild(new TexturedButtonWidget(this.client.getWindow().getScaledWidth()-24, 4, 20, 20, 0, 0, 20, X_BUTTON, 32, 64, (button) -> this.close(), TextUtils.translatable("foxclient.gui.button.close")));
 
         initDone = true;
 

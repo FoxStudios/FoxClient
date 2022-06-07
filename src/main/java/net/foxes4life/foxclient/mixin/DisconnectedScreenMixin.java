@@ -1,13 +1,13 @@
 package net.foxes4life.foxclient.mixin;
 
 import net.foxes4life.foxclient.SessionConstants;
+import net.foxes4life.foxclient.util.TextUtils;
 import net.minecraft.client.gui.screen.ConnectScreen;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.ServerAddress;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -27,7 +27,7 @@ public abstract class DisconnectedScreenMixin extends Screen {
     public void init(CallbackInfo ci) {
         this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, this.height- 110,
                 200, 20,
-                new TranslatableText("foxclient.gui.button.reconnect"),
+                TextUtils.translatable("foxclient.gui.button.reconnect"),
                 (button -> {
             assert client != null;
 

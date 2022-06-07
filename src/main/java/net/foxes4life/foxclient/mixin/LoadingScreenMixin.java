@@ -1,11 +1,11 @@
 package net.foxes4life.foxclient.mixin;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import net.foxes4life.foxclient.util.TextUtils;
 import net.minecraft.client.gui.WorldGenerationProgressTracker;
 import net.minecraft.client.gui.screen.LevelLoadingScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.chunk.ChunkStatus;
@@ -32,7 +32,7 @@ public abstract class LoadingScreenMixin extends Screen{
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         ci.cancel();
         renderBackground(matrices);
-        drawTextWithShadow(matrices, textRenderer, new LiteralText("Loading World... " + MathHelper.clamp(progressProvider.getProgressPercentage(), 0, 100) + "%"), 10, this.height - 22, 0xFFFFFF);
+        drawTextWithShadow(matrices, textRenderer, TextUtils.string("Loading World... " + MathHelper.clamp(progressProvider.getProgressPercentage(), 0, 100) + "%"), 10, this.height - 22, 0xFFFFFF);
         this.progress = MathHelper.clamp(this.progress * 0.95F + (progressProvider.getProgressPercentage()/ 100f) * 0.2F, 0.0F, 1.0F);
         fill(matrices, 0, this.height - 3, (int) (this.width * progress), this.height, 0xFFFFFFFF);
         drawChunkThing(matrices, progressProvider);

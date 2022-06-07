@@ -11,6 +11,7 @@ import net.foxes4life.foxclient.gui.FoxClientButton;
 import net.foxes4life.foxclient.gui.FoxClientMiniButton;
 import net.foxes4life.foxclient.gui.bundering.GayToaster;
 import net.foxes4life.foxclient.screen.settings.client.SettingsMenuScreen;
+import net.foxes4life.foxclient.util.TextUtils;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.CreditsScreen;
@@ -24,9 +25,7 @@ import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.toast.*;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
@@ -55,7 +54,7 @@ public class FoxClientTitleScreen extends Screen {
     //private static final Identifier UPDATE_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
 
 
-    private static final Text mojangCopyrightText = new LiteralText("Copyright Mojang AB. Do not distribute!");
+    private static final Text mojangCopyrightText = TextUtils.string("Copyright Mojang AB. Do not distribute!");
     private int mojangCopyrightTextWidth;
     private int mojangCopyrightTextX;
 
@@ -67,7 +66,7 @@ public class FoxClientTitleScreen extends Screen {
     private long backgroundFadeStart;
 
     public FoxClientTitleScreen(boolean doBackgroundFade) {
-        super(new LiteralText("FoxClient"));
+        super(TextUtils.string("FoxClient"));
         this.doBackgroundFade = doBackgroundFade;
     }
 
@@ -92,14 +91,14 @@ public class FoxClientTitleScreen extends Screen {
         BACKGROUND = new Identifier("foxclient", "textures/ui/title/bg/" + backgroundIndex + ".png");
 
         // VANILLA BUTTONS
-        this.addDrawableChild(new FoxClientButton(this.width / 2 - 100, y, 200, 20, new TranslatableText("menu.singleplayer"),
+        this.addDrawableChild(new FoxClientButton(this.width / 2 - 100, y, 200, 20, TextUtils.translatable("menu.singleplayer"),
                 (button) -> {
                     assert this.client != null;
                     this.client.setScreen(new SelectWorldScreen(this));
                 })
         );
 
-        this.addDrawableChild(new FoxClientButton(this.width / 2 - 100, y + spacingY, 200, 20, new TranslatableText("menu.multiplayer"), (button) -> this.client.setScreen(new MultiplayerScreen(this))));
+        this.addDrawableChild(new FoxClientButton(this.width / 2 - 100, y + spacingY, 200, 20, TextUtils.translatable("menu.multiplayer"), (button) -> this.client.setScreen(new MultiplayerScreen(this))));
 
         loadMiniButtons();
 
@@ -146,7 +145,7 @@ public class FoxClientTitleScreen extends Screen {
         int transparent = MathHelper.ceil(0.5f * 255.0F) << 24;
 
         // -> copyright
-        drawStringWithShadow(matrices, this.textRenderer, mojangCopyrightText.asString(), this.mojangCopyrightTextX, this.height - 10, 16777215 | transparent);
+        drawStringWithShadow(matrices, this.textRenderer, mojangCopyrightText.getString(), this.mojangCopyrightTextX, this.height - 10, 16777215 | transparent);
         // -> copyright hover
         if (mouseX > this.mojangCopyrightTextX && mouseX < this.mojangCopyrightTextX + this.mojangCopyrightTextWidth && mouseY > this.height - 10 && mouseY < this.height) {
             fill(matrices, this.mojangCopyrightTextX, this.height - 1, this.mojangCopyrightTextX + this.mojangCopyrightTextWidth, this.height, 16777215 | transparent);
@@ -219,7 +218,7 @@ public class FoxClientTitleScreen extends Screen {
                             GayToaster toaster = MinecraftClient.getInstance().getToastManager().getToast(GayToaster.class, Toast.TYPE);
                             if (toaster == null) {
                                 MinecraftClient.getInstance().getToastManager().add(new GayToaster(
-                                        Text.of("FoxClient"), new TranslatableText("foxclient.gui.toast.modmenu.missing")));
+                                        Text.of("FoxClient"), TextUtils.translatable("foxclient.gui.toast.modmenu.missing")));
                             }
                         }
                     };
@@ -246,7 +245,7 @@ public class FoxClientTitleScreen extends Screen {
                 }
             }
 
-            this.addDrawableChild(new FoxClientMiniButton(x, y + spacingY * 2, 20, 20,0,0,20, tex, 32, 64, pressAction, new TranslatableText("")));
+            this.addDrawableChild(new FoxClientMiniButton(x, y + spacingY * 2, 20, 20,0,0,20, tex, 32, 64, pressAction, TextUtils.translatable("")));
         }
     }
 }
