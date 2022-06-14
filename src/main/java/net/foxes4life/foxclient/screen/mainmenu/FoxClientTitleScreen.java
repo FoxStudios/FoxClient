@@ -35,7 +35,7 @@ import java.lang.reflect.InvocationTargetException;
 @Environment(EnvType.CLIENT)
 public class FoxClientTitleScreen extends Screen {
     private static int backgroundIndex = 0;
-    private static final int backgroundAmount = 2;
+    private static final int backgroundAmount = 3;
 
     // ui
     private static Identifier BACKGROUND = new Identifier("foxclient", "textures/ui/title/0.png");
