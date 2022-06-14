@@ -18,6 +18,7 @@ public class ConfigData {
         Category misc = new Category("Miscellaneous");
         misc.addSetting("discord-rpc", new CategoryEntry<>(true, "Discord RPC"));
         misc.addSetting("discord-rpc-show-ip", new CategoryEntry<>(true, "RPC: Show Server IP"));
+        misc.addSetting("smooth-zoom", new CategoryEntry<>(true, "Smooth Zoom"));
 
         Category debug = new Category("Debug");
         debug.addSetting("boolean-uwu", new CategoryEntry<>(true, "Boolean Test"));
