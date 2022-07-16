@@ -1,6 +1,7 @@
 package net.foxes4life.foxclient.util;
 
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.foxes4life.foxclient.Main;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.util.math.MathHelper;
@@ -38,6 +39,8 @@ public class ZoomUtils {
     }
 
     public static void calculateZoom(CallbackInfoReturnable<Double> cir) {
-        ZoomUtils.actualZoomLevel = MathHelper.lerp(0.05f, ZoomUtils.actualZoomLevel, ZoomUtils.currentZoomLevel);
+        ZoomUtils.actualZoomLevel = (boolean)Main.konfig.get("misc", "smoothzoom") ?
+                MathHelper.lerp(0.05f, ZoomUtils.actualZoomLevel, ZoomUtils.currentZoomLevel) :
+                ZoomUtils.currentZoomLevel;
     }
 }
