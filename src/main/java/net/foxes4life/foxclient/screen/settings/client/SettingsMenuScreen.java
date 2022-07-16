@@ -3,11 +3,11 @@ package net.foxes4life.foxclient.screen.settings.client;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.foxes4life.foxclient.Main;
-import net.foxes4life.foxclient.config.Category;
-import net.foxes4life.foxclient.config.ConfigHelper;
 import net.foxes4life.foxclient.gui.settings.SettingsCategorySidebarButton;
 import net.foxes4life.foxclient.gui.settings.SettingsToggleButton;
+import net.foxes4life.foxclient.util.ConfigUtils;
 import net.foxes4life.foxclient.util.TextUtils;
+import net.foxes4life.konfig.data.KonfigCategory;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
@@ -18,6 +18,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -26,7 +28,7 @@ public class SettingsMenuScreen extends Screen {
     private static final Identifier X_BUTTON = new Identifier("foxclient", "textures/ui/buttons/x.png");
 
     private static String currentCategoryId;
-    private static Category currentCategory;
+    private static KonfigCategory currentCategory;
 
     private static final int sidebarWidth = 64+16;
     private int amountOfDrawableChilds = 0; // set amount of buttons created in init() here (excluding the ones in the loop)
@@ -48,7 +50,7 @@ public class SettingsMenuScreen extends Screen {
         assert this.client != null;
         this.client.keyboard.setRepeatEvents(true);
 
-        LinkedHashMap<String, Category> categories = Main.config.things;
+        HashMap<String, KonfigCategory> categories = Main.konfig.getData();
 
         AtomicInteger cat = new AtomicInteger();
 
@@ -58,7 +60,7 @@ public class SettingsMenuScreen extends Screen {
                     cat.get() *22+6,
                     sidebarWidth,
                     22,
-                    Text.of(category.name),
+                    ConfigUtils.translatableCategory(category),
                     false,
                     name,
                     (button) -> {
@@ -96,7 +98,7 @@ public class SettingsMenuScreen extends Screen {
         }
     }
 
-    private void addCategoryButtons(String name, Category category) {
+    private void addCategoryButtons(String name, KonfigCategory category) {
         if(currentCategory != null) {
             for (Object o : this.children().subList(amountOfDrawableChilds, this.children().size()).toArray()) {
                 this.remove((Element) o);
@@ -109,26 +111,30 @@ public class SettingsMenuScreen extends Screen {
         AtomicInteger settingsThing = new AtomicInteger(0);
 
         int bHeight = 22;
-        currentCategory.settings.forEach((key, value) -> {
+        currentCategory.catData.forEach((key, value) -> {
             settingsThing.getAndIncrement();
 
-            if (Boolean.class.equals(value.getValue().getClass())) {
+            if (Boolean.class.equals(value.value.getClass())) {
 //                System.out.println("boolean");
                 this.addDrawableChild(
                         new SettingsToggleButton(sidebarWidth+2,
                                 settingsThing.get()*bHeight+32,
                                 width - sidebarWidth - 4,
                                 bHeight,
-                                Text.of(value.name), (Boolean) value.getValue(), (b) -> {
+                                ConfigUtils.translatableEntry(category, value), (Boolean) value.value, (b) -> {
 //                            System.out.println("clicked toggle!");
-                            Main.config_instance.set(name, key, value.setValue(!(boolean)value.getValue()));
-                            ConfigHelper.onUpdate(name, key, value.getValue());
+                            Main.konfig.set(name, key, !(boolean)value.value);
+                            try {
+                                Main.konfig.save();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }));
-            } else if (String.class.equals(value.getValue().getClass())) {
+            } else if (String.class.equals(value.value.getClass())) {
 //                System.out.println("string");
                 this.addDrawableChild(new ButtonWidget(0,0,0,0, Text.of(""), (b) -> {}));
             } else {
-                System.out.println("UNKNOWN: " + value.getValue().getClass());
+                System.out.println("UNKNOWN: " + value.value.getClass());
                 // add dummy to avoid crashes
                 this.addDrawableChild(new ButtonWidget(0,0,0,0, Text.of("a"), (b) -> {}));
             }

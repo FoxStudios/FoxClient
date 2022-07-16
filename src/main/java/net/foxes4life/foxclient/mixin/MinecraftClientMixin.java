@@ -52,7 +52,7 @@ public abstract class MinecraftClientMixin {
 
         ClientPlayNetworkHandler clientPlayNetworkHandler = MinecraftClient.getInstance().getNetworkHandler();
 
-        if(Main.config_instance.getBoolean("misc", "discord-rpc")) {
+        if((boolean)Main.konfig.get("misc", "discord-rpc")) {
             PresenceUpdater.setState(DiscordMinecraftClient.getState(clientPlayNetworkHandler));
         }
 
@@ -63,7 +63,7 @@ public abstract class MinecraftClientMixin {
             } else if(MinecraftClient.getInstance().isConnectedToRealms()) {
                 title += I18n.translate("title.multiplayer.realms");
             } else if(this.server == null && (this.currentServerEntry == null || ! this.currentServerEntry.isLocal())) {
-                if(this.currentServerEntry != null && this.currentServerEntry.address != null || Main.config_instance.getBoolean("misc", "discord-rpc-show-ip")) {
+                if(this.currentServerEntry != null && this.currentServerEntry.address != null || (boolean)Main.konfig.get("misc", "discord-rpc-show-ip")) {
                     title += I18n.translate("title.multiplayer.other2", this.currentServerEntry.address);
                 } else {
                     title += I18n.translate("title.multiplayer.other");
@@ -78,7 +78,7 @@ public abstract class MinecraftClientMixin {
 
     @Inject(at = @At("HEAD"), method = "openPauseMenu", cancellable = true)
     public void openPauseMenu(boolean pause, CallbackInfo ci) {
-        if (Main.config_instance.getBoolean("menus", "pause")) {
+        if ((boolean)Main.konfig.get("menus", "pause")) {
             ci.cancel();
             if (MinecraftClient.getInstance().currentScreen == null) {
                 MinecraftClient.getInstance().setScreen(new FoxClientPauseMenu());

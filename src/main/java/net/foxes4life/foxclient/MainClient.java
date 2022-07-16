@@ -14,6 +14,8 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import org.lwjgl.glfw.GLFW;
 
+import java.io.IOException;
+
 public class MainClient implements ClientModInitializer {
     private static final KeyBinding toggleHud = new KeyBinding("key.foxclient.toggle_hud", GLFW.GLFW_KEY_F6, "category.foxclient.main");
     private static final KeyBinding clientConfig = new KeyBinding("key.foxclient.configKey", GLFW.GLFW_KEY_RIGHT_CONTROL, "category.foxclient.main");
@@ -33,8 +35,10 @@ public class MainClient implements ClientModInitializer {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (toggleHud.wasPressed()) {
-                Main.config_instance.set("client", "hud-enabled",
-                        Main.config_instance.getEntry("client", "hud-enabled").setValue(!Main.config_instance.getBoolean("client", "hud-enabled")));
+                Main.konfig.set("client", "hud-enabled", !(boolean) Main.konfig.get("client", "hud-enabled"));
+                try {
+                    Main.konfig.save();
+                } catch (IOException ignored) {}
             }
         });
 

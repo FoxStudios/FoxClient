@@ -38,5 +38,27 @@
   "foxclient.rpc.state.lan": "Playing on a LAN game",
   "foxclient.rpc.state.multiplayer": "Playing on %s",
   "foxclient.rpc.state.multiplayer.hide_ip": "Playing Multiplayer",
-  "foxclient.rpc.state.realms": "Playing on a Realm"
+  "foxclient.rpc.state.realms": "Playing on a Realm",
+
+  "foxclient.config.ingame-hud": "In-Game HUD",
+  "foxclient.config.client": "Client",
+  "foxclient.config.eastereggs": "EasterEggs",
+  "foxclient.config.menus": "Custom Menus",
+  "foxclient.config.misc": "Miscellaneous",
+
+  "foxclient.config.ingame-hud.ping": "Ping",
+  "foxclient.config.ingame-hud.tps": "TPS",
+  "foxclient.config.ingame-hud.fps": "FPS",
+  "foxclient.config.ingame-hud.version": "Version",
+  "foxclient.config.ingame-hud.coords": "XYZ",
+
+  "foxclient.config.client.hud-enabled" : "Enable In-Game HUD",
+
+  "foxclient.config.eastereggs.owo": "OwO",
+
+  "foxclient.config.menus.mainmenu": "Main Menu",
+  "foxclient.config.menus.pause": "Pause Menu",
+
+  "foxclient.config.misc.discord-rpc": "DiscordRPC - Enabled",
+  "foxclient.config.misc.discord-rpc-show-ip": "DiscordRPC - Show IP"
 }

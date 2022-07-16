@@ -26,7 +26,7 @@ public class Discord implements ReadyCallback {
                 }
             }
 
-            if(Main.config_instance.getBoolean("misc", "discord-rpc")) {
+            if((boolean)Main.konfig.get("misc", "discord-rpc")) {
                 System.out.println("yes");
                 try {
                     System.out.println("init dc");
@@ -72,7 +72,7 @@ public class Discord implements ReadyCallback {
             return;
         }
 
-        if(Main.config_instance.getBoolean("misc", "discord-rpc")) {
+        if((boolean)Main.konfig.get("misc", "discord-rpc")) {
             if (START_TIME == 0L) {
                 START_TIME = System.currentTimeMillis();
             }
@@ -85,7 +85,7 @@ public class Discord implements ReadyCallback {
     }
 
     private void runCallback() {
-        if(Main.config_instance.getBoolean("misc", "discord-rpc")) {
+        if((boolean)Main.konfig.get("misc", "discord-rpc")) {
             DiscordRPC.discordRunCallbacks();
         }
     }

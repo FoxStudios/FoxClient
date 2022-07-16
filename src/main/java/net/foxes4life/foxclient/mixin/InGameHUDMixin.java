@@ -18,7 +18,7 @@ public class InGameHUDMixin {
 
     @Inject(at = @At("HEAD"), method = "render")
     public void render(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
-        if(Main.config_instance.getBoolean("client", "hud-enabled")) {
+        if((boolean) Main.konfig.get("client", "hud-enabled")) {
             new FoxClientHUD(this.client).render(matrices);
         }
     }
