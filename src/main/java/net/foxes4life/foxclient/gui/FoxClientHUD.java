@@ -11,6 +11,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -54,6 +55,7 @@ public class FoxClientHUD extends DrawableHelper {
         boolean fps = (boolean) Main.konfig.get("ingame-hud", "fps");
         boolean ping = (boolean) Main.konfig.get("ingame-hud", "ping");
         boolean tps = (boolean) Main.konfig.get("ingame-hud", "tps");
+        boolean server = (boolean) Main.konfig.get("ingame-hud", "server");
 
 
         if (version)
@@ -72,6 +74,13 @@ public class FoxClientHUD extends DrawableHelper {
 
         if (tps)
             textList.add(TextUtils.string(String.format("[TPS] " + ServerTickUtils.calculateServerTPS())));
+
+        if (server)
+            if (MinecraftClient.getInstance().getCurrentServerEntry() != null) {
+                textList.add(TextUtils.string(String.format("[IP] " + MinecraftClient.getInstance().getCurrentServerEntry().address)));
+            } else {
+                textList.add(TextUtils.string("[IP] " + I18n.translate("menu.singleplayer")));
+            }
 
         for (Text text : textList) {
             boxHeight += 10;

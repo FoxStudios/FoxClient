@@ -39,7 +39,7 @@ public class ZoomUtils {
     }
 
     public static void calculateZoom(CallbackInfoReturnable<Double> cir) {
-        ZoomUtils.actualZoomLevel = (boolean)Main.konfig.get("misc", "smoothzoom") ?
+        ZoomUtils.actualZoomLevel = (boolean)Main.konfig.get("misc", "zoom") ?
                 MathHelper.lerp(0.05f, ZoomUtils.actualZoomLevel, ZoomUtils.currentZoomLevel) :
                 ZoomUtils.currentZoomLevel;
     }

@@ -41,7 +41,7 @@ public class Main implements ModInitializer {
         KonfigCategory misc = new KonfigCategory("misc");
         misc.addEntry("discord-rpc", true);
         misc.addEntry("discord-rpc-show-ip", true);
-        misc.addEntry("smoothzoom", true);
+        misc.addEntry("zoom", true);
 
         KonfigCategory eastereggs = new KonfigCategory("eastereggs");
         eastereggs.addEntry("owo", false);
@@ -52,6 +52,7 @@ public class Main implements ModInitializer {
         ingameHUD.addEntry("fps", true);
         ingameHUD.addEntry("ping", true);
         ingameHUD.addEntry("tps", true);
+        ingameHUD.addEntry("server", true);
 
         konfig.addCategory(client);
         konfig.addCategory(menus);
