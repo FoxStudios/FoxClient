@@ -45,7 +45,7 @@
   "foxclient.config.eastereggs": "EasterEggs",
   "foxclient.config.menus": "Custom Menus",
   "foxclient.config.misc": "Miscellaneous",
-  "foxclient.config.misc.zoom": "Enable Smooth Zoom",
+  "foxclient.config.misc.smoothzoom": "Enable Smooth Zoom",
 
   "foxclient.config.ingame-hud.ping": "Ping",
   "foxclient.config.ingame-hud.tps": "TPS",
