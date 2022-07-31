@@ -45,12 +45,14 @@
   "foxclient.config.eastereggs": "EasterEggs",
   "foxclient.config.menus": "Custom Menus",
   "foxclient.config.misc": "Miscellaneous",
+  "foxclient.config.misc.smoothzoom": "Enable Smooth Zoom",
 
   "foxclient.config.ingame-hud.ping": "Ping",
   "foxclient.config.ingame-hud.tps": "TPS",
   "foxclient.config.ingame-hud.fps": "FPS",
   "foxclient.config.ingame-hud.version": "Version",
   "foxclient.config.ingame-hud.coords": "XYZ",
+  "foxclient.config.ingame-hud.server": "Server",
 
   "foxclient.config.client.hud-enabled" : "Enable In-Game HUD",
 
