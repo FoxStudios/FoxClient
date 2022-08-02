@@ -52,6 +52,7 @@ public class FoxClientHUD extends DrawableHelper {
     void loadList () {
         boolean version = (boolean) Main.konfig.get("ingame-hud", "version");
         boolean coords = (boolean) Main.konfig.get("ingame-hud", "coords");
+        boolean colorcoords = (boolean) Main.konfig.get("ingame-hud", "colored-coords");
         boolean fps = (boolean) Main.konfig.get("ingame-hud", "fps");
         boolean ping = (boolean) Main.konfig.get("ingame-hud", "ping");
         boolean tps = (boolean) Main.konfig.get("ingame-hud", "tps");
@@ -63,7 +64,7 @@ public class FoxClientHUD extends DrawableHelper {
 
         if (coords) {
             assert this.client.player != null;
-            textList.add(TextUtils.string(String.format("[XYZ] %s %s %s", this.client.player.getBlockPos().getX(), this.client.player.getBlockPos().getY(), this.client.player.getBlockPos().getZ())));
+            textList.add(TextUtils.string(String.format("[XYZ] " + (colorcoords ? "§c%s §a%s §9%s" : "%s %s %s"), this.client.player.getBlockPos().getX(), this.client.player.getBlockPos().getY(), this.client.player.getBlockPos().getZ())));
         }
 
         if (fps)

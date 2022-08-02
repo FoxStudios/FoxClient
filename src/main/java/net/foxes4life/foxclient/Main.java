@@ -49,6 +49,7 @@ public class Main implements ModInitializer {
         KonfigCategory ingameHUD = new KonfigCategory("ingame-hud");
         ingameHUD.addEntry("version", true);
         ingameHUD.addEntry("coords", true);
+        ingameHUD.addEntry("colored-coords", false);
         ingameHUD.addEntry("fps", true);
         ingameHUD.addEntry("ping", true);
         ingameHUD.addEntry("tps", true);
