@@ -32,8 +32,8 @@ public class SettingsCategorySidebarButton extends FoxClientButton {
         MinecraftClient minecraftClient = MinecraftClient.getInstance();
         TextRenderer textRenderer = minecraftClient.textRenderer;
 
-        int color = 0x2dffffff;
-        if(this.isHovered() || this.selected) color = 0x45ffffff;
+        int color = 0x11ffffff;
+//        if(this.isHovered() || this.selected) color = 0x45ffffff;
         fill(matrices, this.x, this.y, this.x + this.width, this.y + this.height, color);
         this.renderBackground(matrices, minecraftClient, mouseX, mouseY);
         int j = this.active ? 16777215 : 10526880;

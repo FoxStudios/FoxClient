@@ -8,6 +8,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 
+import java.awt.*;
+
 public class SettingsToggleButton extends FoxClientButton {
     public boolean displayValue;
 
@@ -28,9 +30,7 @@ public class SettingsToggleButton extends FoxClientButton {
         MinecraftClient minecraftClient = MinecraftClient.getInstance();
         TextRenderer textRenderer = minecraftClient.textRenderer;
 
-        int color = isHovered() ? 0x33FFFFFF : 0x00000000;
-
-        fill(matrices, this.x, this.y, this.x + this.width, this.y + this.height, color);
+        fill(matrices, this.x, this.y, this.x + this.width, this.y + this.height, 0x00000000);
         this.renderBackground(matrices, minecraftClient, mouseX, mouseY);
         int j = this.active ? 16777215 : 10526880;
 

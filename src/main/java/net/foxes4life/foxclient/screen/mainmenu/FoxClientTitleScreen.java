@@ -11,6 +11,7 @@ import net.foxes4life.foxclient.gui.FoxClientButton;
 import net.foxes4life.foxclient.gui.FoxClientMiniButton;
 import net.foxes4life.foxclient.gui.bundering.GayToaster;
 import net.foxes4life.foxclient.screen.settings.client.SettingsMenuScreen;
+import net.foxes4life.foxclient.util.BackgroundUtils;
 import net.foxes4life.foxclient.util.TextUtils;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
@@ -34,11 +35,8 @@ import java.lang.reflect.InvocationTargetException;
 
 @Environment(EnvType.CLIENT)
 public class FoxClientTitleScreen extends Screen {
-    private static int backgroundIndex = 0;
-    private static final int backgroundAmount = 3;
 
     // ui
-    private static Identifier BACKGROUND = new Identifier("foxclient", "textures/ui/title/0.png");
     private static final Identifier BUTTON_BOX = new Identifier("foxclient", "textures/ui/main_box.png");
     private static final Identifier FOMX = new Identifier("foxclient", "textures/ui/title/fomx.png");
     // bg
@@ -86,9 +84,7 @@ public class FoxClientTitleScreen extends Screen {
         int y = this.height / 2 + 10;
         int spacingY = 24;
 
-        backgroundIndex++;
-        if(backgroundIndex >= backgroundAmount) backgroundIndex = 0;
-        BACKGROUND = new Identifier("foxclient", "textures/ui/title/bg/" + backgroundIndex + ".png");
+        BackgroundUtils.selectBackground();
 
         // VANILLA BUTTONS
         this.addDrawableChild(new FoxClientButton(this.width / 2 - 100, y, 200, 20, TextUtils.translatable("menu.singleplayer"),
@@ -117,12 +113,7 @@ public class FoxClientTitleScreen extends Screen {
         float f = this.doBackgroundFade ? (float)(Util.getMeasuringTimeMs() - this.backgroundFadeStart) / 1000.0F : 1.0F;
 
         // draw background
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, BACKGROUND);
-        RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.doBackgroundFade ? (float) MathHelper.ceil(MathHelper.clamp(f, 0.0F, 1.0F)) : 1.0F);
-        drawTexture(matrices, 0, 0, this.width, this.height, 0.0F, 0.0F, 16, 128, 16, 128);
+        BackgroundUtils.drawRandomBackground(matrices, this.width, this.height);
 
         // draw button box
         RenderSystem.setShader(GameRenderer::getPositionTexShader);

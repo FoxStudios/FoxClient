@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.gui.settings.SettingsCategorySidebarButton;
 import net.foxes4life.foxclient.gui.settings.SettingsToggleButton;
+import net.foxes4life.foxclient.util.BackgroundUtils;
 import net.foxes4life.foxclient.util.ConfigUtils;
 import net.foxes4life.foxclient.util.TextUtils;
 import net.foxes4life.konfig.data.KonfigCategory;
@@ -15,12 +16,15 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.OrderedText;
+import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.MathHelper;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Environment(EnvType.CLIENT)
@@ -29,8 +33,17 @@ public class SettingsMenuScreen extends Screen {
 
     private static String currentCategoryId;
     private static KonfigCategory currentCategory;
+    HashMap<String, KonfigCategory> categories;
+
+    static int currentSelectedCat = 0;
+    static int catSelectBgY = 0;
+    static int catSelectBgYGoal = 0;
+
+    static int entryHoverBgY = 0;
+    static int entryHoverBgYGoal = 0;
 
     private static final int sidebarWidth = 64+16;
+
     private int amountOfDrawableChilds = 0; // set amount of buttons created in init() here (excluding the ones in the loop)
     private boolean initDone = false; // to prevent amountOfDrawableChilds from increasing after init is done
 
@@ -42,22 +55,20 @@ public class SettingsMenuScreen extends Screen {
         return super.mouseScrolled(mouseX, mouseY, amount);
     }
 
-    public void tick() {
-
-    }
+    public void tick() {}
 
     protected void init() {
         assert this.client != null;
         this.client.keyboard.setRepeatEvents(true);
 
-        HashMap<String, KonfigCategory> categories = Main.konfig.getData();
+        categories = Main.konfig.getData();
 
         AtomicInteger cat = new AtomicInteger();
 
         categories.forEach((name, category) -> {
             cat.getAndIncrement();
             this.addDrawableChild(new SettingsCategorySidebarButton(0,
-                    cat.get() *22+6,
+                    cat.get() *22,
                     sidebarWidth,
                     22,
                     ConfigUtils.translatableCategory(category),
@@ -71,12 +82,13 @@ public class SettingsMenuScreen extends Screen {
                         }
 
                         ((SettingsCategorySidebarButton) button).selected = true;
-                addCategoryButtons(name, category);
-            }
+                        addCategoryButtons(name, category);
+                    }
             ));
         });
 
         if(currentCategory == null) {
+            currentSelectedCat = 0;
             currentCategoryId = (String) categories.keySet().toArray()[0];
             currentCategory = categories.get(currentCategoryId);
 //            System.out.println("new category: "+ currentCategoryId);
@@ -155,10 +167,33 @@ public class SettingsMenuScreen extends Screen {
 
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         assert this.client != null;
-        fill(matrices, 0, 0, this.client.getWindow().getScaledWidth(), this.client.getWindow().getScaledHeight(), 0xFF282828);
-        fill(matrices, 0, 0, sidebarWidth, this.client.getWindow().getScaledHeight(), 0xFF383838);
 
-        drawStringWithShadow(matrices, this.textRenderer, "FoxClient Settings", 96, 10, 0xffffff);
+        BackgroundUtils.drawRandomBackground(matrices, this.width, this.height);
+        fill(matrices, 0, 0, this.width, this.height, 0x44000000);
+        fill(matrices, 0, 0, sidebarWidth, this.height, 0x44000000);
+
+        int i = 0;
+        for (Map.Entry<String, KonfigCategory> entry : categories.entrySet()) {
+            if (entry.getKey().equals(currentCategoryId)) {
+                catSelectBgYGoal = (i * 22) + 22;
+                catSelectBgY = (int) Math.round(MathHelper.lerp(0.60, catSelectBgY, catSelectBgYGoal));
+                fill(matrices, 0, catSelectBgY, sidebarWidth, catSelectBgY + 22, 0x44ffffff);
+            }
+
+            i++;
+        }
+
+        for (Element child : children()) {
+            if (child instanceof SettingsToggleButton) {
+                if (((SettingsToggleButton) child).isHovered()) {
+                    entryHoverBgYGoal = ((SettingsToggleButton) child).y;
+                    entryHoverBgY = (int) Math.round(MathHelper.lerp(0.60, entryHoverBgY, entryHoverBgYGoal));
+                    fill(matrices, sidebarWidth + 2, entryHoverBgY, this.client.getWindow().getScaledWidth() - 2, entryHoverBgY + 22, 0x44ffffff);
+                }
+            }
+        }
+
+        drawCenteredTextWithShadow(matrices, this.textRenderer, OrderedText.styledForwardsVisitedString("FoxClient Settings", Style.EMPTY), ((this.client.getWindow().getScaledWidth() - sidebarWidth) / 2) + sidebarWidth, 20, 0xffffff);
 
         assert this.client != null;
 
