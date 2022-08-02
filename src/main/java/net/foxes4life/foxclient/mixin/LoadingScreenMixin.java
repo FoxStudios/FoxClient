@@ -33,7 +33,7 @@ public abstract class LoadingScreenMixin extends Screen{
         ci.cancel();
         renderBackground(matrices);
         drawTextWithShadow(matrices, textRenderer, TextUtils.string("Loading World... " + MathHelper.clamp(progressProvider.getProgressPercentage(), 0, 100) + "%"), 10, this.height - 22, 0xFFFFFF);
-        this.progress = MathHelper.clamp(this.progress * 0.95F + (progressProvider.getProgressPercentage()/ 100f) * 0.2F, 0.0F, 1.0F);
+        this.progress = MathHelper.lerp(0.88f, progress, this.progress * 0.95F + (progressProvider.getProgressPercentage()/ 100f) * 0.2F);
         fill(matrices, 0, this.height - 3, (int) (this.width * progress), this.height, 0xFFFFFFFF);
         drawChunkThing(matrices, progressProvider);
     }
