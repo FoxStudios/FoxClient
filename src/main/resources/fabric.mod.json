@@ -9,7 +9,8 @@
   ],
   "contact": {
     "homepage": "https://client.foxes4life.net/",
-    "sources": "https://github.com/FoxStudios/FoxClient"
+    "sources": "https://github.com/FoxStudios/FoxClient",
+    "issues": "https://github.com/FoxStudios/FoxClient/issues"
   },
   "license": "MIT",
   "icon": "assets/foxclient/icon.png",
