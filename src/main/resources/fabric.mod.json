@@ -3,16 +3,15 @@
   "id": "foxclient",
   "version": "${version}",
   "name": "FoxClient",
-  "description": "stoopid uwu",
+  "description": "A Fabric (and Quilt) Mod that changes the look of the Minecraft UI and adds some features.",
   "authors": [
-    "Rooot",
-    "Flustix"
+    "FoxStudios"
   ],
   "contact": {
     "homepage": "https://client.foxes4life.net/",
     "sources": "https://github.com/FoxStudios/FoxClient"
   },
-  "license": "GPLv3",
+  "license": "MIT",
   "icon": "assets/foxclient/icon.png",
   "environment": "client",
   "entrypoints": {
@@ -37,7 +36,7 @@
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.discord": "https://discord.gg/GaKKeWg"
+        "modmenu.discord": "https://discord.gg/JG99fvjCtU"
       }
     }
   }
