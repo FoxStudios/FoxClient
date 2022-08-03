@@ -4,6 +4,9 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.foxes4life.konfig.Konfig;
 import net.foxes4life.konfig.data.KonfigCategory;
+import net.minecraft.client.gui.screen.SplashOverlay;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Main implements ModInitializer {
     public static final String FOXCLIENT_MOD_ID = "foxclient";
@@ -11,6 +14,8 @@ public class Main implements ModInitializer {
     public static String JAVA_VERSION = "unknown";
 
     public static Konfig konfig;
+
+    public static final Logger LOGGER = LoggerFactory.getLogger(FOXCLIENT_MOD_ID);
 
     @Override
     public void onInitialize() {
@@ -24,8 +29,7 @@ public class Main implements ModInitializer {
             JAVA_VERSION = FabricLoader.getInstance().getModContainer("java").get().getMetadata().getVersion().getFriendlyString();
         }
 
-        System.out.println("FoxClient (recode) by Rooot and Flustix");
-        System.out.println(Main.VERSION);
+        LOGGER.info("FoxClient " + Main.VERSION + " by FoxStudios");
     }
 
     void initConfig () {

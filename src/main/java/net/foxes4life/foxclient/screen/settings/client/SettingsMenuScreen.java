@@ -36,10 +36,10 @@ public class SettingsMenuScreen extends Screen {
     LinkedHashMap<String, KonfigCategory> categories;
 
     static int currentSelectedCat = 0;
-    static int catSelectBgY = 0;
+    static double catSelectBgY = 0;
     static int catSelectBgYGoal = 0;
 
-    static int entryHoverBgY = 0;
+    static double entryHoverBgY = 0;
     static int entryHoverBgYGoal = 0;
 
     private static final int sidebarWidth = 64+16;
@@ -176,8 +176,8 @@ public class SettingsMenuScreen extends Screen {
         for (Map.Entry<String, KonfigCategory> entry : categories.entrySet()) {
             if (entry.getKey().equals(currentCategoryId)) {
                 catSelectBgYGoal = (i * 22) + 22;
-                catSelectBgY = (int) Math.round(MathHelper.lerp(0.60, catSelectBgY, catSelectBgYGoal));
-                fill(matrices, 0, catSelectBgY, sidebarWidth, catSelectBgY + 22, 0x44ffffff);
+                catSelectBgY = MathHelper.lerp(delta * 1.2, catSelectBgY, catSelectBgYGoal);
+                fill(matrices, 0, (int)catSelectBgY, sidebarWidth, (int)catSelectBgY + 22, 0x44ffffff);
             }
 
             i++;
@@ -187,8 +187,8 @@ public class SettingsMenuScreen extends Screen {
             if (child instanceof SettingsToggleButton) {
                 if (((SettingsToggleButton) child).isHovered()) {
                     entryHoverBgYGoal = ((SettingsToggleButton) child).y;
-                    entryHoverBgY = (int) Math.round(MathHelper.lerp(0.60, entryHoverBgY, entryHoverBgYGoal));
-                    fill(matrices, sidebarWidth + 2, entryHoverBgY, this.client.getWindow().getScaledWidth() - 2, entryHoverBgY + 22, 0x44ffffff);
+                    entryHoverBgY = MathHelper.lerp(delta * 1.2, entryHoverBgY, entryHoverBgYGoal);
+                    fill(matrices, sidebarWidth + 2, (int)entryHoverBgY, this.client.getWindow().getScaledWidth() - 2, (int)entryHoverBgY + 22, 0x44ffffff);
                 }
             }
         }
