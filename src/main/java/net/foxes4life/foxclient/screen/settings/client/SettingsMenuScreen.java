@@ -23,7 +23,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -33,7 +33,7 @@ public class SettingsMenuScreen extends Screen {
 
     private static String currentCategoryId;
     private static KonfigCategory currentCategory;
-    HashMap<String, KonfigCategory> categories;
+    LinkedHashMap<String, KonfigCategory> categories;
 
     static int currentSelectedCat = 0;
     static int catSelectBgY = 0;
