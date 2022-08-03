@@ -11,7 +11,7 @@ import static net.minecraft.client.gui.DrawableHelper.drawTexture;
 
 public class BackgroundUtils {
     private static int backgroundIndex = 0;
-    private static final int backgroundAmount = 3;
+    private static final int backgroundAmount = 6;
     private static Identifier BACKGROUND = new Identifier("foxclient", "textures/ui/title/bg/" + backgroundIndex + ".png");
 
     public static void selectBackground() {
