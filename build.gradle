@@ -35,8 +35,8 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	implementation 'com.github.Vatuu:discord-rpc:1.6.2'
-	implementation 'net.foxes4life:konfig:1.2.0'
-	extraLibs 'net.foxes4life:konfig:1.2.0'
+	implementation "net.foxes4life:konfig:${project.konfig_version}"
+	extraLibs "net.foxes4life:konfig:${project.konfig_version}"
 	extraLibs files('discord-rpc-jna-removed.jar')
 
 	//configurations.compile.extendsFrom(configurations.extraLibs)
