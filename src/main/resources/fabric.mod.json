@@ -5,7 +5,11 @@
   "name": "FoxClient",
   "description": "A Fabric (and Quilt) Mod that changes the look of the Minecraft UI and adds some features.",
   "authors": [
-    "FoxStudios"
+    "Rooot",
+    "Flustix"
+  ],
+  "contributors": [
+    "PassiHD2004"
   ],
   "contact": {
     "homepage": "https://client.foxes4life.net/",
