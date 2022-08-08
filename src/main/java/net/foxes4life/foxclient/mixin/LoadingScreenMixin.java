@@ -18,9 +18,15 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LevelLoadingScreen.class)
-public abstract class LoadingScreenMixin extends Screen{
-    @Shadow @Final @Mutable private WorldGenerationProgressTracker progressProvider;
-    @Shadow @Final @Mutable private static Object2IntMap<ChunkStatus> STATUS_TO_COLOR;
+public abstract class LoadingScreenMixin extends Screen {
+    @Shadow
+    @Final
+    @Mutable
+    private WorldGenerationProgressTracker progressProvider;
+    @Shadow
+    @Final
+    @Mutable
+    private static Object2IntMap<ChunkStatus> STATUS_TO_COLOR;
 
     float progress;
 
@@ -33,7 +39,7 @@ public abstract class LoadingScreenMixin extends Screen{
         ci.cancel();
         renderBackground(matrices);
         drawTextWithShadow(matrices, textRenderer, TextUtils.string("Loading World... " + MathHelper.clamp(progressProvider.getProgressPercentage(), 0, 100) + "%"), 10, this.height - 22, 0xFFFFFF);
-        this.progress = MathHelper.lerp(0.88f, progress, this.progress * 0.95F + (progressProvider.getProgressPercentage()/ 100f) * 0.2F);
+        this.progress = MathHelper.lerp(0.88f, progress, this.progress * 0.95F + (progressProvider.getProgressPercentage() / 100f) * 0.2F);
         fill(matrices, 0, this.height - 3, (int) (this.width * progress), this.height, 0xFFFFFFFF);
         drawChunkThing(matrices, progressProvider);
     }
@@ -43,8 +49,8 @@ public abstract class LoadingScreenMixin extends Screen{
         int n = this.width - 5 - m;
         int o = this.height - 7 - m;
 
-        for(int r = 0; r < progressProvider.getSize(); ++r) {
-            for(int s = 0; s < progressProvider.getSize(); ++s) {
+        for (int r = 0; r < progressProvider.getSize(); ++r) {
+            for (int s = 0; s < progressProvider.getSize(); ++s) {
                 ChunkStatus chunkStatus = progressProvider.getChunkStatus(r, s);
                 int t = n + r * 2;
                 int u = o + s * 2;

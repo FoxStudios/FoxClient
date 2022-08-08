@@ -6,7 +6,7 @@ import net.minecraft.text.TranslatableTextContent;
 
 public class TextUtils {
     public static MutableText string(String content) {
-            return MutableText.of(new LiteralTextContent(content));
+        return MutableText.of(new LiteralTextContent(content));
     }
 
     public static MutableText translatable(String content) {

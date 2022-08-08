@@ -1,6 +1,5 @@
 package net.foxes4life.foxclient.mixin;
 
-import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.util.UwUfyUtils;
 import net.minecraft.client.resource.language.TranslationStorage;
 import org.spongepowered.asm.mixin.Mixin;

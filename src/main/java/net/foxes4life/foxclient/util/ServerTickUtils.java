@@ -30,14 +30,14 @@ public class ServerTickUtils {
             long newServerTime = packet.getTime();
 
             float tps = (((float) (newServerTime - serverTime)) / (((float) (newSystemTime - systemTime1)) / 50.0f)) * 20.0f;
-            if(tps > 20) tps = 20;
+            if (tps > 20) tps = 20;
             //System.out.println(newServerTime+"-"+serverTime+" "+newSystemTime+"-"+systemTime1+" ... = "+tps);
             serverTPS.add(tps);
             systemTime1 = newSystemTime;
             serverTime = newServerTime;
 
             float currentTPS = calculateServerTPS();
-            long currentTime = System.currentTimeMillis()/1000;
+            long currentTime = System.currentTimeMillis() / 1000;
         }
     }
 

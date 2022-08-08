@@ -21,12 +21,12 @@ public abstract class CameraMixin {
 
     @Inject(method = "update", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/Camera;setRotation(FF)V", ordinal = 0, shift = At.Shift.AFTER))
     public void update(net.minecraft.world.BlockView area, Entity focusedEntity, boolean thirdPerson, boolean inverseView, float tickDelta, CallbackInfo ci) {
-        if(!(focusedEntity instanceof PlayerEntity)) return;
+        if (!(focusedEntity instanceof PlayerEntity)) return;
 
-        if(FreelookUtils.active()) {
+        if (FreelookUtils.active()) {
             Freelook fl = (Freelook) focusedEntity;
 
-            if(MinecraftClient.getInstance().player != null && startFreelook) {
+            if (MinecraftClient.getInstance().player != null && startFreelook) {
                 fl.setCameraX(MinecraftClient.getInstance().player.getYaw());
                 fl.setCameraY(MinecraftClient.getInstance().player.getPitch());
                 startFreelook = false;

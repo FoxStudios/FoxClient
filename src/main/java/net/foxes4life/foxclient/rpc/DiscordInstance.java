@@ -4,7 +4,7 @@ public class DiscordInstance {
     private static Discord discord = null;
 
     public static Discord get() {
-        if(discord == null) {
+        if (discord == null) {
             discord = new Discord();
         }
         return discord;

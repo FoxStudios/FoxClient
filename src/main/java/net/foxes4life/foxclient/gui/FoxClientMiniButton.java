@@ -7,7 +7,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class FoxClientMiniButton extends TexturedButtonWidget {
-    public FoxClientMiniButton (int x, int y, int width, int height, int u, int v, int hoveredVOffset, Identifier texture, int textureWidth, int textureHeight, PressAction pressAction, Text text) {
+    public FoxClientMiniButton(int x, int y, int width, int height, int u, int v, int hoveredVOffset, Identifier texture, int textureWidth, int textureHeight, PressAction pressAction, Text text) {
         super(x, y, width, height, u, v, hoveredVOffset, texture, textureWidth, textureHeight, pressAction, EMPTY, text);
     }
 

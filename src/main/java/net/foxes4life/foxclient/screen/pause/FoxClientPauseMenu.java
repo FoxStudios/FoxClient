@@ -13,29 +13,29 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 
-public class  FoxClientPauseMenu extends Screen {
-    public FoxClientPauseMenu () {
+public class FoxClientPauseMenu extends Screen {
+    public FoxClientPauseMenu() {
         super(TextUtils.string("Pause Menu"));
     }
 
-    public void render (MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         this.renderBackground(matrices);
         super.render(matrices, mouseX, mouseY, delta);
     }
 
-    public void init () {
-        this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 24 + -16, 204, 20, TextUtils.translatable("menu.returnToGame"), (button) -> {
+    public void init() {
+        this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 24 - 16, 204, 20, TextUtils.translatable("menu.returnToGame"), (button) -> {
             this.client.setScreen(null);
             this.client.mouse.lockCursor();
         }));
-        this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 48 + -16, 98, 20, TextUtils.translatable("gui.advancements"), (button) -> {
+        this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 48 - 16, 98, 20, TextUtils.translatable("gui.advancements"), (button) -> {
             this.client.setScreen(new AdvancementsScreen(this.client.player.networkHandler.getAdvancementHandler()));
         }));
-        this.addDrawableChild(new FoxClientButton(this.width / 2 + 4, this.height / 4 + 48 + -16, 98, 20, TextUtils.translatable("gui.stats"), (button) -> {
+        this.addDrawableChild(new FoxClientButton(this.width / 2 + 4, this.height / 4 + 48 - 16, 98, 20, TextUtils.translatable("gui.stats"), (button) -> {
             this.client.setScreen(new StatsScreen(this, this.client.player.getStatHandler()));
         }));
         String string = SharedConstants.getGameVersion().isStable() ? "https://aka.ms/javafeedback?ref=game" : "https://aka.ms/snapshotfeedback?ref=game";
-        this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 72 + -16, 98, 20, TextUtils.translatable("menu.sendFeedback"), (button) -> {
+        this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 72 - 16, 98, 20, TextUtils.translatable("menu.sendFeedback"), (button) -> {
             this.client.setScreen(new ConfirmChatLinkScreen((confirmed) -> {
                 if (confirmed) {
                     Util.getOperatingSystem().open(string);
@@ -44,7 +44,7 @@ public class  FoxClientPauseMenu extends Screen {
                 this.client.setScreen(this);
             }, string, true));
         }));
-        this.addDrawableChild(new FoxClientButton(this.width / 2 + 4, this.height / 4 + 72 + -16, 98, 20, TextUtils.translatable("menu.reportBugs"), (button) -> {
+        this.addDrawableChild(new FoxClientButton(this.width / 2 + 4, this.height / 4 + 72 - 16, 98, 20, TextUtils.translatable("menu.reportBugs"), (button) -> {
             this.client.setScreen(new ConfirmChatLinkScreen((confirmed) -> {
                 if (confirmed) {
                     Util.getOperatingSystem().open("https://aka.ms/snapshotbugs?ref=game");
@@ -53,7 +53,7 @@ public class  FoxClientPauseMenu extends Screen {
                 this.client.setScreen(this);
             }, "https://aka.ms/snapshotbugs?ref=game", true));
         }));
-        this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 96 + -16, 98, 20, TextUtils.translatable("menu.options"), (button) -> {
+        this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 96 - 16, 98, 20, TextUtils.translatable("menu.options"), (button) -> {
             this.client.setScreen(new OptionsScreen(this, this.client.options));
         }));
         FoxClientButton buttonWidget = this.addDrawableChild(new FoxClientButton(this.width / 2 + 4, this.height / 4 + 96 + -16, 98, 20, TextUtils.translatable("menu.shareToLan"), (button) -> {
@@ -61,7 +61,7 @@ public class  FoxClientPauseMenu extends Screen {
         }));
         buttonWidget.active = this.client.isIntegratedServerRunning() && !this.client.getServer().isRemote();
         Text text = this.client.isInSingleplayer() ? TextUtils.translatable("menu.returnToMenu") : TextUtils.translatable("menu.disconnect");
-        this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 120 + -16, 204, 20, text, (button) -> {
+        this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 120 - 16, 204, 20, text, (button) -> {
             boolean bl = this.client.isInSingleplayer();
             boolean bl2 = this.client.isConnectedToRealms();
             button.active = false;
@@ -84,7 +84,7 @@ public class  FoxClientPauseMenu extends Screen {
         }));
     }
 
-    void exitToMenu () {
+    void exitToMenu() {
         boolean inSingleplayer = this.client.isInSingleplayer();
         boolean inRealms = this.client.isConnectedToRealms();
 

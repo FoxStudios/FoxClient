@@ -12,9 +12,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class GameRendererMixin {
     @Inject(at = @At("TAIL"), method = "getFov", cancellable = true)
     private void getFov(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Double> cir) {
-        if(ZoomUtils.zoomin()) {
+        if (ZoomUtils.zoomin()) {
             ZoomUtils.currentZoomLevel = cir.getReturnValue() * ZoomUtils.zoomModifier;
-            ZoomUtils.calculateZoom(cir);
+            ZoomUtils.calculateZoom();
             cir.setReturnValue(ZoomUtils.actualZoomLevel);
         } else {
             ZoomUtils.zoomModifier = 0.2F;

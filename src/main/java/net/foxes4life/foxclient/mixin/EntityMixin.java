@@ -18,10 +18,10 @@ public class EntityMixin implements Freelook {
     @Inject(method = "changeLookDirection", at = @At("HEAD"), cancellable = true)
     public void changeLookDirection(double cursorDeltaX, double cursorDeltaY, CallbackInfo ci) {
         //noinspection ConstantConditions
-        if(!((Object) this instanceof ClientPlayerEntity)) return;
-        if(FreelookUtils.active()) {
-            float g = (float)cursorDeltaX * 0.15F;
-            float f = (float)cursorDeltaY * 0.15F;
+        if (!((Object) this instanceof ClientPlayerEntity)) return;
+        if (FreelookUtils.active()) {
+            float g = (float) cursorDeltaX * 0.15F;
+            float f = (float) cursorDeltaY * 0.15F;
 
             this.cameraX += g;
             this.cameraY = MathHelper.clamp(this.cameraY + f, -90F, 90F);

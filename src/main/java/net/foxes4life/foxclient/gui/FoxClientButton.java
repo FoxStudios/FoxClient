@@ -3,7 +3,6 @@ package net.foxes4life.foxclient.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -17,16 +16,6 @@ public class FoxClientButton extends ButtonWidget {
     }
 
     private static final Identifier WIDGET_TEXTURE = new Identifier("foxclient", "textures/ui/widgets.png");
-
-    @Override
-    public void onPress() {
-        super.onPress();
-    }
-
-    @Override
-    public void appendNarrations(NarrationMessageBuilder builder) {
-
-    }
 
     @Override
     public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
@@ -47,7 +36,7 @@ public class FoxClientButton extends ButtonWidget {
         int j = this.active ? 16777215 : 10526880;
 
         float text_alpha = 0.6f;
-        if(this.isFocused() || this.isMouseOver(mouseX, mouseY)) {
+        if (this.isFocused() || this.isMouseOver(mouseX, mouseY)) {
             text_alpha = 0.75f;
         }
 
@@ -59,10 +48,10 @@ public class FoxClientButton extends ButtonWidget {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        if(this.isMouseOver(mouseX, mouseY)) {
+        if (this.isMouseOver(mouseX, mouseY)) {
             this.onFocusedChanged(true);
         } else {
-            if(!this.isFocused()) {
+            if (!this.isFocused()) {
                 this.onFocusedChanged(false);
             }
         }

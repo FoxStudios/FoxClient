@@ -18,7 +18,7 @@ public class Discord implements ReadyCallback {
 
     public void init() {
         Thread initDiscord = new Thread(() -> {
-            while(!(MinecraftClient.getInstance() != null && !MinecraftClient.getInstance().fpsDebugString.equals(""))) {
+            while (!(MinecraftClient.getInstance() != null && !MinecraftClient.getInstance().fpsDebugString.equals(""))) {
                 try {
                     //noinspection BusyWait
                     Thread.sleep(100);
@@ -26,7 +26,7 @@ public class Discord implements ReadyCallback {
                 }
             }
 
-            if((boolean)Main.konfig.get("misc", "discord-rpc")) {
+            if ((boolean) Main.konfig.get("misc", "discord-rpc")) {
                 System.out.println("yes");
                 try {
                     System.out.println("init dc");
@@ -44,7 +44,7 @@ public class Discord implements ReadyCallback {
         DiscordRPC.discordClearPresence();
         DiscordRPC.discordShutdown();
 
-        if(CALLBACK_THREAD != null) //noinspection deprecation
+        if (CALLBACK_THREAD != null) //noinspection deprecation
             CALLBACK_THREAD.stop();
         initialised = false;
     }
@@ -67,12 +67,12 @@ public class Discord implements ReadyCallback {
     }
 
     public void setActivity(DiscordRichPresence.Builder presenceBuilder) {
-        if(!initialised) {
+        if (!initialised) {
             System.out.println("setActivity called before RPC initialized!");
             return;
         }
 
-        if((boolean)Main.konfig.get("misc", "discord-rpc")) {
+        if ((boolean) Main.konfig.get("misc", "discord-rpc")) {
             if (START_TIME == 0L) {
                 START_TIME = System.currentTimeMillis();
             }
@@ -85,7 +85,7 @@ public class Discord implements ReadyCallback {
     }
 
     private void runCallback() {
-        if((boolean)Main.konfig.get("misc", "discord-rpc")) {
+        if ((boolean) Main.konfig.get("misc", "discord-rpc")) {
             DiscordRPC.discordRunCallbacks();
         }
     }

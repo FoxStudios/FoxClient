@@ -5,7 +5,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.math.MathHelper;
 
 import static net.minecraft.client.gui.DrawableHelper.drawTexture;
 
@@ -16,12 +15,11 @@ public class BackgroundUtils {
 
     public static void selectBackground() {
         backgroundIndex++;
-        if(backgroundIndex >= backgroundAmount) backgroundIndex = 0;
+        if (backgroundIndex >= backgroundAmount) backgroundIndex = 0;
         BACKGROUND = new Identifier("foxclient", "textures/ui/title/bg/" + backgroundIndex + ".png");
     }
 
     public static void drawRandomBackground(MatrixStack matrices, int w, int h) {
-
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, BACKGROUND);
         RenderSystem.enableBlend();

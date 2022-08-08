@@ -49,7 +49,7 @@ public class FoxClientHUD extends DrawableHelper {
         renderList(matrices);
     }
 
-    void loadList () {
+    void loadList() {
         boolean version = (boolean) Main.konfig.get("ingame-hud", "version");
         boolean coords = (boolean) Main.konfig.get("ingame-hud", "coords");
         boolean colorcoords = (boolean) Main.konfig.get("ingame-hud", "colored-coords");
@@ -76,12 +76,13 @@ public class FoxClientHUD extends DrawableHelper {
         if (tps)
             textList.add(TextUtils.string(String.format("[TPS] " + ServerTickUtils.calculateServerTPS())));
 
-        if (server)
+        if (server) {
             if (MinecraftClient.getInstance().getCurrentServerEntry() != null) {
                 textList.add(TextUtils.string(String.format("[IP] " + MinecraftClient.getInstance().getCurrentServerEntry().address)));
             } else {
                 textList.add(TextUtils.string("[IP] " + I18n.translate("menu.singleplayer")));
             }
+        }
 
         for (Text text : textList) {
             boxHeight += 10;
@@ -92,7 +93,7 @@ public class FoxClientHUD extends DrawableHelper {
         }
     }
 
-    void renderList (MatrixStack matrices) {
+    void renderList(MatrixStack matrices) {
         int i = 0;
         for (Text text : textList) {
             int y = 42 + (10 * i);

@@ -6,7 +6,6 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.util.math.MathHelper;
 import org.lwjgl.glfw.GLFW;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 public class ZoomUtils {
     private static final KeyBinding zoomKey = new KeyBinding("key.foxclient.zoom", GLFW.GLFW_KEY_C, "category.foxclient.main");
@@ -15,7 +14,7 @@ public class ZoomUtils {
     public static double currentZoomLevel = 0.2F;
     public static double actualZoomLevel = 0.2F;
 
-    public static void initZoom () {
+    public static void initZoom() {
         KeyBindingHelper.registerKeyBinding(zoomKey);
         isZoomin = false;
     }
@@ -24,7 +23,7 @@ public class ZoomUtils {
         return zoomKey.isPressed();
     }
 
-    public static void smoothCam () {
+    public static void smoothCam() {
         //start holdin
         if (zoomin() && !isZoomin) {
             isZoomin = true;
@@ -38,8 +37,8 @@ public class ZoomUtils {
         }
     }
 
-    public static void calculateZoom(CallbackInfoReturnable<Double> cir) {
-        ZoomUtils.actualZoomLevel = (boolean)Main.konfig.get("misc", "smoothzoom") ?
+    public static void calculateZoom() {
+        ZoomUtils.actualZoomLevel = (boolean) Main.konfig.get("misc", "smoothzoom") ?
                 MathHelper.lerp(0.05f, ZoomUtils.actualZoomLevel, ZoomUtils.currentZoomLevel) :
                 ZoomUtils.currentZoomLevel;
     }

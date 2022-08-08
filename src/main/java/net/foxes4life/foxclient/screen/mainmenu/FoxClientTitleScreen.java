@@ -24,7 +24,7 @@ import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.toast.*;
+import net.minecraft.client.toast.Toast;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -110,7 +110,7 @@ public class FoxClientTitleScreen extends Screen {
         if (this.backgroundFadeStart == 0L && this.doBackgroundFade) {
             this.backgroundFadeStart = Util.getMeasuringTimeMs();
         }
-        float f = this.doBackgroundFade ? (float)(Util.getMeasuringTimeMs() - this.backgroundFadeStart) / 1000.0F : 1.0F;
+        float f = this.doBackgroundFade ? (float) (Util.getMeasuringTimeMs() - this.backgroundFadeStart) / 1000.0F : 1.0F;
 
         // draw background
         BackgroundUtils.drawRandomBackground(matrices, this.width, this.height);
@@ -121,7 +121,7 @@ public class FoxClientTitleScreen extends Screen {
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.doBackgroundFade ? (float) MathHelper.ceil(MathHelper.clamp(f, 0.0F, 1.0F)) : 1.0F);
-        drawTexture(matrices, (width/2) - (250/2), height/2 - (250/3), 0, 0, 250, 175, 250, 175);
+        drawTexture(matrices, (width / 2) - (250 / 2), height / 2 - (250 / 3), 0, 0, 250, 175, 250, 175);
 
         // draw fomx
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -130,7 +130,7 @@ public class FoxClientTitleScreen extends Screen {
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.doBackgroundFade ? (float) MathHelper.ceil(MathHelper.clamp(f, 0.0F, 1.0F)) : 1.0F);
         int fomxSize = 118;
-        drawTexture(matrices, (width/2) - (fomxSize/2), height/2 - fomxSize + 32, 0, 0, 128, fomxSize, fomxSize, fomxSize, fomxSize);
+        drawTexture(matrices, (width / 2) - (fomxSize / 2), height / 2 - fomxSize + 32, 0, 0, 128, fomxSize, fomxSize, fomxSize, fomxSize);
 
         // draw texts
         int transparent = MathHelper.ceil(0.5f * 255.0F) << 24;
@@ -142,7 +142,7 @@ public class FoxClientTitleScreen extends Screen {
             fill(matrices, this.mojangCopyrightTextX, this.height - 1, this.mojangCopyrightTextX + this.mojangCopyrightTextWidth, this.height, 16777215 | transparent);
         }
 
-        String gameVersion = "Minecraft "+ SharedConstants.getGameVersion().getName();
+        String gameVersion = "Minecraft " + SharedConstants.getGameVersion().getName();
         assert this.client != null;
         if (this.client.isDemo()) {
             gameVersion = gameVersion + " Demo";
@@ -151,7 +151,7 @@ public class FoxClientTitleScreen extends Screen {
         }
 
         drawStringWithShadow(matrices, this.textRenderer, gameVersion, 4, this.height - 10, 16777215 | transparent);
-        drawStringWithShadow(matrices, this.textRenderer, "FoxClient "+ Main.VERSION, 4, this.height - 20, 16777215 | transparent);
+        drawStringWithShadow(matrices, this.textRenderer, "FoxClient " + Main.VERSION, 4, this.height - 20, 16777215 | transparent);
         drawStringWithShadow(matrices, this.textRenderer, foxclientCopyrightText, this.foxclientCopyrightTextX, this.height - 20, 16777215 | transparent);
 
         // draw buttons
@@ -161,17 +161,17 @@ public class FoxClientTitleScreen extends Screen {
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
         // stolen from mojang code
         // TODO: IMPORTANT - recode this
-        if(super.mouseClicked(mouseX, mouseY, button)) {
+        if (super.mouseClicked(mouseX, mouseY, button)) {
             return true;
         }
-        if (mouseX > (double)this.mojangCopyrightTextX && mouseX < (double)(this.mojangCopyrightTextX + this.mojangCopyrightTextWidth) && mouseY > (double)(this.height - 10) && mouseY < (double)this.height) {
+        if (mouseX > (double) this.mojangCopyrightTextX && mouseX < (double) (this.mojangCopyrightTextX + this.mojangCopyrightTextWidth) && mouseY > (double) (this.height - 10) && mouseY < (double) this.height) {
             assert this.client != null;
             this.client.setScreen(new CreditsScreen(true, Runnables.doNothing()));
         }
         return false;
     }
 
-    void loadMiniButtons () {
+    void loadMiniButtons() {
         int spacingY = 26;
         int y = this.height / 2 + 10;
         int center = (this.width / 2) - 10;
@@ -236,7 +236,7 @@ public class FoxClientTitleScreen extends Screen {
                 }
             }
 
-            this.addDrawableChild(new FoxClientMiniButton(x, y + spacingY * 2, 20, 20,0,0,20, tex, 32, 64, pressAction, TextUtils.translatable("")));
+            this.addDrawableChild(new FoxClientMiniButton(x, y + spacingY * 2, 20, 20, 0, 0, 20, tex, 32, 64, pressAction, TextUtils.translatable("")));
         }
     }
 }

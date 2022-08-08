@@ -42,7 +42,7 @@ public class SettingsMenuScreen extends Screen {
     static double entryHoverBgY = 0;
     static int entryHoverBgYGoal = 0;
 
-    private static final int sidebarWidth = 64+16;
+    private static final int sidebarWidth = 64 + 16;
 
     private int amountOfDrawableChilds = 0; // set amount of buttons created in init() here (excluding the ones in the loop)
     private boolean initDone = false; // to prevent amountOfDrawableChilds from increasing after init is done
@@ -68,7 +68,7 @@ public class SettingsMenuScreen extends Screen {
         categories.forEach((name, category) -> {
             cat.getAndIncrement();
             this.addDrawableChild(new SettingsCategorySidebarButton(0,
-                    cat.get() *22,
+                    cat.get() * 22,
                     sidebarWidth,
                     22,
                     ConfigUtils.translatableCategory(category),
@@ -76,7 +76,7 @@ public class SettingsMenuScreen extends Screen {
                     name,
                     (button) -> {
                         for (Element child : this.children()) {
-                            if(child instanceof SettingsCategorySidebarButton) {
+                            if (child instanceof SettingsCategorySidebarButton) {
                                 ((SettingsCategorySidebarButton) child).selected = false;
                             }
                         }
@@ -87,7 +87,7 @@ public class SettingsMenuScreen extends Screen {
             ));
         });
 
-        if(currentCategory == null) {
+        if (currentCategory == null) {
             currentSelectedCat = 0;
             currentCategoryId = (String) categories.keySet().toArray()[0];
             currentCategory = categories.get(currentCategoryId);
@@ -95,13 +95,13 @@ public class SettingsMenuScreen extends Screen {
         }
 
         // close
-        this.addDrawableChild(new TexturedButtonWidget(this.client.getWindow().getScaledWidth()-24, 4, 20, 20, 0, 0, 20, X_BUTTON, 32, 64, (button) -> this.close(), TextUtils.translatable("foxclient.gui.button.close")));
+        this.addDrawableChild(new TexturedButtonWidget(this.client.getWindow().getScaledWidth() - 24, 4, 20, 20, 0, 0, 20, X_BUTTON, 32, 64, (button) -> this.close(), TextUtils.translatable("foxclient.gui.button.close")));
 
         initDone = true;
 
-        if(currentCategory != null) {
+        if (currentCategory != null) {
             for (Element child : this.children()) {
-                if(child instanceof SettingsCategorySidebarButton sidebarButton) {
+                if (child instanceof SettingsCategorySidebarButton sidebarButton) {
                     sidebarButton.selected = currentCategoryId.equals(sidebarButton.categoryId);
                 }
             }
@@ -111,7 +111,7 @@ public class SettingsMenuScreen extends Screen {
     }
 
     private void addCategoryButtons(String name, KonfigCategory category) {
-        if(currentCategory != null) {
+        if (currentCategory != null) {
             for (Object o : this.children().subList(amountOfDrawableChilds, this.children().size()).toArray()) {
                 this.remove((Element) o);
             }
@@ -127,15 +127,15 @@ public class SettingsMenuScreen extends Screen {
             settingsThing.getAndIncrement();
 
             if (Boolean.class.equals(value.value.getClass())) {
-//                System.out.println("boolean");
+                //System.out.println("boolean");
                 this.addDrawableChild(
-                        new SettingsToggleButton(sidebarWidth+2,
-                                settingsThing.get()*bHeight+32,
+                        new SettingsToggleButton(sidebarWidth + 2,
+                                settingsThing.get() * bHeight + 32,
                                 width - sidebarWidth - 4,
                                 bHeight,
                                 ConfigUtils.translatableEntry(category, value), (Boolean) value.value, (b) -> {
-//                            System.out.println("clicked toggle!");
-                            Main.konfig.set(name, key, !(boolean)value.value);
+                            //System.out.println("clicked toggle!");
+                            Main.konfig.set(name, key, !(boolean) value.value);
                             try {
                                 Main.konfig.save();
                             } catch (IOException e) {
@@ -143,19 +143,21 @@ public class SettingsMenuScreen extends Screen {
                             }
                         }));
             } else if (String.class.equals(value.value.getClass())) {
-//                System.out.println("string");
-                this.addDrawableChild(new ButtonWidget(0,0,0,0, Text.of(""), (b) -> {}));
+                //System.out.println("string");
+                this.addDrawableChild(new ButtonWidget(0, 0, 0, 0, Text.of(""), (b) -> {
+                }));
             } else {
                 System.out.println("UNKNOWN: " + value.value.getClass());
                 // add dummy to avoid crashes
-                this.addDrawableChild(new ButtonWidget(0,0,0,0, Text.of("a"), (b) -> {}));
+                this.addDrawableChild(new ButtonWidget(0, 0, 0, 0, Text.of("a"), (b) -> {
+                }));
             }
         });
     }
 
     @Override
     protected <T extends Element & Drawable & Selectable> T addDrawableChild(T drawableElement) {
-        if(!initDone) amountOfDrawableChilds++;
+        if (!initDone) amountOfDrawableChilds++;
         return super.addDrawableChild(drawableElement);
     }
 
@@ -177,7 +179,7 @@ public class SettingsMenuScreen extends Screen {
             if (entry.getKey().equals(currentCategoryId)) {
                 catSelectBgYGoal = (i * 22) + 22;
                 catSelectBgY = MathHelper.lerp(delta * 1.2, catSelectBgY, catSelectBgYGoal);
-                fill(matrices, 0, (int)catSelectBgY, sidebarWidth, (int)catSelectBgY + 22, 0x44ffffff);
+                fill(matrices, 0, (int) catSelectBgY, sidebarWidth, (int) catSelectBgY + 22, 0x44ffffff);
             }
 
             i++;
@@ -188,7 +190,7 @@ public class SettingsMenuScreen extends Screen {
                 if (((SettingsToggleButton) child).isHovered()) {
                     entryHoverBgYGoal = ((SettingsToggleButton) child).y;
                     entryHoverBgY = MathHelper.lerp(delta * 1.2, entryHoverBgY, entryHoverBgYGoal);
-                    fill(matrices, sidebarWidth + 2, (int)entryHoverBgY, this.client.getWindow().getScaledWidth() - 2, (int)entryHoverBgY + 22, 0x44ffffff);
+                    fill(matrices, sidebarWidth + 2, (int) entryHoverBgY, this.client.getWindow().getScaledWidth() - 2, (int) entryHoverBgY + 22, 0x44ffffff);
                 }
             }
         }

@@ -18,8 +18,8 @@ public class PresenceUpdater {
             case SINGLEPLAYER -> stateLine = I18n.translate("foxclient.rpc.state.singleplayer");
             case LAN -> stateLine = I18n.translate("foxclient.rpc.state.lan");
             case MULTIPLAYER -> {
-                if ((boolean)Main.konfig.get("misc", "discord-rpc-show-ip")) {
-                    if(MinecraftClient.getInstance().getCurrentServerEntry() != null) {
+                if ((boolean) Main.konfig.get("misc", "discord-rpc-show-ip")) {
+                    if (MinecraftClient.getInstance().getCurrentServerEntry() != null) {
                         stateLine = I18n.translate("foxclient.rpc.state.multiplayer", MinecraftClient.getInstance().getCurrentServerEntry().address);
                     } else {
                         stateLine = I18n.translate("foxclient.rpc.state.multiplayer.hide_ip");
@@ -32,9 +32,9 @@ public class PresenceUpdater {
             default -> stateLine = "unimplemented!";
         }
 
-        if((boolean)Main.konfig.get("misc", "discord-rpc") && Discord.initialised) {
+        if ((boolean) Main.konfig.get("misc", "discord-rpc") && Discord.initialised) {
             DiscordRichPresence.Builder builder = new DiscordRichPresence.Builder(stateLine)
-                    .setDetails("Playing Minecraft "+SharedConstants.getGameVersion().getName())
+                    .setDetails("Playing Minecraft " + SharedConstants.getGameVersion().getName())
                     .setBigImage(largeImage, "FoxClient - A private Minecraft Mod")
                     .setSmallImage("", "assets by flustix uwu");
             DiscordInstance.get().setActivity(builder);

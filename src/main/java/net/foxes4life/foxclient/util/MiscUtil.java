@@ -15,7 +15,7 @@ public class MiscUtil {
             e.printStackTrace();
         }
 
-        if(filePath == null) return null;
+        if (filePath == null) return null;
 
         InputStream stream = null;
 
@@ -23,7 +23,7 @@ public class MiscUtil {
             JarFile jar = new JarFile(filePath);
             stream = jar.getInputStream(jar.getEntry(name));
         } catch (FileNotFoundException e) {
-            filePath = filePath.replace(File.separator+"classes"+File.separator+"java"+File.separator+"main", File.separator+"resources"+File.separator+"main");
+            filePath = filePath.replace(File.separator + "classes" + File.separator + "java" + File.separator + "main", File.separator + "resources" + File.separator + "main");
 
             try {
                 stream = new FileInputStream(new File(filePath, name));

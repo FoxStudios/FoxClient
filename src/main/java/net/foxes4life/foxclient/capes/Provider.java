@@ -4,16 +4,9 @@
 */
 package net.foxes4life.foxclient.capes;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
-
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
-
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.util.Http;
 import net.minecraft.client.MinecraftClient;
@@ -23,6 +16,12 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import org.apache.http.HttpResponse;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
+
 public final class Provider {
 
     // This loads the cape for one player, doesn't matter if it's the player or not.
@@ -31,13 +30,13 @@ public final class Provider {
         Runnable runnable = () -> {
             // Check if the player doesn't already have a cape.
             Identifier existingCape = capes.get(player.getName());
-            if(existingCape != null) {
+            if (existingCape != null) {
                 System.out.println("hi");
                 //callback.onTexAvail(existingCape);
                 //return;
             }
 
-            if(!Provider.tryUrl(player, callback, "https://client.foxes4life.net/capes/get.php?uuid=" + player.getId().toString().replace("-", ""))) {
+            if (!Provider.tryUrl(player, callback, "https://client.foxes4life.net/capes/get.php?uuid=" + player.getId().toString().replace("-", ""))) {
                 Provider.tryUrl(player, callback, "http://client.foxes4life.net/capes/get.php?uuid=" + player.getId().toString().replace("-", ""));
             }
         };
@@ -57,10 +56,10 @@ public final class Provider {
         try {
             //Main.LOGGER.debug("[FoxClient/Cape/Provider] trying url: " + urlFrom);
             HttpResponse response = Http.get(urlFrom);
-            if(response != null && response.getStatusLine().getStatusCode() == 200) {
+            if (response != null && response.getStatusLine().getStatusCode() == 200) {
                 String responseBody = Http.getResponseBody(response);
                 JsonObject capeJson = JsonParser.parseString(responseBody).getAsJsonObject();
-                if(capeJson.has("textures") && capeJson.get("textures").getAsJsonObject().get("cape") != null) {
+                if (capeJson.has("textures") && capeJson.get("textures").getAsJsonObject().get("cape") != null) {
                     // set the cape
                     String capeBase64 = capeJson.get("textures").getAsJsonObject().get("cape").getAsString();
                     byte[] img = Base64.getDecoder().decode(capeBase64);
@@ -69,13 +68,13 @@ public final class Provider {
                             .getInstance()
                             .getTextureManager()
                             .registerDynamicTexture("foxclient_" + player.getId().toString().replace("-", ""),
-                            new NativeImageBackedTexture(cape));
+                                    new NativeImageBackedTexture(cape));
                     capes.put(player.getName(), id);
                     Main.LOGGER.debug("put " + id.toString() + " for player " + player.getName());
                     callback.onTexAvail(id);
                 }
             } else {
-                if(response != null && response.getStatusLine().getStatusCode() == 404) {
+                if (response != null && response.getStatusLine().getStatusCode() == 404) {
                     // player has no cape
                     return true;
                 }
@@ -88,5 +87,6 @@ public final class Provider {
         return true;
     }
 
-    private Provider() { }
+    private Provider() {
+    }
 }

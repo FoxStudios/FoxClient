@@ -14,11 +14,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(InGameHud.class)
 public class InGameHUDMixin {
-    @Shadow @Final private MinecraftClient client;
+    @Shadow
+    @Final
+    private MinecraftClient client;
 
     @Inject(at = @At("HEAD"), method = "render")
     public void render(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
-        if((boolean) Main.konfig.get("client", "hud-enabled")) {
+        if ((boolean) Main.konfig.get("client", "hud-enabled")) {
             new FoxClientHUD(this.client).render(matrices);
         }
     }

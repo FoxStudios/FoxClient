@@ -11,12 +11,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class MouseMixin {
     @Inject(at = @At("HEAD"), method = "onMouseScroll", cancellable = true)
     private void onMouseScroll(long window, double horizontal, double vertical, CallbackInfo ci) {
-        if(ZoomUtils.zoomin()) {
+        if (ZoomUtils.zoomin()) {
             ci.cancel();
-            if(vertical > 0) {
-                if(!(ZoomUtils.zoomModifier < 0.1)) ZoomUtils.zoomModifier -= 0.05;
+            if (vertical > 0) {
+                if (!(ZoomUtils.zoomModifier < 0.1)) ZoomUtils.zoomModifier -= 0.05;
             } else {
-                if(!(ZoomUtils.zoomModifier > 1)) ZoomUtils.zoomModifier += 0.05;
+                if (!(ZoomUtils.zoomModifier > 1)) ZoomUtils.zoomModifier += 0.05;
             }
         }
     }

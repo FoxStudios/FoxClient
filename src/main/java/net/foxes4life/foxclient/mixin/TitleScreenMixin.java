@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class TitleScreenMixin {
     @Inject(at = @At("HEAD"), method = "render", cancellable = true)
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        if ((boolean)Main.konfig.get("menus", "mainmenu")) {
+        if ((boolean) Main.konfig.get("menus", "mainmenu")) {
             ci.cancel();
             MinecraftClient.getInstance().setScreen(new FoxClientTitleScreen(false));
         }

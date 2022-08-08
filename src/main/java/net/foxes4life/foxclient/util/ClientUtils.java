@@ -12,7 +12,7 @@ public class ClientUtils {
     public static int getFPS() {
         int fps = 0;
         try {
-            if(fps_field == null) {
+            if (fps_field == null) {
                 String fps_field_name;
                 if (FabricLoader.getInstance().getMappingResolver().getCurrentRuntimeNamespace().equals("named")) {
                     fps_field_name = "currentFps";
@@ -39,14 +39,14 @@ public class ClientUtils {
 
 
     private static long lastPing = System.currentTimeMillis();
-    private static int PING = 69;
-    
+    private static int PING = 0;
+
     public static int getPing() {
-        if(MinecraftClient.getInstance().isInSingleplayer()) {
+        if (MinecraftClient.getInstance().isInSingleplayer()) {
             return 0;
         }
 
-        if(System.currentTimeMillis() - lastPing > 2000) {
+        if (System.currentTimeMillis() - lastPing > 2000) {
             lastPing = System.currentTimeMillis();
             PING = ping();
         }
@@ -55,12 +55,10 @@ public class ClientUtils {
 
     private static int ping() {
         int ping = 0;
-        if(MinecraftClient.getInstance() != null && MinecraftClient.getInstance().player != null) {
+        if (MinecraftClient.getInstance() != null && MinecraftClient.getInstance().player != null) {
             PlayerListEntry e = MinecraftClient.getInstance().player.networkHandler.getPlayerListEntry(MinecraftClient.getInstance().player.getUuid());
-            if(e != null) {
+            if (e != null) {
                 ping = e.getLatency();
-            } else {
-                ping = 0;
             }
         }
         return ping;

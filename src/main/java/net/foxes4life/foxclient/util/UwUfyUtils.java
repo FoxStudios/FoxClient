@@ -4,7 +4,7 @@ import net.foxes4life.foxclient.Main;
 
 public class UwUfyUtils {
     public static String uwufy(String in) {
-        if(!(boolean)Main.konfig.get("eastereggs", "owo"))
+        if (!(boolean) Main.konfig.get("eastereggs", "owo"))
             return in;
 
         in = in

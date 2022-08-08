@@ -4,7 +4,6 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.foxes4life.konfig.Konfig;
 import net.foxes4life.konfig.data.KonfigCategory;
-import net.minecraft.client.gui.screen.SplashOverlay;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,18 +20,18 @@ public class Main implements ModInitializer {
     public void onInitialize() {
         initConfig();
 
-        if(FabricLoader.getInstance().getModContainer(Main.FOXCLIENT_MOD_ID).isPresent()) {
+        if (FabricLoader.getInstance().getModContainer(Main.FOXCLIENT_MOD_ID).isPresent()) {
             VERSION = FabricLoader.getInstance().getModContainer(Main.FOXCLIENT_MOD_ID).get().getMetadata().getVersion().getFriendlyString();
         }
 
-        if(FabricLoader.getInstance().getModContainer("java").isPresent()) {
+        if (FabricLoader.getInstance().getModContainer("java").isPresent()) {
             JAVA_VERSION = FabricLoader.getInstance().getModContainer("java").get().getMetadata().getVersion().getFriendlyString();
         }
 
         LOGGER.info("FoxClient " + Main.VERSION + " by FoxStudios");
     }
 
-    void initConfig () {
+    void initConfig() {
         konfig = new Konfig("foxclient");
 
         KonfigCategory client = new KonfigCategory("client");

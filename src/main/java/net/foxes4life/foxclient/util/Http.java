@@ -16,7 +16,7 @@ public class Http {
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet request = new HttpGet(url);
 
-        request.setHeader("User-Agent", "FoxClient/"+ Main.VERSION+" Java/"+Main.JAVA_VERSION);
+        request.setHeader("User-Agent", "FoxClient/" + Main.VERSION + " Java/" + Main.JAVA_VERSION);
         HttpResponse response;
         try {
             response = client.execute(request);
@@ -28,8 +28,8 @@ public class Http {
     }
 
     public static String getResponseBody(HttpResponse response) {
-        if(response == null) return null;
-        if(response.getEntity() == null) return null;
+        if (response == null) return null;
+        if (response.getEntity() == null) return null;
         BufferedReader rd;
         StringBuilder result;
         try {
@@ -45,8 +45,7 @@ public class Http {
                 while ((line = rd.readLine()) != null) {
                     result.append(line);
                 }
-            } catch (NullPointerException ignored) {
-            }
+            } catch (NullPointerException ignored) {}
         } catch (IOException ignored) {
             return null;
         }

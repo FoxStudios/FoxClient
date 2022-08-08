@@ -8,8 +8,6 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 
-import java.awt.*;
-
 public class SettingsToggleButton extends FoxClientButton {
     public boolean displayValue;
 
@@ -35,7 +33,7 @@ public class SettingsToggleButton extends FoxClientButton {
         int j = this.active ? 16777215 : 10526880;
 
         float text_alpha = 0.6f;
-        if(this.isFocused() || this.isMouseOver(mouseX, mouseY)) {
+        if (this.isFocused() || this.isMouseOver(mouseX, mouseY)) {
             text_alpha = 0.75f;
         }
 
@@ -49,10 +47,10 @@ public class SettingsToggleButton extends FoxClientButton {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        if(this.isMouseOver(mouseX, mouseY)) {
+        if (this.isMouseOver(mouseX, mouseY)) {
             this.onFocusedChanged(true);
         } else {
-            if(!this.isFocused()) {
+            if (!this.isFocused()) {
                 this.onFocusedChanged(false);
             }
         }
