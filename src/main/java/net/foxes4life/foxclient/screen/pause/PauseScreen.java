@@ -1,6 +1,6 @@
 package net.foxes4life.foxclient.screen.pause;
 
-import net.foxes4life.foxclient.ui.FoxClientButton;
+import net.foxes4life.foxclient.ui.button.FoxClientButton;
 import net.foxes4life.foxclient.screen.title.TitleScreen;
 import net.foxes4life.foxclient.util.TextUtils;
 import net.minecraft.SharedConstants;

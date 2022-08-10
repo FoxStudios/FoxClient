@@ -7,7 +7,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.foxes4life.foxclient.Main;
-import net.foxes4life.foxclient.ui.FoxClientButton;
+import net.foxes4life.foxclient.ui.button.FoxClientButton;
 import net.foxes4life.foxclient.ui.button.FoxClientMiniButton;
 import net.foxes4life.foxclient.ui.toast.FoxClientToast;
 import net.foxes4life.foxclient.screen.clientsettings.ClientSettingsScreen;

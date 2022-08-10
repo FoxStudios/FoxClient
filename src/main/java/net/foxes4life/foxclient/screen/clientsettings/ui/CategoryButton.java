@@ -1,6 +1,6 @@
 package net.foxes4life.foxclient.screen.clientsettings.ui;
 
-import net.foxes4life.foxclient.ui.FoxClientButton;
+import net.foxes4life.foxclient.ui.button.FoxClientButton;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
