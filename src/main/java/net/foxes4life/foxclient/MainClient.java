@@ -28,7 +28,6 @@ public class MainClient implements ClientModInitializer {
         KeyBindingHelper.registerKeyBinding(clientConfig);
 
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
-            System.out.println("Minecraft has started!");
             DiscordInstance.get().init();
             PresenceUpdater.setState(DiscordMinecraftClient.getState(MinecraftClient.getInstance().getNetworkHandler()));
         });

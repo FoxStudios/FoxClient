@@ -27,9 +27,7 @@ public class Discord implements ReadyCallback {
             }
 
             if ((boolean) Main.konfig.get("misc", "discord-rpc")) {
-                System.out.println("yes");
                 try {
-                    System.out.println("init dc");
                     initDC();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -50,7 +48,6 @@ public class Discord implements ReadyCallback {
     }
 
     public void initDC() {
-        System.out.println("init");
         START_TIME = System.currentTimeMillis();
         DiscordRPC.discordInitialize("805552222985388063", new DiscordEventHandlers.Builder().setReadyEventHandler(this).build(), true);
         DiscordRPC.discordRunCallbacks();
@@ -92,8 +89,8 @@ public class Discord implements ReadyCallback {
 
     @Override
     public void apply(DiscordUser user) {
-        System.out.println("RPC loaded!");
-        System.out.println("Username: " + user.username + "#" + user.discriminator);
+        Main.LOGGER.info("RPC loaded!");
+        Main.LOGGER.info("Username: " + user.username + "#" + user.discriminator);
         initialised = true;
 
         DiscordRPC.discordUpdatePresence(new DiscordRichPresence.Builder("Initialising")
