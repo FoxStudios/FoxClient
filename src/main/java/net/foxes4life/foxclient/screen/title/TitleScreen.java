@@ -1,4 +1,4 @@
-package net.foxes4life.foxclient.screen.mainmenu;
+package net.foxes4life.foxclient.screen.title;
 
 import com.google.common.util.concurrent.Runnables;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -7,10 +7,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
 import net.foxes4life.foxclient.Main;
-import net.foxes4life.foxclient.gui.FoxClientButton;
-import net.foxes4life.foxclient.gui.FoxClientMiniButton;
-import net.foxes4life.foxclient.gui.bundering.GayToaster;
-import net.foxes4life.foxclient.screen.settings.client.SettingsMenuScreen;
+import net.foxes4life.foxclient.ui.FoxClientButton;
+import net.foxes4life.foxclient.ui.button.FoxClientMiniButton;
+import net.foxes4life.foxclient.ui.toast.FoxClientToast;
+import net.foxes4life.foxclient.screen.clientsettings.ClientSettingsScreen;
 import net.foxes4life.foxclient.util.BackgroundUtils;
 import net.foxes4life.foxclient.util.TextUtils;
 import net.minecraft.SharedConstants;
@@ -34,20 +34,20 @@ import net.minecraft.util.math.MathHelper;
 import java.lang.reflect.InvocationTargetException;
 
 @Environment(EnvType.CLIENT)
-public class FoxClientTitleScreen extends Screen {
+public class TitleScreen extends Screen {
 
     // ui
-    private static final Identifier BUTTON_BOX = new Identifier("foxclient", "textures/ui/main_box.png");
-    private static final Identifier FOMX = new Identifier("foxclient", "textures/ui/title/fomx.png");
+    private static final Identifier BUTTON_BOX = new Identifier("foxclient", "textures/ui/title/titlebox.png");
+    private static final Identifier FOMX = new Identifier("foxclient", "textures/ui/branding/fox.png");
     // bg
-    private static final Identifier EXIT_BUTTON = new Identifier("foxclient", "textures/ui/buttons/exit.png");
-    private static final Identifier OPTIONS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/options.png");
-    private static final Identifier EMPTY_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
-    private static final Identifier ACCESSIBILITY_BUTTON = new Identifier("foxclient", "textures/ui/buttons/accessibility.png");
-    private static final Identifier MODS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/modmenu.png");
-    private static final Identifier REALMS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/realms.png");
-    private static final Identifier FOXCLIENT_OPTIONS_BUTTON = new Identifier("foxclient", "textures/ui/buttons/tail.png");
-    private static final Identifier DISCORD_BUTTON = new Identifier("foxclient", "textures/ui/buttons/discord.png");
+    private static final Identifier EXIT_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/exit.png");
+    private static final Identifier OPTIONS_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/options.png");
+    private static final Identifier EMPTY_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/empty.png");
+    private static final Identifier ACCESSIBILITY_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/accessibility.png");
+    private static final Identifier MODS_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/modmenu.png");
+    private static final Identifier REALMS_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/realms.png");
+    private static final Identifier FOXCLIENT_OPTIONS_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/tail.png");
+    private static final Identifier DISCORD_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/discord.png");
     //private static final Identifier REPLAYMOD_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
     //private static final Identifier UPDATE_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
 
@@ -63,7 +63,7 @@ public class FoxClientTitleScreen extends Screen {
 
     private long backgroundFadeStart;
 
-    public FoxClientTitleScreen(boolean doBackgroundFade) {
+    public TitleScreen(boolean doBackgroundFade) {
         super(TextUtils.string("FoxClient"));
         this.doBackgroundFade = doBackgroundFade;
     }
@@ -206,9 +206,9 @@ public class FoxClientTitleScreen extends Screen {
                                 e.printStackTrace();
                             }
                         } else {
-                            GayToaster toaster = MinecraftClient.getInstance().getToastManager().getToast(GayToaster.class, Toast.TYPE);
+                            FoxClientToast toaster = MinecraftClient.getInstance().getToastManager().getToast(FoxClientToast.class, Toast.TYPE);
                             if (toaster == null) {
-                                MinecraftClient.getInstance().getToastManager().add(new GayToaster(
+                                MinecraftClient.getInstance().getToastManager().add(new FoxClientToast(
                                         Text.of("FoxClient"), TextUtils.translatable("foxclient.gui.toast.modmenu.missing")));
                             }
                         }
@@ -221,7 +221,7 @@ public class FoxClientTitleScreen extends Screen {
                 }
                 case 5 -> {
                     tex = FOXCLIENT_OPTIONS_BUTTON;
-                    pressAction = (button) -> this.client.setScreen(new SettingsMenuScreen());
+                    pressAction = (button) -> this.client.setScreen(new ClientSettingsScreen());
                     x += 30;
                 }
                 case 6 -> {

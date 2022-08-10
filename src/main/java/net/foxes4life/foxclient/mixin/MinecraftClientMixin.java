@@ -3,7 +3,7 @@ package net.foxes4life.foxclient.mixin;
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.rpc.DiscordMinecraftClient;
 import net.foxes4life.foxclient.rpc.PresenceUpdater;
-import net.foxes4life.foxclient.screen.pause.FoxClientPauseMenu;
+import net.foxes4life.foxclient.screen.pause.PauseScreen;
 import net.foxes4life.foxclient.util.MiscUtil;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
@@ -85,7 +85,7 @@ public abstract class MinecraftClientMixin {
         if ((boolean) Main.konfig.get("menus", "pause")) {
             ci.cancel();
             if (MinecraftClient.getInstance().currentScreen == null) {
-                MinecraftClient.getInstance().setScreen(new FoxClientPauseMenu());
+                MinecraftClient.getInstance().setScreen(new PauseScreen());
             }
         }
     }

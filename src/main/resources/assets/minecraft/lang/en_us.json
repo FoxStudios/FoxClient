@@ -1,31 +1,11 @@
 {
   "title.multiplayer.other2": "Multiplayer (%s)",
 
-  "foxclient.gui.effectlist.title": "Effects:",
-  "foxclient.gui.effectlist.effect.tick": "%s for %s tick",
-  "foxclient.gui.effectlist.effect.ticks": "%s for %s ticks",
-  "foxclient.gui.effectlist.effect.second": "%s for %s second",
-  "foxclient.gui.effectlist.effect.seconds": "%s for %s seconds",
-
-  "foxclient.gui.altmanager.login": "Login",
-  "foxclient.gui.altmanager.logging_in": "Logging in...",
-
-  "foxclient.gui.button.update": "Update",
-  "foxclient.gui.button.update.latest": "Latest version!",
-  "foxclient.gui.button.update.dev": "This is a development environment!",
-  "foxclient.gui.button.update.failed": "Update Failed!",
-  "foxclient.gui.button.update.checking": "Checking for updates ...",
-  "foxclient.gui.button.update.downloading": "Downloading updates ...",
-  "foxclient.gui.button.update.downloading.pre": "Downloading (Preparing) ...",
-
   "foxclient.gui.button.reconnect": "Reconnect",
-
   "foxclient.gui.button.close": "Close",
 
   "foxclient.gui.toast.title": "FoxClient",
   "foxclient.gui.toast.modmenu.missing": "ModMenu isn't installed",
-
-  "foxclient.debug.gui.button.configtest": "Debug Config",
 
   "category.foxclient.main": "FoxClient",
   "key.foxclient.toggle_hud": "Toggle HUD",

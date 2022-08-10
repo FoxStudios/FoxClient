@@ -1,4 +1,4 @@
-package net.foxes4life.foxclient.gui.bundering;
+package net.foxes4life.foxclient.ui.toast;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.Nullable;
  */
 
 @Environment(EnvType.CLIENT)
-public class GayToaster implements Toast {
+public class FoxClientToast implements Toast {
     private final Text title;
     private final Text description;
     private long startTime;
@@ -26,7 +26,7 @@ public class GayToaster implements Toast {
 
     private static final Identifier bgTex = new Identifier("foxclient", "textures/ui/toasts.png");
 
-    public GayToaster(Text title, @Nullable Text description) {
+    public FoxClientToast(Text title, @Nullable Text description) {
         this.title = title;
         this.description = description;
     }

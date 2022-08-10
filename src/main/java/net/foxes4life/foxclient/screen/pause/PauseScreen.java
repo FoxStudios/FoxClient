@@ -1,7 +1,7 @@
 package net.foxes4life.foxclient.screen.pause;
 
-import net.foxes4life.foxclient.gui.FoxClientButton;
-import net.foxes4life.foxclient.screen.mainmenu.FoxClientTitleScreen;
+import net.foxes4life.foxclient.ui.FoxClientButton;
+import net.foxes4life.foxclient.screen.title.TitleScreen;
 import net.foxes4life.foxclient.util.TextUtils;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.screen.*;
@@ -13,8 +13,8 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 
-public class FoxClientPauseMenu extends Screen {
-    public FoxClientPauseMenu() {
+public class PauseScreen extends Screen {
+    public PauseScreen() {
         super(TextUtils.string("Pause Menu"));
     }
 
@@ -72,7 +72,7 @@ public class FoxClientPauseMenu extends Screen {
                 this.client.disconnect();
             }
 
-            TitleScreen titleScreen = new TitleScreen();
+            net.minecraft.client.gui.screen.TitleScreen titleScreen = new net.minecraft.client.gui.screen.TitleScreen();
             if (bl) {
                 this.client.setScreen(titleScreen);
             } else if (bl2) {
@@ -96,7 +96,7 @@ public class FoxClientPauseMenu extends Screen {
             this.client.disconnect();
         }
 
-        FoxClientTitleScreen title = new FoxClientTitleScreen(false);
+        TitleScreen title = new TitleScreen(false);
 
         if (inSingleplayer) {
             this.client.setScreen(title);

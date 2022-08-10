@@ -1,4 +1,4 @@
-package net.foxes4life.foxclient.gui;
+package net.foxes4life.foxclient.ui.button;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;

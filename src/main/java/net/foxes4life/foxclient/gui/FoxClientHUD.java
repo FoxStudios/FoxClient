@@ -26,7 +26,7 @@ public class FoxClientHUD extends DrawableHelper {
     private int boxWidth = 98;
     private final List<Text> textList = Lists.newArrayList();
 
-    private static final Identifier FOXCLIENT_TEXT = new Identifier("foxclient", "textures/ui/foxclient_text.png");
+    private static final Identifier FOXCLIENT_TEXT = new Identifier("foxclient", "textures/ui/branding/text.png");
 
     public FoxClientHUD(MinecraftClient client) {
         this.client = client;

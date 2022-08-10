@@ -1,10 +1,10 @@
-package net.foxes4life.foxclient.screen.settings.client;
+package net.foxes4life.foxclient.screen.clientsettings;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.foxes4life.foxclient.Main;
-import net.foxes4life.foxclient.gui.settings.SettingsCategorySidebarButton;
-import net.foxes4life.foxclient.gui.settings.SettingsToggleButton;
+import net.foxes4life.foxclient.screen.clientsettings.ui.CategoryButton;
+import net.foxes4life.foxclient.screen.clientsettings.ui.ToggleButton;
 import net.foxes4life.foxclient.util.BackgroundUtils;
 import net.foxes4life.foxclient.util.ConfigUtils;
 import net.foxes4life.foxclient.util.TextUtils;
@@ -28,8 +28,8 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Environment(EnvType.CLIENT)
-public class SettingsMenuScreen extends Screen {
-    private static final Identifier X_BUTTON = new Identifier("foxclient", "textures/ui/buttons/x.png");
+public class ClientSettingsScreen extends Screen {
+    private static final Identifier X_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/x.png");
 
     private static String currentCategoryId;
     private static KonfigCategory currentCategory;
@@ -47,7 +47,7 @@ public class SettingsMenuScreen extends Screen {
     private int amountOfDrawableChilds = 0; // set amount of buttons created in init() here (excluding the ones in the loop)
     private boolean initDone = false; // to prevent amountOfDrawableChilds from increasing after init is done
 
-    public SettingsMenuScreen() {
+    public ClientSettingsScreen() {
         super(TextUtils.string("FoxClient"));
     }
 
@@ -67,7 +67,7 @@ public class SettingsMenuScreen extends Screen {
 
         categories.forEach((name, category) -> {
             cat.getAndIncrement();
-            this.addDrawableChild(new SettingsCategorySidebarButton(0,
+            this.addDrawableChild(new CategoryButton(0,
                     cat.get() * 22,
                     sidebarWidth,
                     22,
@@ -76,12 +76,12 @@ public class SettingsMenuScreen extends Screen {
                     name,
                     (button) -> {
                         for (Element child : this.children()) {
-                            if (child instanceof SettingsCategorySidebarButton) {
-                                ((SettingsCategorySidebarButton) child).selected = false;
+                            if (child instanceof CategoryButton) {
+                                ((CategoryButton) child).selected = false;
                             }
                         }
 
-                        ((SettingsCategorySidebarButton) button).selected = true;
+                        ((CategoryButton) button).selected = true;
                         addCategoryButtons(name, category);
                     }
             ));
@@ -101,7 +101,7 @@ public class SettingsMenuScreen extends Screen {
 
         if (currentCategory != null) {
             for (Element child : this.children()) {
-                if (child instanceof SettingsCategorySidebarButton sidebarButton) {
+                if (child instanceof CategoryButton sidebarButton) {
                     sidebarButton.selected = currentCategoryId.equals(sidebarButton.categoryId);
                 }
             }
@@ -129,7 +129,7 @@ public class SettingsMenuScreen extends Screen {
             if (Boolean.class.equals(value.value.getClass())) {
                 //System.out.println("boolean");
                 this.addDrawableChild(
-                        new SettingsToggleButton(sidebarWidth + 2,
+                        new ToggleButton(sidebarWidth + 2,
                                 settingsThing.get() * bHeight + 32,
                                 width - sidebarWidth - 4,
                                 bHeight,
@@ -186,9 +186,9 @@ public class SettingsMenuScreen extends Screen {
         }
 
         for (Element child : children()) {
-            if (child instanceof SettingsToggleButton) {
-                if (((SettingsToggleButton) child).isHovered()) {
-                    entryHoverBgYGoal = ((SettingsToggleButton) child).y;
+            if (child instanceof ToggleButton) {
+                if (((ToggleButton) child).isHovered()) {
+                    entryHoverBgYGoal = ((ToggleButton) child).y;
                     entryHoverBgY = MathHelper.lerp(delta * 1.2, entryHoverBgY, entryHoverBgYGoal);
                     fill(matrices, sidebarWidth + 2, (int) entryHoverBgY, this.client.getWindow().getScaledWidth() - 2, (int) entryHoverBgY + 22, 0x44ffffff);
                 }
