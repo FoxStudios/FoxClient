@@ -10,7 +10,7 @@ import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.ui.button.FoxClientButton;
 import net.foxes4life.foxclient.ui.button.FoxClientMiniButton;
 import net.foxes4life.foxclient.ui.toast.FoxClientToast;
-import net.foxes4life.foxclient.screen.clientsettings.ClientSettingsScreen;
+import net.foxes4life.foxclient.screen.settings.FoxClientSettingsScreen;
 import net.foxes4life.foxclient.util.BackgroundUtils;
 import net.foxes4life.foxclient.util.TextUtils;
 import net.minecraft.SharedConstants;
@@ -221,7 +221,7 @@ public class TitleScreen extends Screen {
                 }
                 case 5 -> {
                     tex = FOXCLIENT_OPTIONS_BUTTON;
-                    pressAction = (button) -> this.client.setScreen(new ClientSettingsScreen());
+                    pressAction = (button) -> this.client.setScreen(new FoxClientSettingsScreen());
                     x += 30;
                 }
                 case 6 -> {

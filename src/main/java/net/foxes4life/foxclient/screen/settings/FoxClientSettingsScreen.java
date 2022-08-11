@@ -1,10 +1,10 @@
-package net.foxes4life.foxclient.screen.clientsettings;
+package net.foxes4life.foxclient.screen.settings;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.foxes4life.foxclient.Main;
-import net.foxes4life.foxclient.screen.clientsettings.ui.CategoryButton;
-import net.foxes4life.foxclient.screen.clientsettings.ui.ToggleButton;
+import net.foxes4life.foxclient.screen.settings.ui.CategoryButton;
+import net.foxes4life.foxclient.screen.settings.ui.ToggleButton;
 import net.foxes4life.foxclient.util.BackgroundUtils;
 import net.foxes4life.foxclient.util.ConfigUtils;
 import net.foxes4life.foxclient.util.TextUtils;
@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Environment(EnvType.CLIENT)
-public class ClientSettingsScreen extends Screen {
+public class FoxClientSettingsScreen extends Screen {
     private static final Identifier X_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/x.png");
 
     private static String currentCategoryId;
@@ -47,7 +47,7 @@ public class ClientSettingsScreen extends Screen {
     private int amountOfDrawableChilds = 0; // set amount of buttons created in init() here (excluding the ones in the loop)
     private boolean initDone = false; // to prevent amountOfDrawableChilds from increasing after init is done
 
-    public ClientSettingsScreen() {
+    public FoxClientSettingsScreen() {
         super(TextUtils.string("FoxClient"));
     }
 

@@ -7,7 +7,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.foxes4life.foxclient.rpc.DiscordInstance;
 import net.foxes4life.foxclient.rpc.DiscordMinecraftClient;
 import net.foxes4life.foxclient.rpc.PresenceUpdater;
-import net.foxes4life.foxclient.screen.clientsettings.ClientSettingsScreen;
+import net.foxes4life.foxclient.screen.settings.FoxClientSettingsScreen;
 import net.foxes4life.foxclient.util.ZoomUtils;
 import net.foxes4life.foxclient.util.freelook.FreelookUtils;
 import net.minecraft.client.MinecraftClient;
@@ -43,7 +43,7 @@ public class MainClient implements ClientModInitializer {
 
         ClientTickEvents.START_CLIENT_TICK.register(client -> {
             while (clientConfig.wasPressed()) {
-                MinecraftClient.getInstance().setScreen(new ClientSettingsScreen());
+                MinecraftClient.getInstance().setScreen(new FoxClientSettingsScreen());
             }
         });
 
