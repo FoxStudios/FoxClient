@@ -44,7 +44,7 @@ public class Main implements ModInitializer {
         KonfigCategory misc = new KonfigCategory("misc");
         misc.addEntry("discord-rpc", true);
         misc.addEntry("discord-rpc-show-ip", true);
-        misc.addEntry("smoothzoom", true);
+        misc.addEntry("smoothzoom", false);
 
         KonfigCategory eastereggs = new KonfigCategory("eastereggs");
         eastereggs.addEntry("owo", false);
