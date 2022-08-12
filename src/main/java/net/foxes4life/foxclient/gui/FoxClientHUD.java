@@ -77,8 +77,8 @@ public class FoxClientHUD extends DrawableHelper {
             textList.add(TextUtils.string(String.format("[TPS] " + ServerTickUtils.calculateServerTPS())));
 
         if (server) {
-            if (MinecraftClient.getInstance().getCurrentServerEntry() != null) {
-                textList.add(TextUtils.string(String.format("[IP] " + MinecraftClient.getInstance().getCurrentServerEntry().address)));
+            if (client.getCurrentServerEntry() != null) {
+                textList.add(TextUtils.string(String.format("[IP] " + client.getCurrentServerEntry().address)));
             } else {
                 textList.add(TextUtils.string("[IP] " + I18n.translate("menu.singleplayer")));
             }
