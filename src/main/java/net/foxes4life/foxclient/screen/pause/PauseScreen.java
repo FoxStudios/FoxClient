@@ -1,7 +1,9 @@
 package net.foxes4life.foxclient.screen.pause;
 
+import net.fabricmc.loader.api.FabricLoader;
 import net.foxes4life.foxclient.ui.button.FoxClientButton;
 import net.foxes4life.foxclient.screen.title.TitleScreen;
+import net.foxes4life.foxclient.ui.toast.FoxClientToast;
 import net.foxes4life.foxclient.util.TextUtils;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.gui.screen.*;
@@ -9,9 +11,12 @@ import net.minecraft.client.gui.screen.advancement.AdvancementsScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
+import net.minecraft.client.toast.Toast;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
+
+import java.lang.reflect.InvocationTargetException;
 
 public class PauseScreen extends Screen {
     public PauseScreen() {
@@ -59,9 +64,40 @@ public class PauseScreen extends Screen {
         FoxClientButton buttonWidget = this.addDrawableChild(new FoxClientButton(this.width / 2 + 4, this.height / 4 + 96 + -16, 98, 20, TextUtils.translatable("menu.shareToLan"), (button) -> {
             this.client.setScreen(new OpenToLanScreen(this));
         }));
+
+        if (FabricLoader.getInstance().isModLoaded("modmenu")) {
+            try {
+                Class<?> modMenuGui = Class.forName("com.terraformersmc.modmenu.gui.ModsScreen");
+
+                this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 120 - 16, 204, 20, TextUtils.translatable("modmenu.options"), (button) -> {
+                    try {
+                        this.client.setScreen((Screen) modMenuGui.getDeclaredConstructor(Screen.class).newInstance(this));
+                    } catch (InstantiationException e) {
+                        throw new RuntimeException(e);
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    } catch (InvocationTargetException e) {
+                        throw new RuntimeException(e);
+                    } catch (NoSuchMethodException e) {
+                        throw new RuntimeException(e);
+                    }
+                }));
+            } catch (ClassNotFoundException e) {
+
+                e.printStackTrace();
+            }
+        } else {
+            FoxClientToast toaster = this.client.getToastManager().getToast(FoxClientToast.class, Toast.TYPE);
+            if (toaster == null) {
+                this.client.getToastManager().add(new FoxClientToast(
+                        Text.of("FoxClient"), TextUtils.translatable("foxclient.gui.toast.modmenu.missing")));
+            }
+        }
+
+
         buttonWidget.active = this.client.isIntegratedServerRunning() && !this.client.getServer().isRemote();
         Text text = this.client.isInSingleplayer() ? TextUtils.translatable("menu.returnToMenu") : TextUtils.translatable("menu.disconnect");
-        this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 120 - 16, 204, 20, text, (button) -> {
+        this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 145 - 16, 204, 20, text, (button) -> {
             boolean bl = this.client.isInSingleplayer();
             boolean bl2 = this.client.isConnectedToRealms();
             button.active = false;
