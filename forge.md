@@ -1,5 +1,5 @@
 # Reasons why we won't port FoxClient to Forge
- - Forge makes developing certain features harder (no mixins)
+ - Forge makes developing certain features harder ~~(no mixins)~~ update: i found out forge does have mixins
  - Forge is not optimal for client-side mods
  - Fabric and Quilt have better performance than Forge from my experience
 
