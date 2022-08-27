@@ -36,7 +36,9 @@ public class FoxClientHUD extends DrawableHelper {
     public void render(MatrixStack matrices) {
         loadList();
 
-        fill(matrices, 2, 2, boxWidth, boxHeight, 0x45454545);
+        fill(matrices, 0, 0, boxWidth - 5, boxHeight - 5, 0x45454545);
+        fill(matrices, boxWidth - 5, 0, boxWidth, boxHeight - 5, 0x45454545);
+        fill(matrices, 0, boxHeight - 5, boxWidth - 5, boxHeight, 0x45454545);
 
         // draw logo
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
