@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(value = TranslationStorage.class)
+@Mixin(TranslationStorage.class)
 public abstract class TranslationStorageMixin {
     @Inject(at = @At("RETURN"), method = "get", cancellable = true)
     private void get(String key, CallbackInfoReturnable<String> cir) {

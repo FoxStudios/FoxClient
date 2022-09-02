@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 
 import java.io.InputStream;
 
-@Mixin(value = MinecraftClient.class)
+@Mixin(MinecraftClient.class)
 public abstract class MinecraftClientMixin {
     @Shadow
     @Nullable
