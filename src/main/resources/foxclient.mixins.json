@@ -16,6 +16,7 @@
     "MouseMixin",
     "MultiplayerScreenMixin",
     "PlayerListEntryMixin",
+    "PlayerListHudMixin",
     "SplashOverlayMixin",
     "TitleScreenMixin",
     "TranslationStorageMixin"
