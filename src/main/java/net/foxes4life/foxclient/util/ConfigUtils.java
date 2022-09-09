@@ -6,7 +6,7 @@ import net.minecraft.text.MutableText;
 
 public class ConfigUtils {
     public static MutableText translatableEntry(KonfigCategory c, KonfigEntry e) {
-        return TextUtils.translatable("foxclient.config." + c.catName + "." + e.entryName);
+        return TextUtils.translatable("foxclient.config." + c.catName + "." + e.getEntryName());
     }
 
     public static MutableText translatableCategory(KonfigCategory c) {

@@ -126,28 +126,28 @@ public class FoxClientSettingsScreen extends Screen {
         currentCategory.catData.forEach((key, value) -> {
             settingsThing.getAndIncrement();
 
-            if (Boolean.class.equals(value.value.getClass())) {
+            if (value.isBoolean()) {
                 //System.out.println("boolean");
                 this.addDrawableChild(
                         new ToggleButton(sidebarWidth + 2,
                                 settingsThing.get() * bHeight + 32,
                                 width - sidebarWidth - 4,
                                 bHeight,
-                                ConfigUtils.translatableEntry(category, value), (Boolean) value.value, (b) -> {
+                                ConfigUtils.translatableEntry(category, value), value.getAsBoolean(), (b) -> {
                             //System.out.println("clicked toggle!");
-                            Main.konfig.set(name, key, !(boolean) value.value);
+                            Main.konfig.set(name, key, !value.getAsBoolean());
                             try {
                                 Main.konfig.save();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }));
-            } else if (String.class.equals(value.value.getClass())) {
+            } else if (value.isString()) {
                 //System.out.println("string");
                 this.addDrawableChild(new ButtonWidget(0, 0, 0, 0, Text.of(""), (b) -> {
                 }));
             } else {
-                System.out.println("UNKNOWN: " + value.value.getClass());
+                System.out.println("UNKNOWN: " + value.getValue().getClass());
                 // add dummy to avoid crashes
                 this.addDrawableChild(new ButtonWidget(0, 0, 0, 0, Text.of("a"), (b) -> {
                 }));
