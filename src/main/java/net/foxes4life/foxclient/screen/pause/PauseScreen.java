@@ -72,13 +72,8 @@ public class PauseScreen extends Screen {
                 this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 120 - 16, 204, 20, TextUtils.translatable("modmenu.options"), (button) -> {
                     try {
                         this.client.setScreen((Screen) modMenuGui.getDeclaredConstructor(Screen.class).newInstance(this));
-                    } catch (InstantiationException e) {
-                        throw new RuntimeException(e);
-                    } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e);
-                    } catch (InvocationTargetException e) {
-                        throw new RuntimeException(e);
-                    } catch (NoSuchMethodException e) {
+                    } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                             NoSuchMethodException e) {
                         throw new RuntimeException(e);
                     }
                 }));

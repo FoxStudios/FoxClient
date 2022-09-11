@@ -31,7 +31,6 @@ public final class Provider {
             // Check if the player doesn't already have a cape.
             Identifier existingCape = capes.get(player.getName());
             if (existingCape != null) {
-                System.out.println("hi");
                 //callback.onTexAvail(existingCape);
                 //return;
             }

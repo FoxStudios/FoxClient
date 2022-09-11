@@ -11,12 +11,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
-/*
- * The reason for this class/package name is a joke. Quite literally, it's a joke.
- * Because Bundering is a gay toaster (protogen)
- * so yeah this is a toast -> toaster -> bundering -> gay toaster
- */
-
 @Environment(EnvType.CLIENT)
 public class FoxClientToast implements Toast {
     private final Text title;
