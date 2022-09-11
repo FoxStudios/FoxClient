@@ -1,0 +1,3 @@
+[submodule "src/main/java/net/foxes4life/foxclient/networking/shared"]
+	path = src/main/java/net/foxes4life/foxclient/networking/shared
+	url = https://github.com/FoxStudios/fc-networking-shared
