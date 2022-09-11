@@ -2,6 +2,8 @@ package net.foxes4life.foxclient.networking;
 
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.SessionConstants;
+import net.foxes4life.foxclient.networking.shared.BrokenHash;
+import net.foxes4life.foxclient.networking.shared.LowWebsocketPacket;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.Session;
 import org.apache.http.HttpResponse;
@@ -41,11 +43,12 @@ public class WebSocketClientImpl extends WebSocketClient {
         //System.out.println("received ByteBuffer");
         byte[] packet = bytes.array();
         byte packetId = packet[0];
+        LowWebsocketPacket lowWebsocketPacket = LowWebsocketPacket.values()[packetId];
         byte[] data = Arrays.copyOfRange(packet, 1, packet.length);
         //System.out.println("Received packet from server: " + packetId + " " + new String(data));
 
-        switch (packetId) {
-            case 0x02 -> {
+        switch (lowWebsocketPacket) {
+            case S2C_LOGIN_ENCRYPTION_KEY_REQUEST -> {
                 //System.out.println("S2C_ENCRYPTION_KEY_REQUEST");
                 String dataString = new String(data);
                 String[] split = dataString.split("\0");
@@ -81,7 +84,7 @@ public class WebSocketClientImpl extends WebSocketClient {
                 }
 
                 List<Byte> response = new ArrayList<>();
-                response.add((byte) 0x03); // todo: use class for C2S_ENCRYPTION_KEY_RESPONSE
+                response.add(LowWebsocketPacket.C2S_LOGIN_ENCRYPTION_KEY_RESPONSE.getId());
 
                 for (byte b : sharedSecret.getBytes()) {
                     response.add(b);
@@ -96,7 +99,7 @@ public class WebSocketClientImpl extends WebSocketClient {
 
                 this.send(responseArray);
             }
-            case 0x04 -> {
+            case S2C_LOGIN_SUCCESS -> {
                 Main.LOGGER.info("Backend Login successful");
                 SessionConstants.BACKEND_IS_LOGGED_IN = true;
                 this.close();

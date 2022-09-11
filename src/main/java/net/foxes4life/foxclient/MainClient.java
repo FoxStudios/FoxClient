@@ -5,6 +5,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.foxes4life.foxclient.networking.WebSocketClientImpl;
+import net.foxes4life.foxclient.networking.shared.LowWebsocketPacket;
 import net.foxes4life.foxclient.rpc.DiscordInstance;
 import net.foxes4life.foxclient.rpc.DiscordMinecraftClient;
 import net.foxes4life.foxclient.rpc.PresenceUpdater;
@@ -65,11 +66,8 @@ public class MainClient implements ClientModInitializer {
             WebSocketClient client = new WebSocketClientImpl(uri);
             client.connectBlocking();
 
-            byte packetId = 0;
-            packetId = 0x01;
-
             List<Byte> packet = new ArrayList<>();
-            packet.add(packetId);
+            packet.add(LowWebsocketPacket.C2S_LOGIN_REQUEST.getId()); // packet id
 
             byte[] balls = (playerSession.getUsername() + "\0" + playerSession.getUuid()).getBytes();
             for (byte b : balls) {
