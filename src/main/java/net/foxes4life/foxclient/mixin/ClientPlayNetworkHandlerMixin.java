@@ -22,6 +22,7 @@ public abstract class ClientPlayNetworkHandlerMixin {
 
     @Inject(at = @At("RETURN"), method = "onGameJoin")
     public void onGameJoin(GameJoinS2CPacket packet, CallbackInfo ci) {
+        System.out.println("Joined server " + this.client.getCurrentServerEntry().address);
         ServerTickUtils.onJoin();
     }
 

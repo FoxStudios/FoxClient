@@ -2,6 +2,9 @@ package net.foxes4life.foxclient.networking;
 
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.SessionConstants;
+import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.util.Session;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -48,7 +51,6 @@ public class WebSocketClientImpl extends WebSocketClient {
                 String[] split = dataString.split("\0");
                 String serverPublicKey = split[0];
 
-
                 // generate a random 16 character string
                 Random random = new Random();
                 String sharedSecret = "";
@@ -66,10 +68,12 @@ public class WebSocketClientImpl extends WebSocketClient {
                 post.setHeader("Content-Type", "application/json");
                 post.setHeader("Accept", "application/json");
 
+                Session mcSession = MinecraftClient.getInstance().getSession();
+
                 try {
-                    post.setEntity(new StringEntity("{\"accessToken\": \"" + NetworkingTest.accessToken +
-                            "\", \"selectedProfile\": \"" + NetworkingTest.uuid + "\", \"serverId\": \"" + hash + "\"}"));
-                    client.execute(post);
+                    post.setEntity(new StringEntity("{\"accessToken\": \"" + mcSession.getAccessToken() +
+                            "\", \"selectedProfile\": \"" + mcSession.getUuid() + "\", \"serverId\": \"" + hash + "\"}"));
+                    HttpResponse execute = client.execute(post);
                 } catch (IOException e) {
                     e.printStackTrace();
                     this.close();
