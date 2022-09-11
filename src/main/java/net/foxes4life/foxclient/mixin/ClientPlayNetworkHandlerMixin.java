@@ -1,9 +1,11 @@
 package net.foxes4life.foxclient.mixin;
 
 import net.foxes4life.foxclient.SessionConstants;
+import net.foxes4life.foxclient.networking.Networking;
 import net.foxes4life.foxclient.util.ServerTickUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.client.network.ServerInfo;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.WorldTimeUpdateS2CPacket;
 import net.minecraft.text.Text;
@@ -22,13 +24,25 @@ public abstract class ClientPlayNetworkHandlerMixin {
 
     @Inject(at = @At("RETURN"), method = "onGameJoin")
     public void onGameJoin(GameJoinS2CPacket packet, CallbackInfo ci) {
-        System.out.println("Joined server " + this.client.getCurrentServerEntry().address);
         ServerTickUtils.onJoin();
+
+        ServerInfo serverEntry = this.client.getCurrentServerEntry();
+        if (serverEntry != null) {
+            System.out.println("Joined server " + serverEntry.address);
+            Networking.joinServer(serverEntry.address);
+        }
     }
 
     @Inject(at = @At("HEAD"), method = "onDisconnected")
     public void onDisconnected(Text reason, CallbackInfo ci) {
         SessionConstants.LAST_SERVER = this.client.getCurrentServerEntry();
+
+        // todo: make this trigger on all types of disconnects
+        ServerInfo serverEntry = this.client.getCurrentServerEntry();
+        if (serverEntry != null) {
+            System.out.println("Left server " + serverEntry.address);
+            Networking.leaveServer(serverEntry.address);
+        }
     }
 
     @Inject(at = @At("TAIL"), method = "onWorldTimeUpdate")
