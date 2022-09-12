@@ -15,14 +15,9 @@ import net.foxes4life.foxclient.util.ZoomUtils;
 import net.foxes4life.foxclient.util.freelook.FreelookUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.Session;
-import org.java_websocket.client.WebSocketClient;
 import org.lwjgl.glfw.GLFW;
 
 import java.io.IOException;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainClient implements ClientModInitializer {
     private static final KeyBinding toggleHud = new KeyBinding("key.foxclient.toggle_hud", GLFW.GLFW_KEY_F6, "category.foxclient.main");

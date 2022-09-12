@@ -3,6 +3,7 @@ package net.foxes4life.foxclient.networking;
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.SessionConstants;
 import net.foxes4life.foxclient.networking.shared.BrokenHash;
+import net.foxes4life.foxclient.networking.shared.LoggedInWebsocketPacket;
 import net.foxes4life.foxclient.networking.shared.LowWebsocketPacket;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.Session;
@@ -103,6 +104,22 @@ public class WebSocketClientImpl extends WebSocketClient {
                 Main.LOGGER.info("Backend Login successful");
                 SessionConstants.BACKEND_IS_LOGGED_IN = true;
                 this.close();
+            }
+            case COMMON_LOGGED_IN_PACKET -> {
+                byte loggedInPacketId = data[0];
+                byte[] loggedInPacketData = Arrays.copyOfRange(data, 1, data.length);
+                LoggedInWebsocketPacket loggedInPacket = LoggedInWebsocketPacket.values()[loggedInPacketId];
+
+                switch (loggedInPacket) {
+                    case PLAYERS_ON_SERVER -> {
+                        String playersString = new String(loggedInPacketData);
+                        String[] players = playersString.split("\0");
+
+                        Main.LOGGER.info("Players on server: " + Arrays.toString(players));
+                        SessionConstants.FOXCLIENT_USERS.clear();
+                        SessionConstants.FOXCLIENT_USERS.addAll(Arrays.asList(players));
+                    }
+                }
             }
             default -> {
                 System.out.println("Unknown packet " + packetId);
