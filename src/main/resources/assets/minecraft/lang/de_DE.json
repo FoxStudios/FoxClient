@@ -2,7 +2,7 @@
   "title.multiplayer.other2": "Mehrspieler (%s)",
 
   "foxclient.gui.button.reconnect": "Neu verbinden",
-  "foxclient.gui.button.close": "schliesen",
+  "foxclient.gui.button.close": "schließen",
 
   "foxclient.gui.toast.title": "FoxClient",
   "foxclient.gui.toast.modmenu.missing": "ModMenu ist nicht installiert",
