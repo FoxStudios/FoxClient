@@ -1,0 +1,47 @@
+{
+  "title.multiplayer.other2": "Mehrspieler (%s)",
+
+  "foxclient.gui.button.reconnect": "Neu verbinden",
+  "foxclient.gui.button.close": "schliesen",
+
+  "foxclient.gui.toast.title": "FoxClient",
+  "foxclient.gui.toast.modmenu.missing": "ModMenu ist nicht installiert",
+
+  "category.foxclient.main": "FoxClient",
+  "key.foxclient.toggle_hud": "Toggle HUD",
+  "key.foxclient.freelook": "FreeLook",
+  "key.foxclient.configKey": "FoxClient Konfiguration",
+  "key.foxclient.zoom": "Zoom",
+
+  "foxclient.rpc.state.idle": "Idle",
+  "foxclient.rpc.state.singleplayer": "Spielt Einzelspieler",
+  "foxclient.rpc.state.lan": "Spielt im LAN-Spiel",
+  "foxclient.rpc.state.multiplayer": "Spielt auf %s",
+  "foxclient.rpc.state.multiplayer.hide_ip": "Spielt Mehrspieler",
+  "foxclient.rpc.state.realms": "Spielt auf einem Realm",
+
+  "foxclient.config.ingame-hud": "In-Game HUD",
+  "foxclient.config.client": "Client",
+  "foxclient.config.eastereggs": "EasterEggs",
+  "foxclient.config.menus": "Custom Menus",
+  "foxclient.config.misc": "Weiteres",
+  "foxclient.config.misc.smoothzoom": "Smooth Zoom einschalten",
+
+  "foxclient.config.ingame-hud.ping": "Ping",
+  "foxclient.config.ingame-hud.tps": "TPS",
+  "foxclient.config.ingame-hud.fps": "FPS",
+  "foxclient.config.ingame-hud.version": "Version",
+  "foxclient.config.ingame-hud.coords": "XYZ",
+  "foxclient.config.ingame-hud.colored-coords": "Farbige XYZ",
+  "foxclient.config.ingame-hud.server": "Server IP",
+
+  "foxclient.config.client.hud-enabled" : "In-Game HUD einschalten",
+
+  "foxclient.config.eastereggs.owo": "OwO",
+
+  "foxclient.config.menus.mainmenu": "Hauptmenü",
+  "foxclient.config.menus.pause": "Pause Menü",
+
+  "foxclient.config.misc.discord-rpc": "DiscordRPC - Eingeschaltet",
+  "foxclient.config.misc.discord-rpc-show-ip": "DiscordRPC - IP anzeigen"
+}
