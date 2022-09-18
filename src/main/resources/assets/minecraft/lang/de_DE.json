@@ -32,7 +32,7 @@
   "foxclient.config.ingame-hud.fps": "FPS",
   "foxclient.config.ingame-hud.version": "Version",
   "foxclient.config.ingame-hud.coords": "XYZ",
-  "foxclient.config.ingame-hud.colored-coords": "Farbige ",
+  "foxclient.config.ingame-hud.colored-coords": "Farbige Koordinaten",
   "foxclient.config.ingame-hud.server": "Server IP",
 
   "foxclient.config.client.hud-enabled" : "In-Game HUD einschalten",
