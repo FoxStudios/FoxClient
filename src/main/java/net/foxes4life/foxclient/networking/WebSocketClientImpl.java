@@ -30,8 +30,22 @@ public class WebSocketClientImpl extends WebSocketClient {
 
     @Override
     public void onOpen(ServerHandshake handshakedata) {
-        System.out.println("Connected");
-        System.out.println(handshakedata.getHttpStatus());
+        Main.LOGGER.info("Connected to backend server!");
+        Session playerSession = MinecraftClient.getInstance().getSession();
+
+        List<Byte> packet = new ArrayList<>();
+        packet.add(LowWebsocketPacket.C2S_LOGIN_REQUEST.getId()); // packet id
+
+        byte[] balls = (playerSession.getUsername() + "\0" + playerSession.getUuid()).getBytes();
+        for (byte b : balls) {
+            packet.add(b);
+        }
+
+        byte[] packetArray = new byte[packet.size()];
+        for (int i = 0; i < packet.size(); i++) {
+            packetArray[i] = packet.get(i);
+        }
+        this.send(packetArray);
     }
 
     @Override
@@ -129,7 +143,17 @@ public class WebSocketClientImpl extends WebSocketClient {
 
     @Override
     public void onClose(int code, String reason, boolean remote) {
-        System.out.println("Closed");
+        Main.LOGGER.debug("Disconnected from backend!");
+        SessionConstants.BACKEND_IS_LOGGED_IN = false;
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        Main.LOGGER.debug("Reconnecting to backend...");
+        Networking.init();
     }
 
     @Override

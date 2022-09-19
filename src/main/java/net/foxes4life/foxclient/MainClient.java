@@ -5,8 +5,6 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.foxes4life.foxclient.networking.Networking;
-import net.foxes4life.foxclient.networking.WebSocketClientImpl;
-import net.foxes4life.foxclient.networking.shared.LowWebsocketPacket;
 import net.foxes4life.foxclient.rpc.DiscordInstance;
 import net.foxes4life.foxclient.rpc.DiscordMinecraftClient;
 import net.foxes4life.foxclient.rpc.PresenceUpdater;
@@ -33,7 +31,8 @@ public class MainClient implements ClientModInitializer {
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
             DiscordInstance.get().init();
             PresenceUpdater.setState(DiscordMinecraftClient.getState(MinecraftClient.getInstance().getNetworkHandler()));
-            Networking.init();
+            Thread networkingThread = new Thread(Networking::init);
+            networkingThread.start();
         });
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {

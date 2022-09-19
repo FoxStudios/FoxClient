@@ -1,46 +1,26 @@
 package net.foxes4life.foxclient.networking;
 
 import net.foxes4life.foxclient.Main;
-import net.foxes4life.foxclient.networking.shared.HashUtils;
 import net.foxes4life.foxclient.networking.shared.LoggedInWebsocketPacket;
 import net.foxes4life.foxclient.networking.shared.LowWebsocketPacket;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.Session;
 import org.java_websocket.client.WebSocketClient;
 
 import java.net.URI;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Networking {
     private static WebSocketClient client;
 
     public static void init() {
-        Session playerSession = MinecraftClient.getInstance().getSession();
         try {
             URI uri = new URI("wss://backend.client.foxes4life.net");
 
             client = new WebSocketClientImpl(uri);
             client.connectBlocking();
 
-            if (client.isClosed()) {
+            if (client.isClosed() || !client.isOpen()) {
                 Main.LOGGER.error("Failed to connect to backend!");
-                return;
             }
-
-            List<Byte> packet = new ArrayList<>();
-            packet.add(LowWebsocketPacket.C2S_LOGIN_REQUEST.getId()); // packet id
-
-            byte[] balls = (playerSession.getUsername() + "\0" + playerSession.getUuid()).getBytes();
-            for (byte b : balls) {
-                packet.add(b);
-            }
-
-            byte[] packetArray = new byte[packet.size()];
-            for (int i = 0; i < packet.size(); i++) {
-                packetArray[i] = packet.get(i);
-            }
-            client.send(packetArray);
         } catch (Exception e) {
             e.printStackTrace();
         }
