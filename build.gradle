@@ -91,7 +91,12 @@ jar {
 	}
 
 	from {
-		configurations.extraLibs.collect { it.isDirectory() ? it : zipTree(it) }
+		configurations.extraLibs.collect {
+			System.out.println(it.name)
+			if (!(it.name.contains("slf4j-api-") || it.name.contains("gson-"))) {
+				it.isDirectory() ? it : zipTree(it)
+			}
+		}
 	}
 }
 
