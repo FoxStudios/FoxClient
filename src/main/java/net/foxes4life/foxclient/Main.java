@@ -2,6 +2,7 @@ package net.foxes4life.foxclient;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.ModContainer;
 import net.foxes4life.konfig.Konfig;
 import net.foxes4life.konfig.data.KonfigCategory;
 import org.slf4j.Logger;
@@ -12,6 +13,7 @@ public class Main implements ModInitializer {
     public static String VERSION = "";
     public static String SIMPLE_VERSION = "";
     public static String JAVA_VERSION = "unknown";
+    public static String DISCORD_INVITE = "";
 
     public static Konfig konfig;
 
@@ -22,8 +24,11 @@ public class Main implements ModInitializer {
         initConfig();
 
         if (FabricLoader.getInstance().getModContainer(Main.FOXCLIENT_MOD_ID).isPresent()) {
-            VERSION = FabricLoader.getInstance().getModContainer(Main.FOXCLIENT_MOD_ID).get().getMetadata().getVersion().getFriendlyString();
+            ModContainer modContainer = FabricLoader.getInstance().getModContainer(Main.FOXCLIENT_MOD_ID).get();
+
+            VERSION = modContainer.getMetadata().getVersion().getFriendlyString();
             SIMPLE_VERSION = VERSION.substring(0, VERSION.indexOf("-rev"));
+            DISCORD_INVITE = modContainer.getMetadata().getCustomValue("modmenu").getAsObject().get("links").getAsObject().get("modmenu.discord").getAsString();
         }
 
         if (FabricLoader.getInstance().getModContainer("java").isPresent()) {

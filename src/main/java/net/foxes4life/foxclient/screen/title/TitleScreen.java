@@ -189,7 +189,7 @@ public class TitleScreen extends Screen {
             switch (i + 1) {
                 case 1 -> {
                     tex = DISCORD_BUTTON;
-                    pressAction = (button) -> Util.getOperatingSystem().open("https://discord.gg/JG99fvjCtU");
+                    pressAction = (button) -> Util.getOperatingSystem().open(Main.DISCORD_INVITE);
                     x -= 30 * 3;
                 }
                 case 2 -> {
