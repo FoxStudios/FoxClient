@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 public class Main implements ModInitializer {
     public static final String FOXCLIENT_MOD_ID = "foxclient";
     public static String VERSION = "";
+    public static String SIMPLE_VERSION = "";
     public static String JAVA_VERSION = "unknown";
 
     public static Konfig konfig;
@@ -22,6 +23,7 @@ public class Main implements ModInitializer {
 
         if (FabricLoader.getInstance().getModContainer(Main.FOXCLIENT_MOD_ID).isPresent()) {
             VERSION = FabricLoader.getInstance().getModContainer(Main.FOXCLIENT_MOD_ID).get().getMetadata().getVersion().getFriendlyString();
+            SIMPLE_VERSION = VERSION.substring(0, VERSION.indexOf("-rev"));
         }
 
         if (FabricLoader.getInstance().getModContainer("java").isPresent()) {
@@ -50,6 +52,7 @@ public class Main implements ModInitializer {
         eastereggs.addEntry("owo", false);
 
         KonfigCategory ingameHUD = new KonfigCategory("ingame-hud");
+        ingameHUD.addEntry("logo", true);
         ingameHUD.addEntry("version", true);
         ingameHUD.addEntry("coords", true);
         ingameHUD.addEntry("colored-coords", false);

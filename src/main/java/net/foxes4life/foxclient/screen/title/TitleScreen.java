@@ -151,7 +151,7 @@ public class TitleScreen extends Screen {
         }
 
         drawStringWithShadow(matrices, this.textRenderer, gameVersion, 4, this.height - 10, 16777215 | transparent);
-        drawStringWithShadow(matrices, this.textRenderer, "FoxClient " + Main.VERSION, 4, this.height - 20, 16777215 | transparent);
+        drawStringWithShadow(matrices, this.textRenderer, "FoxClient " + Main.SIMPLE_VERSION, 4, this.height - 20, 16777215 | transparent);
         drawStringWithShadow(matrices, this.textRenderer, foxclientCopyrightText, this.foxclientCopyrightTextX, this.height - 20, 16777215 | transparent);
 
         // draw buttons

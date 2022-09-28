@@ -41,12 +41,14 @@ public class FoxClientHUD extends DrawableHelper {
         fill(matrices, 0, boxHeight - 5, boxWidth - 5, boxHeight, 0x45454545);
 
         // draw logo
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, FOXCLIENT_TEXT);
-        RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        drawTexture(matrices, 4, 4, 0, 48, 96, 48, 96, 48);
+        if ((boolean) Main.konfig.get("ingame-hud", "logo")) {
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            RenderSystem.setShaderTexture(0, FOXCLIENT_TEXT);
+            RenderSystem.enableBlend();
+            RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
+            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+            drawTexture(matrices, 4, 4, 0, 48, 96, 48, 96, 48);
+        }
 
         renderList(matrices);
     }
