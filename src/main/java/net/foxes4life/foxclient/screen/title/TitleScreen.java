@@ -26,10 +26,12 @@ import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.toast.Toast;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.StringVisitable;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
+import org.apache.commons.compress.utils.Lists;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -152,6 +154,10 @@ public class TitleScreen extends Screen {
 
         drawStringWithShadow(matrices, this.textRenderer, gameVersion, 4, this.height - 10, 16777215 | transparent);
         drawStringWithShadow(matrices, this.textRenderer, "FoxClient " + Main.SIMPLE_VERSION, 4, this.height - 20, 16777215 | transparent);
+        int foxClientTextWidth = this.textRenderer.getWidth("FoxClient " + Main.SIMPLE_VERSION);
+        if (mouseX > 2 && mouseX < 2 + foxClientTextWidth && mouseY > this.height - 24 && mouseY < this.height - 10) {
+            this.renderOrderedTooltip(matrices, this.textRenderer.wrapLines(StringVisitable.plain("FoxClient " + Main.VERSION), Math.max(this.width / 2 - 43, 170)), mouseX, mouseY);
+        }
         drawStringWithShadow(matrices, this.textRenderer, foxclientCopyrightText, this.foxclientCopyrightTextX, this.height - 20, 16777215 | transparent);
 
         // draw buttons
@@ -159,8 +165,6 @@ public class TitleScreen extends Screen {
     }
 
     public boolean mouseClicked(double mouseX, double mouseY, int button) {
-        // stolen from mojang code
-        // TODO: IMPORTANT - recode this
         if (super.mouseClicked(mouseX, mouseY, button)) {
             return true;
         }
