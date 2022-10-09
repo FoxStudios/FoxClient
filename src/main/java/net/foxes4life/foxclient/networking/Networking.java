@@ -4,6 +4,7 @@ import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.networking.shared.LoggedInWebsocketPacket;
 import net.foxes4life.foxclient.networking.shared.LowWebsocketPacket;
 import org.java_websocket.client.WebSocketClient;
+import org.java_websocket.exceptions.WebsocketNotConnectedException;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -46,7 +47,11 @@ public class Networking {
         if (client == null || client.isClosed()) {
             return false;
         } else {
-            client.send(packet);
+            try {
+                client.send(packet);
+            } catch (WebsocketNotConnectedException ignored) {
+                return false;
+            }
             return true;
         }
     }
