@@ -37,9 +37,11 @@ public class FoxClientHUD extends DrawableHelper {
         boolean drawLogo = (boolean) Main.konfig.get("ingame-hud", "logo");
         loadList(drawLogo);
 
-        fill(matrices, 0, 0, boxWidth - 5, boxHeight - 5, 0x45454545);
-        fill(matrices, boxWidth - 5, 0, boxWidth, boxHeight - 5, 0x45454545);
-        fill(matrices, 0, boxHeight - 5, boxWidth - 5, boxHeight, 0x45454545);
+        if ((boolean) Main.konfig.get("ingame-hud", "background")) {
+            fill(matrices, 0, 0, boxWidth - 5, boxHeight - 5, 0x45454545);
+            fill(matrices, boxWidth - 5, 0, boxWidth, boxHeight - 5, 0x45454545);
+            fill(matrices, 0, boxHeight - 5, boxWidth - 5, boxHeight, 0x45454545);
+        }
 
         // draw logo
         if (drawLogo) {

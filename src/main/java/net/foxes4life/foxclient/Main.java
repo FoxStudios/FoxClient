@@ -57,6 +57,7 @@ public class Main implements ModInitializer {
         eastereggs.addEntry("owo", false);
 
         KonfigCategory ingameHUD = new KonfigCategory("ingame-hud");
+        ingameHUD.addEntry("background", true);
         ingameHUD.addEntry("logo", true);
         ingameHUD.addEntry("version", true);
         ingameHUD.addEntry("coords", true);
