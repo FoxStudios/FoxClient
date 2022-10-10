@@ -134,8 +134,9 @@ public class FoxClientSettingsScreen extends Screen {
                                 width - sidebarWidth - 4,
                                 bHeight,
                                 ConfigUtils.translatableEntry(category, value), value.getAsBoolean(), (b) -> {
-                            //System.out.println("clicked toggle!");
                             Main.konfig.set(name, key, !value.getAsBoolean());
+                            ConfigUtils.onOptionChanged(name, key, !value.getAsBoolean());
+
                             try {
                                 Main.konfig.save();
                             } catch (IOException e) {
