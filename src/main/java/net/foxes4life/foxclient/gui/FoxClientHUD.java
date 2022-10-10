@@ -22,7 +22,7 @@ public class FoxClientHUD extends DrawableHelper {
     private final MinecraftClient client;
     private final TextRenderer fontRenderer;
 
-    private int boxHeight = 44;
+    private int boxHeight = 2;
     private int boxWidth = 98;
     private final List<Text> textList = Lists.newArrayList();
 
@@ -34,26 +34,34 @@ public class FoxClientHUD extends DrawableHelper {
     }
 
     public void render(MatrixStack matrices) {
-        loadList();
+        boolean drawLogo = (boolean) Main.konfig.get("ingame-hud", "logo");
+        loadList(drawLogo);
 
         fill(matrices, 0, 0, boxWidth - 5, boxHeight - 5, 0x45454545);
         fill(matrices, boxWidth - 5, 0, boxWidth, boxHeight - 5, 0x45454545);
         fill(matrices, 0, boxHeight - 5, boxWidth - 5, boxHeight, 0x45454545);
 
         // draw logo
-        if ((boolean) Main.konfig.get("ingame-hud", "logo")) {
+        if (drawLogo) {
+            boxHeight += 42;
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderTexture(0, FOXCLIENT_TEXT);
             RenderSystem.enableBlend();
             RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
             drawTexture(matrices, 4, 4, 0, 48, 96, 48, 96, 48);
-        }
 
-        renderList(matrices);
+            renderList(matrices, 42);
+        } else {
+            renderList(matrices, 2);
+        }
     }
 
-    void loadList() {
+    void loadList(boolean drawLogo) {
+        textList.clear();
+        boxHeight = drawLogo ? 42 : 2;
+        boxWidth = 98;
+
         boolean version = (boolean) Main.konfig.get("ingame-hud", "version");
         boolean coords = (boolean) Main.konfig.get("ingame-hud", "coords");
         boolean colorcoords = (boolean) Main.konfig.get("ingame-hud", "colored-coords");
@@ -97,10 +105,10 @@ public class FoxClientHUD extends DrawableHelper {
         }
     }
 
-    void renderList(MatrixStack matrices) {
+    void renderList(MatrixStack matrices, int offset) {
         int i = 0;
         for (Text text : textList) {
-            int y = 42 + (10 * i);
+            int y = offset + (10 * i);
             this.fontRenderer.draw(matrices, text, 4, y, 0xFFFFFFFF);
             i++;
         }

@@ -18,10 +18,15 @@ public class InGameHUDMixin {
     @Final
     private MinecraftClient client;
 
+    private static FoxClientHUD foxClientHUD = null;
+
     @Inject(at = @At("HEAD"), method = "render")
     public void render(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
         if ((boolean) Main.konfig.get("client", "hud-enabled")) {
-            new FoxClientHUD(this.client).render(matrices);
+            if (foxClientHUD == null) {
+                foxClientHUD = new FoxClientHUD(client);
+            }
+            foxClientHUD.render(matrices);
         }
     }
 }
