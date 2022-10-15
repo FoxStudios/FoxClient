@@ -2,6 +2,7 @@ package net.foxes4life.foxclient.util.update;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.fabricmc.loader.api.FabricLoader;
 import net.foxes4life.foxclient.Main;
 
 import java.net.URI;
@@ -46,6 +47,7 @@ public class UpdateChecker {
         }
 
         if (latestVersion.equals("unknown")) return false; // If we can't get the latest version, don't show the update screen
+        if (FabricLoader.getInstance().isDevelopmentEnvironment()) return false; // Don't show the update screen if we're in a dev environment
 
         return updateAvailable;
     }
