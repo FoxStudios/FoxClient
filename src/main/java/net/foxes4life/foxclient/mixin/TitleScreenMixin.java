@@ -2,6 +2,8 @@ package net.foxes4life.foxclient.mixin;
 
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.screen.title.TitleScreen;
+import net.foxes4life.foxclient.screen.update.UpdateScreen;
+import net.foxes4life.foxclient.util.update.UpdateChecker;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,6 +15,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class TitleScreenMixin {
     @Inject(at = @At("HEAD"), method = "render", cancellable = true)
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+        if (UpdateChecker.updateAvailable() && !UpdateChecker.dismissed) {
+            MinecraftClient.getInstance().setScreen(new UpdateScreen());
+            ci.cancel();
+            return;
+        }
+
         if ((boolean) Main.konfig.get("menus", "mainmenu")) {
             ci.cancel();
             MinecraftClient.getInstance().setScreen(new TitleScreen(false));

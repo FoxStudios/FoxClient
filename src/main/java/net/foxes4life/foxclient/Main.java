@@ -3,6 +3,7 @@ package net.foxes4life.foxclient;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+import net.foxes4life.foxclient.util.update.UpdateChecker;
 import net.foxes4life.konfig.Konfig;
 import net.foxes4life.konfig.data.KonfigCategory;
 import org.slf4j.Logger;
@@ -36,6 +37,17 @@ public class Main implements ModInitializer {
         }
 
         LOGGER.info("FoxClient " + Main.VERSION + " by FoxStudios");
+
+        Thread updateChecker = new Thread(() -> {
+            LOGGER.info("Checking for updates...");
+            if (UpdateChecker.updateAvailable()) {
+                LOGGER.info("Update available! Latest version: " + UpdateChecker.getLatestVersion());
+            } else {
+                LOGGER.info("Running latest version!");
+            }
+        });
+        updateChecker.setName("FoxClient Update Checker");
+        updateChecker.start();
     }
 
     void initConfig() {
