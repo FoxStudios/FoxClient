@@ -22,7 +22,7 @@ public class PlayerListHudMixin extends DrawableHelper {
         String uuidHash = SessionConstants.UUID_HASHES.get(entry.getProfile().getId().toString().replace("-", ""));
         if (uuidHash != null) {
             if (SessionConstants.FOXCLIENT_USERS.contains(uuidHash)) {
-                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShader(GameRenderer::getPositionTexProgram);
                 RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f);
                 RenderSystem.setShaderTexture(0, FOXCLIENT_TAIL);
                 //this.setZOffset(this.getZOffset() + 101);

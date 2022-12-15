@@ -41,7 +41,7 @@ public class PauseScreen extends Screen {
         }));
         String string = SharedConstants.getGameVersion().isStable() ? "https://aka.ms/javafeedback?ref=game" : "https://aka.ms/snapshotfeedback?ref=game";
         this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 72 - 16, 98, 20, TextUtils.translatable("menu.sendFeedback"), (button) -> {
-            this.client.setScreen(new ConfirmChatLinkScreen((confirmed) -> {
+            this.client.setScreen(new ConfirmLinkScreen((confirmed) -> {
                 if (confirmed) {
                     Util.getOperatingSystem().open(string);
                 }
@@ -50,7 +50,7 @@ public class PauseScreen extends Screen {
             }, string, true));
         }));
         this.addDrawableChild(new FoxClientButton(this.width / 2 + 4, this.height / 4 + 72 - 16, 98, 20, TextUtils.translatable("menu.reportBugs"), (button) -> {
-            this.client.setScreen(new ConfirmChatLinkScreen((confirmed) -> {
+            this.client.setScreen(new ConfirmLinkScreen((confirmed) -> {
                 if (confirmed) {
                     Util.getOperatingSystem().open("https://aka.ms/snapshotbugs?ref=game");
                 }

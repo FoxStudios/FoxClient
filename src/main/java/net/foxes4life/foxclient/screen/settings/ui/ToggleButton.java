@@ -28,7 +28,7 @@ public class ToggleButton extends FoxClientButton {
         MinecraftClient minecraftClient = MinecraftClient.getInstance();
         TextRenderer textRenderer = minecraftClient.textRenderer;
 
-        fill(matrices, this.x, this.y, this.x + this.width, this.y + this.height, 0x00000000);
+        fill(matrices, this.getX(), this.getY(), this.getX() + this.width, this.getY() + this.height, 0x00000000);
         this.renderBackground(matrices, minecraftClient, mouseX, mouseY);
         int j = this.active ? 16777215 : 10526880;
 
@@ -40,8 +40,8 @@ public class ToggleButton extends FoxClientButton {
         String text = getMessage().getString() + ": " + (displayValue ? "§aON" : "§cOFF");
 
         drawCenteredText(matrices, textRenderer, TextUtils.string(text),
-                this.x + this.width / 2,
-                this.y + (this.height - 8) / 2,
+                this.getX() + this.width / 2,
+                this.getY() + (this.height - 8) / 2,
                 j | MathHelper.ceil(text_alpha * 255.0F) << 24);
     }
 

@@ -81,7 +81,7 @@ public class TitleScreen extends Screen {
 
     protected void init() {
         assert this.client != null;
-        this.client.keyboard.setRepeatEvents(true);
+//        this.client.keyboard.setRepeatEvents(true);
 
         int y = this.height / 2 + 10;
         int spacingY = 24;
@@ -118,7 +118,7 @@ public class TitleScreen extends Screen {
         BackgroundUtils.drawRandomBackground(matrices, this.width, this.height);
 
         // draw button box
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, BUTTON_BOX);
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
@@ -126,7 +126,7 @@ public class TitleScreen extends Screen {
         drawTexture(matrices, (width / 2) - (250 / 2), height / 2 - (250 / 3), 0, 0, 250, 175, 250, 175);
 
         // draw fomx
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, FOMX);
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);

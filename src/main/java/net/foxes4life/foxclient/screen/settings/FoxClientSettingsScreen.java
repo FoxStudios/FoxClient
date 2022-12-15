@@ -59,7 +59,7 @@ public class FoxClientSettingsScreen extends Screen {
 
     protected void init() {
         assert this.client != null;
-        this.client.keyboard.setRepeatEvents(true);
+//        this.client.keyboard.setRepeatEvents(true);
 
         categories = Main.konfig.getData();
 
@@ -145,13 +145,11 @@ public class FoxClientSettingsScreen extends Screen {
                         }));
             } else if (value.isString()) {
                 //System.out.println("string");
-                this.addDrawableChild(new ButtonWidget(0, 0, 0, 0, Text.of(""), (b) -> {
-                }));
+                this.addDrawableChild(ButtonWidget.builder(Text.of(""), (b) -> {}).build());
             } else {
                 System.out.println("UNKNOWN: " + value.getValue().getClass());
                 // add dummy to avoid crashes
-                this.addDrawableChild(new ButtonWidget(0, 0, 0, 0, Text.of("a"), (b) -> {
-                }));
+                this.addDrawableChild(ButtonWidget.builder(Text.of("a"), (b) -> {}).build());
             }
         });
     }
@@ -189,7 +187,7 @@ public class FoxClientSettingsScreen extends Screen {
         for (Element child : children()) {
             if (child instanceof ToggleButton) {
                 if (((ToggleButton) child).isHovered()) {
-                    entryHoverBgYGoal = ((ToggleButton) child).y;
+                    entryHoverBgYGoal = ((ToggleButton) child).getY();
                     entryHoverBgY = MathHelper.lerp(delta * 1.2, entryHoverBgY, entryHoverBgYGoal);
                     fill(matrices, sidebarWidth + 2, (int) entryHoverBgY, this.client.getWindow().getScaledWidth() - 2, (int) entryHoverBgY + 22, 0x44ffffff);
                 }

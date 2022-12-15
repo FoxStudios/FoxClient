@@ -31,7 +31,7 @@ public class FoxClientToast implements Toast {
             this.justUpdated = false;
         }
 
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, bgTex);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 

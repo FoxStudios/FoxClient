@@ -12,7 +12,7 @@ import net.minecraft.util.math.MathHelper;
 
 public class FoxClientButton extends ButtonWidget {
     public FoxClientButton(int x, int y, int width, int height, Text message, PressAction onPress) {
-        super(x, y, width, height, message, onPress);
+        super(x, y, width, height, message, onPress, null);
     }
 
     private static final Identifier WIDGET_TEXTURE = new Identifier("foxclient", "textures/ui/widgets.png");
@@ -23,15 +23,15 @@ public class FoxClientButton extends ButtonWidget {
         TextRenderer textRenderer = minecraftClient.textRenderer;
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, WIDGET_TEXTURE);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
         int i = this.getYImage(this.isHovered());
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();
-        this.drawTexture(matrices, this.x, this.y, 0, 46 + i * 20, this.width / 2, this.height);
-        this.drawTexture(matrices, this.x + this.width / 2, this.y, 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
+        this.drawTexture(matrices, this.getX(), this.getY(), 0, 46 + i * 20, this.width / 2, this.height);
+        this.drawTexture(matrices, this.getX() + this.width / 2, this.getY(), 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
         this.renderBackground(matrices, minecraftClient, mouseX, mouseY);
         int j = this.active ? 16777215 : 10526880;
 
@@ -41,8 +41,8 @@ public class FoxClientButton extends ButtonWidget {
         }
 
         drawCenteredText(matrices, textRenderer, this.getMessage(),
-                this.x + this.width / 2,
-                this.y + (this.height - 8) / 2,
+                this.getX() + this.width / 2,
+                this.getY() + (this.height - 8) / 2,
                 j | MathHelper.ceil(text_alpha * 255.0F) << 24);
     }
 

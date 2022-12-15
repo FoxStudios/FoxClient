@@ -46,7 +46,7 @@ public class FoxClientHUD extends DrawableHelper {
         // draw logo
         if (drawLogo) {
             boxHeight += 42;
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            RenderSystem.setShader(GameRenderer::getPositionTexProgram);
             RenderSystem.setShaderTexture(0, FOXCLIENT_TEXT);
             RenderSystem.enableBlend();
             RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);

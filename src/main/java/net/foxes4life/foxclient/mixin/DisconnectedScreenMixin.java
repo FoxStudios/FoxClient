@@ -35,17 +35,23 @@ public abstract class DisconnectedScreenMixin extends Screen {
         Objects.requireNonNull(this.textRenderer);
         int y = this.height / 2 + this.reasonHeight / 2 + 25;
 
-        this.addDrawableChild(new ButtonWidget(this.width / 2 - 100, Math.min(y + 9, this.height - 30), 200, 20,
-                TextUtils.translatable("foxclient.gui.button.reconnect"),
-                (button -> {
-                    assert client != null;
+        ButtonWidget buttonWidget = ButtonWidget.builder(TextUtils.translatable("foxclient.gui.button.reconnect"), button -> {
+            assert client != null;
 
-                    if (SessionConstants.LAST_SERVER == null) {
-                        button.setMessage(Text.of("ERROR"));
-                        return;
-                    }
-                    ConnectScreen.connect(this.parent, client, ServerAddress.parse(SessionConstants.LAST_SERVER.address),
-                            SessionConstants.LAST_SERVER);
-                })));
+            if (SessionConstants.LAST_SERVER == null) {
+                button.setMessage(Text.of("ERROR"));
+                return;
+            }
+
+            ConnectScreen.connect(this.parent,
+                    client,
+                    ServerAddress.parse(SessionConstants.LAST_SERVER.address),
+                    SessionConstants.LAST_SERVER);
+        }).build();
+
+        buttonWidget.setX(this.width / 2 - 100);
+        buttonWidget.setY(Math.min(y + 9, this.height - 30));
+        buttonWidget.setWidth(200);
+        this.addDrawableChild(buttonWidget);
     }
 }
