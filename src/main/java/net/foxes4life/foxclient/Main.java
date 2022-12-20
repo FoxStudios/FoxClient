@@ -77,6 +77,7 @@ public class Main implements ModInitializer {
         ingameHUD.addEntry("fps", true);
         ingameHUD.addEntry("ping", true);
         ingameHUD.addEntry("tps", true);
+        ingameHUD.addEntry("biome", true);
         ingameHUD.addEntry("server", true);
 
         konfig.addCategory(client);
