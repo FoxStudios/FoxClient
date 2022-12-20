@@ -8,7 +8,7 @@ TODO: add a list of features
 ### Can I use this on a Vanilla server?
 Yeah sure. FoxClient is 100% client side and doesn't require anything to be installed on the server.
 
-### How can i use the latest Features?
+### Build Instructions
 
 #### Please note that the latest Version may be unstable!
 
