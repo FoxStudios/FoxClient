@@ -33,7 +33,6 @@
   "foxclient.config.ingame-hud.version": "Version",
   "foxclient.config.ingame-hud.coords": "XYZ",
   "foxclient.config.ingame-hud.colored-coords": "Colored XYZ",
-  "foxclient.config.ingame-hud.biome": "Biome",
   "foxclient.config.ingame-hud.server": "Server IP",
   "foxclient.config.ingame-hud.logo": "Logo",
   "foxclient.config.ingame-hud.background": "Background",
