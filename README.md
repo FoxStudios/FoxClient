@@ -10,7 +10,7 @@ Yeah sure. FoxClient is 100% client side and doesn't require anything to be inst
 
 ### Build Instructions
 
-#### Please note that the latest Version may be unstable!
+#### Please note that the latest version may be unstable!
 
 Requirements: 
 - Java 17 or higher
