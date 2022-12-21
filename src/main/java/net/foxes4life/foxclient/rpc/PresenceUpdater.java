@@ -2,7 +2,6 @@ package net.foxes4life.foxclient.rpc;
 
 import net.arikia.dev.drpc.DiscordRichPresence;
 import net.foxes4life.foxclient.Main;
-import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ServerInfo;
@@ -49,11 +48,7 @@ public class PresenceUpdater {
         }
 
         if ((boolean) Main.konfig.get("misc", "discord-rpc") && Discord.initialised) {
-            DiscordRichPresence.Builder builder = new DiscordRichPresence.Builder(stateLine)
-                    .setDetails("Playing Minecraft " + SharedConstants.getGameVersion().getName())
-                    .setBigImage(largeImage, "FoxClient - A private Minecraft Mod")
-                    .setSmallImage("", "assets by flustix uwu");
-            DiscordInstance.get().setActivity(builder);
+            DiscordInstance.get().setActivity(new DiscordRichPresence.Builder(stateLine));
         }
     }
 
