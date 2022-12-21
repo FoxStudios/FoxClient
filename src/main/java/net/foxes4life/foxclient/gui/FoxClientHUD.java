@@ -15,6 +15,7 @@ import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.List;
 
@@ -70,6 +71,7 @@ public class FoxClientHUD extends DrawableHelper {
         boolean fps = (boolean) Main.konfig.get("ingame-hud", "fps");
         boolean ping = (boolean) Main.konfig.get("ingame-hud", "ping");
         boolean tps = (boolean) Main.konfig.get("ingame-hud", "tps");
+        boolean biome = (boolean) Main.konfig.get("ingame-hud", "biome");
         boolean server = (boolean) Main.konfig.get("ingame-hud", "server");
 
 
@@ -89,6 +91,13 @@ public class FoxClientHUD extends DrawableHelper {
 
         if (tps)
             textList.add(TextUtils.string(String.format("[TPS] " + ServerTickUtils.calculateServerTPS())));
+
+        if (biome)
+            if (client.world != null) {
+                assert client.getCameraEntity() != null;
+                final BlockPos blockPos = client.getCameraEntity().getBlockPos();
+                textList.add(TextUtils.string(String.format("[BIOME] " + client.world.getBiome(blockPos).getKey().get().getValue().toString())));
+            }
 
         if (server) {
             if (client.getCurrentServerEntry() != null) {
