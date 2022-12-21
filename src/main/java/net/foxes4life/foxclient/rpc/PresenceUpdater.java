@@ -4,6 +4,8 @@ import net.arikia.dev.drpc.DiscordRichPresence;
 import net.foxes4life.foxclient.Main;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.client.network.ServerInfo;
 import net.minecraft.client.resource.language.I18n;
 
 public class PresenceUpdater {
@@ -12,6 +14,8 @@ public class PresenceUpdater {
     private static State currentState = State.INIT;
 
     public static void setState(State state) {
+        currentState = state;
+
         switch (state) {
             case INIT -> stateLine = "Initialising";
             case IDLE -> stateLine = I18n.translate("foxclient.rpc.state.idle");
@@ -19,8 +23,20 @@ public class PresenceUpdater {
             case LAN -> stateLine = I18n.translate("foxclient.rpc.state.lan");
             case MULTIPLAYER -> {
                 if ((boolean) Main.konfig.get("misc", "discord-rpc-show-ip")) {
-                    if (MinecraftClient.getInstance().getCurrentServerEntry() != null) {
-                        stateLine = I18n.translate("foxclient.rpc.state.multiplayer", MinecraftClient.getInstance().getCurrentServerEntry().address);
+                    MinecraftClient client = MinecraftClient.getInstance();
+                    ServerInfo server = client.getCurrentServerEntry();
+
+                    if (server != null) {
+                        ClientPlayNetworkHandler handler = client.getNetworkHandler();
+
+                        if (handler != null) {
+                            int playerCount = handler.getPlayerList().size();
+                            String translationKey = playerCount == 1 ? "foxclient.rpc.state.multiplayer.count.single" : "foxclient.rpc.state.multiplayer.count";
+
+                            stateLine = I18n.translate(translationKey, server.address, playerCount);
+                        } else {
+                            stateLine = I18n.translate("foxclient.rpc.state.multiplayer", server.address);
+                        }
                     } else {
                         stateLine = I18n.translate("foxclient.rpc.state.multiplayer.hide_ip");
                     }
