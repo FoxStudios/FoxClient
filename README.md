@@ -7,7 +7,7 @@ A Fabric (and Quilt) Mod that changes the look of the Minecraft UI and adds some
 - Server IP
 - Coordinates
 - tps
-- Biome Display (to be approved by the main Developers)
+- Biome Display
 #### Custom main and pause menu
 #### Discord RPC
 
