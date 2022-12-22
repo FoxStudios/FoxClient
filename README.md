@@ -33,14 +33,11 @@ Requirements:
 
 ```bash
 git clone https://github.com/FoxStudios/FoxClient.git
-
 cd FoxClient
-
 git submodule update --init --recursive 
-
 ./gradlew build
 ```
-Copy the foxclient-<version>.jar (Name can vary) from build/libs to your minecraft mods folder.
+Copy the foxclient-'version'.jar (Name can vary) from build/libs to your minecraft mods folder.
 
 ### Is there gonna be a forge version?
 NO [here's why](forge.md)
