@@ -17,6 +17,8 @@
   "foxclient.rpc.state.singleplayer": "Playing Singleplayer",
   "foxclient.rpc.state.lan": "Playing on a LAN game",
   "foxclient.rpc.state.multiplayer": "Playing on %s",
+  "foxclient.rpc.state.multiplayer.count": "Playing on %s (%s players)",
+  "foxclient.rpc.state.multiplayer.count.single": "Playing on %s (%s player)",
   "foxclient.rpc.state.multiplayer.hide_ip": "Playing Multiplayer",
   "foxclient.rpc.state.realms": "Playing on a Realm",
 
@@ -46,5 +48,6 @@
   "foxclient.config.menus.pause": "Pause Menu",
 
   "foxclient.config.misc.discord-rpc": "DiscordRPC - Enabled",
-  "foxclient.config.misc.discord-rpc-show-ip": "DiscordRPC - Show IP"
+  "foxclient.config.misc.discord-rpc-show-ip": "DiscordRPC - Show IP",
+  "foxclient.config.misc.discord-rpc-show-player": "DiscordRPC - Show own player"
 }

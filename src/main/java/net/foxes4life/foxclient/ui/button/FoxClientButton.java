@@ -10,9 +10,11 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
+import java.util.function.Supplier;
+
 public class FoxClientButton extends ButtonWidget {
     public FoxClientButton(int x, int y, int width, int height, Text message, PressAction onPress) {
-        super(x, y, width, height, message, onPress, null);
+        super(x, y, width, height, message, onPress, Supplier::get);
     }
 
     private static final Identifier WIDGET_TEXTURE = new Identifier("foxclient", "textures/ui/widgets.png");

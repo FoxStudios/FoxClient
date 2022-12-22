@@ -20,7 +20,6 @@ public class ToggleButton extends FoxClientButton {
     public void onPress() {
         super.onPress();
         displayValue = !displayValue;
-        System.out.println("toggled lmao: " + displayValue);
     }
 
     @Override

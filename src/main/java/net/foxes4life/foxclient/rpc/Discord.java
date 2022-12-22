@@ -6,12 +6,16 @@ import net.arikia.dev.drpc.DiscordRichPresence;
 import net.arikia.dev.drpc.DiscordUser;
 import net.arikia.dev.drpc.callbacks.ReadyCallback;
 import net.foxes4life.foxclient.Main;
+import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.network.ClientPlayerEntity;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class Discord implements ReadyCallback {
+    private static final String playerIconAPI = "https://visage.surgeplay.com/face/128/";
+
     public Thread CALLBACK_THREAD = null;
     public long START_TIME = 0L;
     public static boolean initialised = false;
@@ -65,7 +69,7 @@ public class Discord implements ReadyCallback {
 
     public void setActivity(DiscordRichPresence.Builder presenceBuilder) {
         if (!initialised) {
-            System.out.println("setActivity called before RPC initialized!");
+            Main.LOGGER.warn("setActivity called before RPC initialized!");
             return;
         }
 
@@ -74,8 +78,16 @@ public class Discord implements ReadyCallback {
                 START_TIME = System.currentTimeMillis();
             }
 
+            presenceBuilder.setDetails("Playing Minecraft " + SharedConstants.getGameVersion().getName());
             presenceBuilder.setBigImage(PresenceUpdater.largeImage, "FoxClient " + Main.VERSION);
             presenceBuilder.setStartTimestamps(START_TIME);
+
+            if ((boolean) Main.konfig.get("misc", "discord-rpc-show-player")) {
+                ClientPlayerEntity player = MinecraftClient.getInstance().player;
+                if (player != null) {
+                    presenceBuilder.setSmallImage(playerIconAPI + player.getUuidAsString(), player.getName().getString());
+                }
+            }
 
             DiscordRPC.discordUpdatePresence(presenceBuilder.build());
         }
