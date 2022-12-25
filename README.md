@@ -21,7 +21,7 @@ Sure! Just press F6. (key is changable via the minecraft keybind settings)
 
 ## TODO:
 - Make the HUD more customizable
-- Make the mod a bit more stable
+- More stability improvements
 - Add more language translations (currently only english and german are supported, feel free to add more translations and make a pull request)
 
 ### Build Instructions
