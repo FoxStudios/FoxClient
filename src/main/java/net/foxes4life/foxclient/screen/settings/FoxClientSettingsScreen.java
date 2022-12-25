@@ -36,7 +36,7 @@ public class FoxClientSettingsScreen extends Screen {
     LinkedHashMap<String, KonfigCategory> categories;
 
     static int currentSelectedCat = 0;
-    static double catSelectBgY = 0;
+    static double catSelectBgY = 22;
     static int catSelectBgYGoal = 0;
 
     static double entryHoverBgY = 0;
