@@ -76,7 +76,7 @@ public class FoxClientHUD extends DrawableHelper {
 
 
         if (version)
-            textList.add(TextUtils.string(Main.VERSION));
+            textList.add(TextUtils.string(Main.SIMPLE_VERSION));
 
         if (coords) {
             assert this.client.player != null;
