@@ -3,6 +3,7 @@ package net.foxes4life.foxclient.util.update;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import net.fabricmc.loader.api.FabricLoader;
+import net.fabricmc.loader.api.Version;
 import net.foxes4life.foxclient.Main;
 
 import java.net.URI;
@@ -29,7 +30,7 @@ public class UpdateChecker {
         JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
         String version = jsonObject.get("tag_name").getAsString();
 
-        if (!version.equals(Main.SIMPLE_VERSION)) {
+        if (Version.parse(Main.SIMPLE_VERSION).compareTo(Version.parse(version)) < 0) {
             updateAvailable = true;
             latestVersion = version;
         }
