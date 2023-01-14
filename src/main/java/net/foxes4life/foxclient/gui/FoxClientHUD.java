@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.foxes4life.foxclient.Main;
+import net.foxes4life.foxclient.configuration.FoxClientSetting;
 import net.foxes4life.foxclient.util.ClientUtils;
 import net.foxes4life.foxclient.util.ServerTickUtils;
 import net.foxes4life.foxclient.util.TextUtils;
@@ -34,10 +35,10 @@ public class FoxClientHUD extends DrawableHelper {
     }
 
     public void render(MatrixStack matrices) {
-        boolean drawLogo = (boolean) Main.konfig.get("ingame-hud", "logo");
+        boolean drawLogo = Main.config.get(FoxClientSetting.HudLogo, Boolean.class);
         loadList(drawLogo);
 
-        if ((boolean) Main.konfig.get("ingame-hud", "background")) {
+        if (Main.config.get(FoxClientSetting.HudBackground, Boolean.class)) {
             fill(matrices, 0, 0, boxWidth - 5, boxHeight - 5, 0x45454545);
             fill(matrices, boxWidth - 5, 0, boxWidth, boxHeight - 5, 0x45454545);
             fill(matrices, 0, boxHeight - 5, boxWidth - 5, boxHeight, 0x45454545);
@@ -64,13 +65,13 @@ public class FoxClientHUD extends DrawableHelper {
         boxHeight = drawLogo ? 42 : 2;
         boxWidth = 98;
 
-        boolean version = (boolean) Main.konfig.get("ingame-hud", "version");
-        boolean coords = (boolean) Main.konfig.get("ingame-hud", "coords");
-        boolean colorcoords = (boolean) Main.konfig.get("ingame-hud", "colored-coords");
-        boolean fps = (boolean) Main.konfig.get("ingame-hud", "fps");
-        boolean ping = (boolean) Main.konfig.get("ingame-hud", "ping");
-        boolean tps = (boolean) Main.konfig.get("ingame-hud", "tps");
-        boolean server = (boolean) Main.konfig.get("ingame-hud", "server");
+        boolean version = Main.config.get(FoxClientSetting.HudVersion, Boolean.class);
+        boolean coords = Main.config.get(FoxClientSetting.HudCoordinates, Boolean.class);
+        boolean colorcoords = Main.config.get(FoxClientSetting.HudCoordinatesColor, Boolean.class);
+        boolean fps = Main.config.get(FoxClientSetting.HudFPS, Boolean.class);
+        boolean ping = Main.config.get(FoxClientSetting.HudPing, Boolean.class);
+        boolean tps = Main.config.get(FoxClientSetting.HudTps, Boolean.class);
+        boolean server = Main.config.get(FoxClientSetting.HudServerIP, Boolean.class);
 
 
         if (version)

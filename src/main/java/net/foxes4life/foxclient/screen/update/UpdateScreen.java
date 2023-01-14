@@ -1,6 +1,7 @@
 package net.foxes4life.foxclient.screen.update;
 
 import net.foxes4life.foxclient.Main;
+import net.foxes4life.foxclient.configuration.FoxClientSetting;
 import net.foxes4life.foxclient.screen.title.TitleScreen;
 import net.foxes4life.foxclient.ui.button.FoxClientButton;
 import net.foxes4life.foxclient.util.BackgroundUtils;
@@ -35,7 +36,7 @@ public class UpdateScreen extends Screen {
 
     public void close() {
         UpdateChecker.dismissed = true;
-        if ((boolean) Main.konfig.get("menus", "mainmenu")) {
+        if (Main.config.get(FoxClientSetting.CustomMainMenu, Boolean.class)) {
             MinecraftClient.getInstance().setScreen(new TitleScreen(false));
         } else {
             MinecraftClient.getInstance().setScreen(new net.minecraft.client.gui.screen.TitleScreen());

@@ -2,6 +2,7 @@ package net.foxes4life.foxclient.rpc;
 
 import net.arikia.dev.drpc.DiscordRichPresence;
 import net.foxes4life.foxclient.Main;
+import net.foxes4life.foxclient.configuration.FoxClientSetting;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
 import net.minecraft.client.network.ServerInfo;
@@ -10,18 +11,15 @@ import net.minecraft.client.resource.language.I18n;
 public class PresenceUpdater {
     public static String stateLine = "placeholder";
     public static String largeImage = "main";
-    private static State currentState = State.INIT;
 
     public static void setState(State state) {
-        currentState = state;
-
         switch (state) {
             case INIT -> stateLine = "Initialising";
             case IDLE -> stateLine = I18n.translate("foxclient.rpc.state.idle");
             case SINGLEPLAYER -> stateLine = I18n.translate("foxclient.rpc.state.singleplayer");
             case LAN -> stateLine = I18n.translate("foxclient.rpc.state.lan");
             case MULTIPLAYER -> {
-                if ((boolean) Main.konfig.get("misc", "discord-rpc-show-ip")) {
+                if (Main.config.get(FoxClientSetting.DiscordShowIP, Boolean.class)) {
                     MinecraftClient client = MinecraftClient.getInstance();
                     ServerInfo server = client.getCurrentServerEntry();
 
@@ -47,12 +45,8 @@ public class PresenceUpdater {
             default -> stateLine = "unimplemented!";
         }
 
-        if ((boolean) Main.konfig.get("misc", "discord-rpc") && Discord.initialised) {
+        if (Main.config.get(FoxClientSetting.DiscordEnabled, Boolean.class) && Discord.initialised) {
             DiscordInstance.get().setActivity(new DiscordRichPresence.Builder(stateLine));
         }
-    }
-
-    public static State getCurrentState() {
-        return currentState;
     }
 }

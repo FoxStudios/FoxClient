@@ -3,27 +3,25 @@ package net.foxes4life.foxclient.screen.settings;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.foxes4life.foxclient.Main;
+import net.foxes4life.foxclient.configuration.FoxClientSetting;
 import net.foxes4life.foxclient.screen.settings.ui.CategoryButton;
 import net.foxes4life.foxclient.screen.settings.ui.ToggleButton;
 import net.foxes4life.foxclient.util.BackgroundUtils;
 import net.foxes4life.foxclient.util.ConfigUtils;
 import net.foxes4life.foxclient.util.TextUtils;
-import net.foxes4life.konfig.data.KonfigCategory;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Style;
-import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 
-import java.io.IOException;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -31,9 +29,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class FoxClientSettingsScreen extends Screen {
     private static final Identifier X_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/x.png");
 
-    private static String currentCategoryId;
-    private static KonfigCategory currentCategory;
-    LinkedHashMap<String, KonfigCategory> categories;
+    private static String currentCategory;
+    private static LinkedHashMap<String, List<FoxClientSetting>> categories;
 
     static int currentSelectedCat = 0;
     static double catSelectBgY = 22;
@@ -49,49 +46,45 @@ public class FoxClientSettingsScreen extends Screen {
 
     public FoxClientSettingsScreen() {
         super(TextUtils.string("FoxClient"));
+
+        categories = new LinkedHashMap<>();
+        categories.put("client", List.of(FoxClientSetting.HudEnabled));
+        categories.put("menus", List.of(FoxClientSetting.CustomMainMenu, FoxClientSetting.CustomPauseMenu));
+        categories.put("misc", List.of(FoxClientSetting.DiscordEnabled, FoxClientSetting.DiscordShowIP, FoxClientSetting.DiscordShowPlayer, FoxClientSetting.SmoothZoom));
+        categories.put("eastereggs", List.of(FoxClientSetting.UwUfy));
+        categories.put("ingame-hud", List.of(FoxClientSetting.HudBackground, FoxClientSetting.HudLogo, FoxClientSetting.HudVersion, FoxClientSetting.HudCoordinates, FoxClientSetting.HudCoordinatesColor, FoxClientSetting.HudFPS, FoxClientSetting.HudPing, FoxClientSetting.HudTps, FoxClientSetting.HudServerIP));
     }
 
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
         return super.mouseScrolled(mouseX, mouseY, amount);
     }
 
-    public void tick() {}
+    public void tick() {
+    }
 
     protected void init() {
         assert this.client != null;
 //        this.client.keyboard.setRepeatEvents(true);
 
-        categories = Main.konfig.getData();
-
         AtomicInteger cat = new AtomicInteger();
 
-        categories.forEach((name, category) -> {
+        categories.forEach((name, settings) -> {
             cat.getAndIncrement();
-            this.addDrawableChild(new CategoryButton(0,
-                    cat.get() * 22,
-                    sidebarWidth,
-                    22,
-                    ConfigUtils.translatableCategory(category),
-                    false,
-                    name,
-                    (button) -> {
-                        for (Element child : this.children()) {
-                            if (child instanceof CategoryButton) {
-                                ((CategoryButton) child).selected = false;
-                            }
-                        }
-
-                        ((CategoryButton) button).selected = true;
-                        addCategoryButtons(name, category);
+            this.addDrawableChild(new CategoryButton(0, cat.get() * 22, sidebarWidth, 22, ConfigUtils.translatableCategory(name), false, name, (button) -> {
+                for (Element child : this.children()) {
+                    if (child instanceof CategoryButton) {
+                        ((CategoryButton) child).selected = false;
                     }
-            ));
+                }
+
+                ((CategoryButton) button).selected = true;
+                addCategoryButtons(name, settings);
+            }));
         });
 
         if (currentCategory == null) {
             currentSelectedCat = 0;
-            currentCategoryId = (String) categories.keySet().toArray()[0];
-            currentCategory = categories.get(currentCategoryId);
-//            System.out.println("new category: "+ currentCategoryId);
+            currentCategory = categories.keySet().toArray(new String[0])[0];
         }
 
         // close
@@ -102,55 +95,47 @@ public class FoxClientSettingsScreen extends Screen {
         if (currentCategory != null) {
             for (Element child : this.children()) {
                 if (child instanceof CategoryButton sidebarButton) {
-                    sidebarButton.selected = currentCategoryId.equals(sidebarButton.categoryId);
+                    sidebarButton.selected = currentCategory.equals(sidebarButton.categoryId);
                 }
             }
 
-            addCategoryButtons(currentCategoryId, currentCategory);
+            addCategoryButtons(currentCategory, categories.get(currentCategory));
         }
     }
 
-    private void addCategoryButtons(String name, KonfigCategory category) {
+    private void addCategoryButtons(String name, List<FoxClientSetting> settings) {
         if (currentCategory != null) {
             for (Object o : this.children().subList(amountOfDrawableChilds, this.children().size()).toArray()) {
                 this.remove((Element) o);
             }
         }
 
-        currentCategoryId = name;
-        currentCategory = category;
+        currentCategory = name;
 
         AtomicInteger settingsThing = new AtomicInteger(0);
 
         int bHeight = 22;
-        currentCategory.catData.forEach((key, value) -> {
+        settings.forEach((setting) -> {
             settingsThing.getAndIncrement();
+            Boolean value = Main.config.get(setting, Boolean.class);
 
-            if (value.isBoolean()) {
-                //System.out.println("boolean");
-                this.addDrawableChild(
-                        new ToggleButton(sidebarWidth + 2,
-                                settingsThing.get() * bHeight + 32,
-                                width - sidebarWidth - 4,
-                                bHeight,
-                                ConfigUtils.translatableEntry(category, value), value.getAsBoolean(), (b) -> {
-                            Main.konfig.set(name, key, !value.getAsBoolean());
-                            ConfigUtils.onOptionChanged(name, key, !value.getAsBoolean());
+            this.addDrawableChild(new ToggleButton(sidebarWidth + 2, settingsThing.get() * bHeight + 32, width - sidebarWidth - 4, bHeight, ConfigUtils.getTranslation(setting), value, (b) -> {
+                Main.config.set(setting, !value);
+                ConfigUtils.onOptionChanged(setting, !value);
+                Main.config.save();
+            }));
 
-                            try {
-                                Main.konfig.save();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        }));
-            } else if (value.isString()) {
+            /*if (value.isBoolean()) {*/
+            //System.out.println("boolean");
+
+            /*} else if (value.isString()) {
                 //System.out.println("string");
                 this.addDrawableChild(ButtonWidget.builder(Text.of(""), (b) -> {}).build());
             } else {
                 System.out.println("UNKNOWN: " + value.getValue().getClass());
                 // add dummy to avoid crashes
                 this.addDrawableChild(ButtonWidget.builder(Text.of("a"), (b) -> {}).build());
-            }
+            }*/
         });
     }
 
@@ -174,8 +159,8 @@ public class FoxClientSettingsScreen extends Screen {
         fill(matrices, 0, 0, sidebarWidth, this.height, 0x44000000);
 
         int i = 0;
-        for (Map.Entry<String, KonfigCategory> entry : categories.entrySet()) {
-            if (entry.getKey().equals(currentCategoryId)) {
+        for (Map.Entry<String, List<FoxClientSetting>> entry : categories.entrySet()) {
+            if (entry.getKey().equals(currentCategory)) {
                 catSelectBgYGoal = (i * 22) + 22;
                 catSelectBgY = MathHelper.lerp(delta * 1.2, catSelectBgY, catSelectBgYGoal);
                 fill(matrices, 0, (int) catSelectBgY, sidebarWidth, (int) catSelectBgY + 22, 0x44ffffff);
