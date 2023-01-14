@@ -3,6 +3,7 @@ package net.foxes4life.foxclient.ui.toast;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.toast.Toast;
 import net.minecraft.client.toast.ToastManager;
@@ -11,18 +12,26 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
+import java.awt.*;
+
 @Environment(EnvType.CLIENT)
 public class FoxClientToast implements Toast {
     private final Text title;
     private final Text description;
+    private final long duration;
     private long startTime;
     private boolean justUpdated;
-
-    private static final Identifier bgTex = new Identifier("foxclient", "textures/ui/toasts.png");
 
     public FoxClientToast(Text title, @Nullable Text description) {
         this.title = title;
         this.description = description;
+        duration = 2500L;
+    }
+
+    public FoxClientToast(Text title, @Nullable Text description, long duration) {
+        this.title = title;
+        this.description = description;
+        this.duration = duration;
     }
 
     public Visibility draw(MatrixStack matrices, ToastManager manager, long startTime) {
@@ -31,17 +40,16 @@ public class FoxClientToast implements Toast {
             this.justUpdated = false;
         }
 
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-        RenderSystem.setShaderTexture(0, bgTex);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        int color = new Color(46, 34, 26, 102).getRGB();
+        int cornerSize = 3;
 
-        manager.getClient().getTextureManager().bindTexture(bgTex);
-        manager.drawTexture(matrices, 0, 0, 0, 0, this.getWidth(), this.getHeight());
-
-        manager.getClient().textRenderer.draw(matrices, this.title, 25, 7, 0xf77622);
-        manager.getClient().textRenderer.draw(matrices, this.description, 30, 18, 0xffffff);
         RenderSystem.enableBlend();
+        DrawableHelper.fill(matrices, 0, cornerSize, cornerSize, getHeight() - cornerSize, color);
+        DrawableHelper.fill(matrices, cornerSize, 0, getWidth(), getHeight(), color);
 
-        return startTime - this.startTime >= 2500L ? Visibility.HIDE : Visibility.SHOW;
+        manager.getClient().textRenderer.draw(matrices, this.title, 7, 7, 0xf77622);
+        manager.getClient().textRenderer.draw(matrices, this.description, 7, 18, 0xffffff);
+
+        return startTime - this.startTime >= duration ? Visibility.HIDE : Visibility.SHOW;
     }
 }
