@@ -1,10 +1,11 @@
 package net.foxes4life.foxclient.util;
 
 import net.foxes4life.foxclient.Main;
+import net.foxes4life.foxclient.configuration.FoxClientSetting;
 
 public class UwUfyUtils {
     public static String uwufy(String in) {
-        if (!(boolean) Main.konfig.get("eastereggs", "owo"))
+        if (!Main.config.get(FoxClientSetting.UwUfy, Boolean.class))
             return in;
 
         in = in

@@ -213,7 +213,7 @@ public class TitleScreen extends Screen {
                             FoxClientToast toaster = MinecraftClient.getInstance().getToastManager().getToast(FoxClientToast.class, Toast.TYPE);
                             if (toaster == null) {
                                 MinecraftClient.getInstance().getToastManager().add(new FoxClientToast(
-                                        Text.of("FoxClient"), TextUtils.translatable("foxclient.gui.toast.modmenu.missing")));
+                                        Text.of("FoxClient"), TextUtils.translatable("foxclient.gui.toast.modmenu.missing"), 10000L));
                             }
                         }
                     };

@@ -4,6 +4,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.foxes4life.foxclient.configuration.FoxClientSetting;
 import net.foxes4life.foxclient.networking.Networking;
 import net.foxes4life.foxclient.rpc.DiscordInstance;
 import net.foxes4life.foxclient.rpc.DiscordMinecraftClient;
@@ -18,7 +19,6 @@ import net.minecraft.resource.DefaultResourcePack;
 import net.minecraft.resource.InputSupplier;
 import org.lwjgl.glfw.GLFW;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 public class MainClient implements ClientModInitializer {
@@ -47,10 +47,8 @@ public class MainClient implements ClientModInitializer {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             while (toggleHud.wasPressed()) {
-                Main.konfig.set("client", "hud-enabled", !(boolean) Main.konfig.get("client", "hud-enabled"));
-                try {
-                    Main.konfig.save();
-                } catch (IOException ignored) {}
+                Main.config.set(FoxClientSetting.HudEnabled, !Main.config.get(FoxClientSetting.HudEnabled, Boolean.class));
+                Main.config.save();
             }
         });
 

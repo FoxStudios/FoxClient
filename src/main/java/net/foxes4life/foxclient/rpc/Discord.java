@@ -6,6 +6,7 @@ import net.arikia.dev.drpc.DiscordRichPresence;
 import net.arikia.dev.drpc.DiscordUser;
 import net.arikia.dev.drpc.callbacks.ReadyCallback;
 import net.foxes4life.foxclient.Main;
+import net.foxes4life.foxclient.configuration.FoxClientSetting;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
@@ -30,7 +31,7 @@ public class Discord implements ReadyCallback {
                 }
             }
 
-            if ((boolean) Main.konfig.get("misc", "discord-rpc")) {
+            if (Main.config.get(FoxClientSetting.DiscordEnabled, Boolean.class)) {
                 try {
                     initDC();
                 } catch (Exception e) {
@@ -73,7 +74,7 @@ public class Discord implements ReadyCallback {
             return;
         }
 
-        if ((boolean) Main.konfig.get("misc", "discord-rpc")) {
+        if (Main.config.get(FoxClientSetting.DiscordEnabled, Boolean.class)) {
             if (START_TIME == 0L) {
                 START_TIME = System.currentTimeMillis();
             }
@@ -82,7 +83,7 @@ public class Discord implements ReadyCallback {
             presenceBuilder.setBigImage(PresenceUpdater.largeImage, "FoxClient " + Main.VERSION);
             presenceBuilder.setStartTimestamps(START_TIME);
 
-            if ((boolean) Main.konfig.get("misc", "discord-rpc-show-player")) {
+            if (Main.config.get(FoxClientSetting.DiscordShowPlayer, Boolean.class)) {
                 ClientPlayerEntity player = MinecraftClient.getInstance().player;
                 if (player != null) {
                     presenceBuilder.setSmallImage(playerIconAPI + player.getUuidAsString(), player.getName().getString());
@@ -94,7 +95,7 @@ public class Discord implements ReadyCallback {
     }
 
     private void runCallback() {
-        if ((boolean) Main.konfig.get("misc", "discord-rpc")) {
+        if (Main.config.get(FoxClientSetting.DiscordEnabled, Boolean.class)) {
             DiscordRPC.discordRunCallbacks();
         }
     }
