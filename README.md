@@ -3,10 +3,10 @@ A Fabric (and Quilt) Mod that changes the look of the Minecraft UI and adds some
 
 ## Features
 ### Ingame HUD:
-- Fps
+- FPS
 - Server IP
 - Coordinates
-- tps
+- TPS
 - Biome Display
 #### Custom main and pause menu
 #### Discord RPC
@@ -15,8 +15,8 @@ A Fabric (and Quilt) Mod that changes the look of the Minecraft UI and adds some
 ### Can I use this on a Vanilla server?
 Yeah sure. FoxClient is 100% client side and doesn't require anything to be installed on the server.
 ### Do settings exist to tweak the HUD?
-Yes, you can access it via Right_CTRL or via the main menu
-### Can i toggle the HUD?
+Yes, you can access them via Right_CTRL or via the main menu
+### Can I toggle the HUD?
 Sure! Just press F6. (key is changable via the minecraft keybind settings) 
 
 ## TODO:
@@ -37,7 +37,7 @@ cd FoxClient
 git submodule update --init --recursive 
 ./gradlew build
 ```
-Copy the foxclient-2.x.jar (Name can vary) from build/libs to your minecraft mods folder.
+Copy the foxclient-x.x.x.jar (name may vary) from build/libs into your minecraft mods folder.
 
 ### Is there gonna be a forge version?
 NO [here's why](forge.md)
