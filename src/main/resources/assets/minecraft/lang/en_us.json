@@ -36,6 +36,7 @@
   "foxclient.config.hudfps": "FPS",
   "foxclient.config.hudversion": "Version",
   "foxclient.config.hudcoordinates": "XYZ",
+  "foxclient.config.hudbiome": "Biome",
   "foxclient.config.hudcoordinatescolor": "Colored XYZ",
   "foxclient.config.hudserverip": "Server IP",
   "foxclient.config.hudlogo": "Logo",

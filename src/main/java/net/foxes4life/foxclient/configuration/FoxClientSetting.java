@@ -21,5 +21,6 @@ public enum FoxClientSetting {
     HudFPS,
     HudPing,
     HudTps,
-    HudServerIP
+    HudServerIP,
+    HudBiome
 }
