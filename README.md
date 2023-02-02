@@ -42,4 +42,4 @@ Copy the foxclient-x.x.x.jar (name may vary) from build/libs into your minecraft
 ### Is there gonna be a forge version?
 NO [here's why](forge.md)
 
-###### Copyright (C) 2022 FoxStudios
+###### Copyright (C) 2023 FoxStudios
