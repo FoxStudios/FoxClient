@@ -1,6 +1,5 @@
 package net.foxes4life.foxclient.screen.title;
 
-import com.google.common.util.concurrent.Runnables;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
@@ -31,7 +30,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
-import org.apache.commons.compress.utils.Lists;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -160,7 +158,6 @@ public class TitleScreen extends Screen {
         }
         drawStringWithShadow(matrices, this.textRenderer, foxclientCopyrightText, this.foxclientCopyrightTextX, this.height - 20, 16777215 | transparent);
 
-        // draw buttons
         super.render(matrices, mouseX, mouseY, delta);
     }
 
@@ -170,7 +167,7 @@ public class TitleScreen extends Screen {
         }
         if (mouseX > (double) this.mojangCopyrightTextX && mouseX < (double) (this.mojangCopyrightTextX + this.mojangCopyrightTextWidth) && mouseY > (double) (this.height - 10) && mouseY < (double) this.height) {
             assert this.client != null;
-            this.client.setScreen(new CreditsScreen(true, Runnables.doNothing()));
+            this.client.setScreen(new CreditsScreen(true, () -> {}));
         }
         return false;
     }
@@ -185,17 +182,20 @@ public class TitleScreen extends Screen {
             Identifier tex = EMPTY_BUTTON;
             ButtonWidget.PressAction pressAction = null;
             int x = center;
+            String tooltip = "";
 
             switch (i + 1) {
                 case 1 -> {
                     tex = DISCORD_BUTTON;
                     pressAction = (button) -> Util.getOperatingSystem().open(Main.DISCORD_INVITE);
                     x -= 30 * 3;
+                    tooltip = "Join our Discord";
                 }
                 case 2 -> {
                     tex = ACCESSIBILITY_BUTTON;
                     pressAction = (button) -> this.client.setScreen(new AccessibilityOptionsScreen(this, this.client.options));
                     x -= 30 * 2;
+                    tooltip = "Accessibility Options";
                 }
                 case 3 -> {
                     tex = MODS_BUTTON;
@@ -218,29 +218,34 @@ public class TitleScreen extends Screen {
                         }
                     };
                     x -= 30;
+                    tooltip = "Mods";
                 }
                 case 4 -> {
                     tex = REALMS_BUTTON;
                     pressAction = (button) -> this.client.setScreen(new RealmsMainScreen(this));
+                    tooltip = "Realms";
                 }
                 case 5 -> {
                     tex = FOXCLIENT_OPTIONS_BUTTON;
                     pressAction = (button) -> this.client.setScreen(new FoxClientSettingsScreen());
                     x += 30;
+                    tooltip = "FoxClient Options";
                 }
                 case 6 -> {
                     tex = OPTIONS_BUTTON;
                     pressAction = (button) -> this.client.setScreen(new OptionsScreen(this, this.client.options));
                     x += 30 * 2;
+                    tooltip = "Minecraft Options";
                 }
                 case 7 -> {
                     tex = EXIT_BUTTON;
                     pressAction = (button) -> this.client.scheduleStop();
                     x += 30 * 3;
+                    tooltip = "Exit";
                 }
             }
 
-            this.addDrawableChild(new FoxClientMiniButton(x, y + spacingY * 2, 20, 20, 0, 0, 20, tex, 32, 64, pressAction, TextUtils.translatable("")));
+            this.addDrawableChild(new FoxClientMiniButton(this, x, y + spacingY * 2, 20, 20, 0, 0, 20, tex, 32, 64, pressAction, TextUtils.translatable(""), TextUtils.string(tooltip)));
         }
     }
 }
