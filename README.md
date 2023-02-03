@@ -11,6 +11,11 @@ A Fabric (and Quilt) Mod that changes the look of the Minecraft UI and adds some
 #### Custom main and pause menu
 #### Discord RPC
 
+## Planned features:
+- Friend system
+- chat system (maybe)
+- togglable modules (e.g: more particle effects, autotext)
+
 ## FAQ
 ### Can I use this on a Vanilla server?
 Yeah sure. FoxClient is 100% client side and doesn't require anything to be installed on the server.
