@@ -31,5 +31,7 @@ public class FoxClientConfigManager extends Konfig<FoxClientSetting> {
         setDefault(FoxClientSetting.HudTps, true);
         setDefault(FoxClientSetting.HudServerIP, true);
         setDefault(FoxClientSetting.HudBiome, false);
+
+        setDefault(FoxClientSetting.ArmorHudEnabled, false);
     }
 }
