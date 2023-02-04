@@ -122,7 +122,6 @@ public class FoxClientSettingsScreen extends Screen {
             this.addDrawableChild(new ToggleButton(sidebarWidth + 2, settingsThing.get() * bHeight + 32, width - sidebarWidth - 4, bHeight, ConfigUtils.getTranslation(setting), value, (b) -> {
                 Main.config.set(setting, !value);
                 ConfigUtils.onOptionChanged(setting, !value);
-                Main.config.save();
             }));
 
             /*if (value.isBoolean()) {*/
