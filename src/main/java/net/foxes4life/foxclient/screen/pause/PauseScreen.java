@@ -17,7 +17,6 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Objects;
 
 public class PauseScreen extends Screen {
     public PauseScreen() {
