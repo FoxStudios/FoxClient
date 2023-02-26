@@ -8,7 +8,7 @@
   "foxclient.gui.toast.modmenu.missing": "ModMenu ist nicht installiert",
 
   "category.foxclient.main": "FoxClient",
-  "key.foxclient.toggle_hud": "Toggle HUD",
+  "key.foxclient.toggle_hud": "HUD ein/ausschalten",
   "key.foxclient.freelook": "FreeLook",
   "key.foxclient.configKey": "FoxClient Konfiguration",
   "key.foxclient.zoom": "Zoom",
