@@ -91,7 +91,7 @@ public class PauseScreen extends Screen {
         }
 
 
-        buttonWidget.active = this.client.isIntegratedServerRunning() && !Objects.requireNonNull(this.client.getServer()).isRemote();
+        buttonWidget.active = this.client.isIntegratedServerRunning() && this.client.getServer().isRemote();
         Text text = this.client.isInSingleplayer() ? TextUtils.translatable("menu.returnToMenu") : TextUtils.translatable("menu.disconnect");
         this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 145 - 16, 204, 20, text, (button) -> {
             boolean bl = this.client.isInSingleplayer();
