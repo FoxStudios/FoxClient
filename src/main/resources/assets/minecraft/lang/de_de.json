@@ -8,7 +8,7 @@
   "foxclient.gui.toast.modmenu.missing": "ModMenu ist nicht installiert",
 
   "category.foxclient.main": "FoxClient",
-  "key.foxclient.toggle_hud": "Toggle HUD",
+  "key.foxclient.toggle_hud": "HUD ein/ausschalten",
   "key.foxclient.freelook": "FreeLook",
   "key.foxclient.configKey": "FoxClient Konfiguration",
   "key.foxclient.zoom": "Zoom",
@@ -23,7 +23,7 @@
   "foxclient.config.ingame-hud": "In-Game HUD",
   "foxclient.config.client": "Client",
   "foxclient.config.eastereggs": "EasterEggs",
-  "foxclient.config.menus": "Custom Menus",
+  "foxclient.config.menus": "Custom Menüs",
   "foxclient.config.misc": "Weiteres",
   "foxclient.config.misc.smoothzoom": "Smooth Zoom einschalten",
 
