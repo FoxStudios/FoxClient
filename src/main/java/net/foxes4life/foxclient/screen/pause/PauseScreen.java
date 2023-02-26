@@ -31,23 +31,17 @@ public class PauseScreen extends Screen {
 
     public void init() {
         this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 24 - 16, 204, 20, TextUtils.translatable("menu.returnToGame"), (button) -> {
-            assert this.client != null;
             this.client.setScreen(null);
             this.client.mouse.lockCursor();
         }));
         this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 48 - 16, 98, 20, TextUtils.translatable("gui.advancements"), (button) -> {
-            assert this.client != null;
-            assert this.client.player != null;
             this.client.setScreen(new AdvancementsScreen(this.client.player.networkHandler.getAdvancementHandler()));
         }));
         this.addDrawableChild(new FoxClientButton(this.width / 2 + 4, this.height / 4 + 48 - 16, 98, 20, TextUtils.translatable("gui.stats"), (button) -> {
-            assert this.client != null;
-            assert this.client.player != null;
             this.client.setScreen(new StatsScreen(this, this.client.player.getStatHandler()));
         }));
         String string = SharedConstants.getGameVersion().isStable() ? "https://aka.ms/javafeedback?ref=game" : "https://aka.ms/snapshotfeedback?ref=game";
         this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 72 - 16, 98, 20, TextUtils.translatable("menu.sendFeedback"), (button) -> {
-            assert this.client != null;
             this.client.setScreen(new ConfirmLinkScreen((confirmed) -> {
                 if (confirmed) {
                     Util.getOperatingSystem().open(string);
@@ -57,7 +51,6 @@ public class PauseScreen extends Screen {
             }, string, true));
         }));
         this.addDrawableChild(new FoxClientButton(this.width / 2 + 4, this.height / 4 + 72 - 16, 98, 20, TextUtils.translatable("menu.reportBugs"), (button) -> {
-            assert this.client != null;
             this.client.setScreen(new ConfirmLinkScreen((confirmed) -> {
                 if (confirmed) {
                     Util.getOperatingSystem().open("https://aka.ms/snapshotbugs?ref=game");
@@ -67,11 +60,9 @@ public class PauseScreen extends Screen {
             }, "https://aka.ms/snapshotbugs?ref=game", true));
         }));
         this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 96 - 16, 98, 20, TextUtils.translatable("menu.options"), (button) -> {
-            assert this.client != null;
             this.client.setScreen(new OptionsScreen(this, this.client.options));
         }));
         FoxClientButton buttonWidget = this.addDrawableChild(new FoxClientButton(this.width / 2 + 4, this.height / 4 + 96 + -16, 98, 20, TextUtils.translatable("menu.shareToLan"), (button) -> {
-            assert this.client != null;
             this.client.setScreen(new OpenToLanScreen(this));
         }));
 
@@ -81,7 +72,6 @@ public class PauseScreen extends Screen {
 
                 this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 120 - 16, 204, 20, TextUtils.translatable("modmenu.options"), (button) -> {
                     try {
-                        assert this.client != null;
                         this.client.setScreen((Screen) modMenuGui.getDeclaredConstructor(Screen.class).newInstance(this));
                     } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
                              NoSuchMethodException e) {
@@ -93,7 +83,6 @@ public class PauseScreen extends Screen {
                 e.printStackTrace();
             }
         } else {
-            assert this.client != null;
             FoxClientToast toaster = this.client.getToastManager().getToast(FoxClientToast.class, Toast.TYPE);
             if (toaster == null) {
                 this.client.getToastManager().add(new FoxClientToast(
@@ -102,14 +91,12 @@ public class PauseScreen extends Screen {
         }
 
 
-        assert this.client != null;
         buttonWidget.active = this.client.isIntegratedServerRunning() && !Objects.requireNonNull(this.client.getServer()).isRemote();
         Text text = this.client.isInSingleplayer() ? TextUtils.translatable("menu.returnToMenu") : TextUtils.translatable("menu.disconnect");
         this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 145 - 16, 204, 20, text, (button) -> {
             boolean bl = this.client.isInSingleplayer();
             boolean bl2 = this.client.isConnectedToRealms();
             button.active = false;
-            assert this.client.world != null;
             this.client.world.disconnect();
             if (bl) {
                 this.client.disconnect(new MessageScreen(TextUtils.translatable("menu.savingLevel")));
@@ -130,11 +117,9 @@ public class PauseScreen extends Screen {
     }
 
     void exitToMenu() {
-        assert this.client != null;
         boolean inSingleplayer = this.client.isInSingleplayer();
         boolean inRealms = this.client.isConnectedToRealms();
 
-        assert this.client.world != null;
         this.client.world.disconnect();
 
         if (inSingleplayer) {
