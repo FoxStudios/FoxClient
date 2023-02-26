@@ -18,6 +18,9 @@ repositories {
 	maven {
 		url 'https://maven.foxes4life.net'
 	}
+	maven {
+		url "https://maven.terraformersmc.com/releases/"
+	}
 	mavenCentral()
 }
 
@@ -45,6 +48,8 @@ dependencies {
 	//configurations.compile.extendsFrom(configurations.extraLibs)
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
+
+	modApi "com.terraformersmc:modmenu:5.0.2"
 }
 
 processResources {
