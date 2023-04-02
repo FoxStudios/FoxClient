@@ -3,51 +3,43 @@ package net.foxes4life.foxclient.util;
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.configuration.FoxClientSetting;
 
+import java.util.HashMap;
+import java.util.Random;
+
 public class UwUfyUtils {
-    public static String uwufy(String in) {
+    private static final HashMap<String, String> stringMap = new HashMap<>();
+    private static final String[] faces = {";;w;;", "owo", "UwU", ">w<", "^w^", "(owo)", "ÓwÓ", "ÕwÕ", "Owo", "owO"};
+    private static final String[] endings = {"OwO *what's this*", "uwu yu so warm~", "owo pounces on you~~"};
+    private static final Random random = new Random();
+
+    public static String uwufy(String originalText) {
         if (!Main.config.get(FoxClientSetting.UwUfy, Boolean.class))
-            return in;
+            return originalText;
 
-        in = in
-                .replace("R", "W")
-                .replace("r", "w")
-                .replace("L", "W")
-                .replace("l", "w")
-                .replace(":D", ":3")
-                .replace("XD", "X3")
-                .replace(":)", ":3")
-                .replace("N", "Ny")
-                .replace("n", "ny");
+        if (stringMap.containsKey(originalText))
+            return stringMap.get(originalText);
 
-        /*int rng = new Random().nextInt(3);
+        String text = originalText;
+        text = text.replace("R", "W").replace("r", "w").replace("L", "W").replace("l", "w");
 
-        if (rng == 0) {
-            if (in.length() >= 2) {
-                char charac = in.charAt(0);
+        text = switch (random.nextInt(3)) {
+            case 1 -> text.replace("n", "ny");
+            case 2 -> text.replace("n", "nya");
+            default -> text;
+        };
 
-                if (invalidCheck(String.valueOf(charac)))
-                    return in;
+        if (random.nextInt(3) == 1)
+            text = text.replace("!", " " + faces[random.nextInt(faces.length)]);
 
-                in = charac + "-" + in;
-            }
-        }*/
+        switch (random.nextInt(3)) {
+            case 1 -> text = text.replace("?", "?!");
+            case 2 -> text = text.replace("?", " " + faces[random.nextInt(faces.length)]);
+        }
 
-        return in;
-    }
+        if (random.nextInt(32) == 12)
+            text += " " + endings[random.nextInt(endings.length)];
 
-    static Boolean invalidCheck(String a) {
-        if (a.equals("%"))
-            return true;
-
-        if (a.equals("<"))
-            return true;
-
-        if (a.equals("["))
-            return true;
-
-        if (a.equals("("))
-            return true;
-
-        return false;
+        stringMap.put(originalText, text);
+        return text;
     }
 }
