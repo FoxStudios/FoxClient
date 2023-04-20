@@ -1,6 +1,7 @@
 package net.foxes4life.foxclient.screen.settings.ui;
 
 import net.foxes4life.foxclient.ui.button.FoxClientButton;
+import net.foxes4life.foxclient.util.draw.DrawUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
@@ -36,7 +37,7 @@ public class CategoryButton extends FoxClientButton {
         int color = 0x11ffffff;
         //if(this.isHovered() || this.selected) color = 0x45ffffff;
         fill(matrices, this.getX(), this.getY(), this.getX() + this.width, this.getY() + this.height, color);
-        this.renderBackground(matrices, minecraftClient, mouseX, mouseY);
+        //this.renderBackground(matrices, minecraftClient, mouseX, mouseY);
         int j = this.active ? 16777215 : 10526880;
 
         float text_alpha = 0.6f;
@@ -44,7 +45,7 @@ public class CategoryButton extends FoxClientButton {
             text_alpha = 0.75f;
         }
 
-        drawCenteredText(matrices, textRenderer, this.getMessage(),
+        DrawUtils.drawCenteredText(matrices, textRenderer, this.getMessage(),
                 this.getX() + this.width / 2,
                 this.getY() + (this.height - 8) / 2,
                 j | MathHelper.ceil(text_alpha * 255.0F) << 24);
@@ -52,13 +53,13 @@ public class CategoryButton extends FoxClientButton {
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        if (this.isMouseOver(mouseX, mouseY)) {
+        /*if (this.isMouseOver(mouseX, mouseY)) {
             this.onFocusedChanged(true);
         } else {
             if (!this.isFocused()) {
                 this.onFocusedChanged(false);
             }
-        }
+        }*/
 
         super.render(matrices, mouseX, mouseY, delta);
     }

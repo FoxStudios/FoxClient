@@ -29,7 +29,7 @@ public class UpdateScreen extends Screen {
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         BackgroundUtils.drawRandomBackground(matrices, this.width, this.height);
 
-        drawCenteredText(matrices, this.textRenderer, "A new version of FoxClient is available!", this.width / 2, this.height / 2 - 20, 16777215);
+        //drawCenteredText(matrices, this.textRenderer, "A new version of FoxClient is available!", this.width / 2, this.height / 2 - 20, 16777215);
 
         super.render(matrices, mouseX, mouseY, delta);
     }

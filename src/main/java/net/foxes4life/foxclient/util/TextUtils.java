@@ -10,6 +10,6 @@ public class TextUtils {
     }
 
     public static MutableText translatable(String content) {
-        return MutableText.of(new TranslatableTextContent(content));
+        return MutableText.of(new TranslatableTextContent(content, content, new Object[0]));
     }
 }
