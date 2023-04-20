@@ -24,6 +24,7 @@ public class Buildscript extends SimpleFabricProject {
 	static final String MC_VERSION = "1.19.4";
 	static final String FABRIC_YARN_MAPPINGS = "1.19.4+build.2";
 	static final String FABRIC_LOADER = "0.14.19";
+	static final String FABRIC_API_VERSION = ".fabric-api:fabric-api:0.78.0+1.19.4";
 	static final String FOXCLIENT_VERSION = "1.0.0-alpha";
 	@Override
 	public VersionMeta createMcVersion() {
@@ -79,13 +80,13 @@ public class Buildscript extends SimpleFabricProject {
 			d.addMaven(FabricMaven.URL, new MavenId(FabricMaven.GROUP_ID + ".fabric-api", module[0], module[1]), ModDependencyFlag.RUNTIME, ModDependencyFlag.COMPILE);
 		}
 
-		d.addMaven(FabricMaven.URL, new MavenId(FabricMaven.GROUP_ID + ".fabric-api:fabric-api:0.78.0+1.19.4"), ModDependencyFlag.RUNTIME, ModDependencyFlag.COMPILE);
+		d.addMaven(FabricMaven.URL, new MavenId(FabricMaven.GROUP_ID + FABRIC_API_VERSION), ModDependencyFlag.RUNTIME, ModDependencyFlag.COMPILE);
 
 		d.addMaven("https://jitpack.io", new MavenId("com.github.Vatuu:discord-rpc:1.6.2"), ModDependencyFlag.RUNTIME, ModDependencyFlag.COMPILE);
 		d.addMaven(Maven.MAVEN_CENTRAL, new MavenId("org.java-websocket:Java-WebSocket:1.5.3"), ModDependencyFlag.RUNTIME, ModDependencyFlag.COMPILE);
 		d.addMaven("https://maven.foxes4life.net", new MavenId("net.foxes4life:konfig:1.5.0"), ModDependencyFlag.RUNTIME, ModDependencyFlag.COMPILE);
 
-		jij(d.addMaven(FabricMaven.URL, new MavenId(FabricMaven.GROUP_ID + ".fabric-api:fabric-api:0.78.0+1.19.4"), ModDependencyFlag.COMPILE, ModDependencyFlag.RUNTIME));
+		jij(d.addMaven(FabricMaven.URL, new MavenId(FabricMaven.GROUP_ID + FABRIC_API_VERSION), ModDependencyFlag.COMPILE, ModDependencyFlag.RUNTIME));
 		jij(d.addMaven("https://maven.terraformersmc.com/releases/", new MavenId("com.terraformersmc:modmenu:6.2.0"), ModDependencyFlag.COMPILE, ModDependencyFlag.RUNTIME));
 	}
 }
