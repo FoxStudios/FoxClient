@@ -37,7 +37,7 @@ public class FmjVersionFixer implements Processor {
 				}
 
 				fabricModJson.addProperty("version", parent.getVersion());
-				fabricModJson.get("mixins").getAsJsonArray().remove(new JsonPrimitive("mixins.iris.devenvironment.json"));
+				//fabricModJson.get("mixins").getAsJsonArray().remove(new JsonPrimitive("mixins.iris.devenvironment.json"));
 
 				sink.sink(() -> GsonUtil.toIs(fabricModJson, gson), e.id);
 			} else {

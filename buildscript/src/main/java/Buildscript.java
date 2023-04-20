@@ -1,4 +1,3 @@
-import io.github.coolcrabs.brachyura.dependency.JavaJarDependency;
 import io.github.coolcrabs.brachyura.fabric.FabricLoader;
 import io.github.coolcrabs.brachyura.fabric.FabricMaven;
 import io.github.coolcrabs.brachyura.fabric.SimpleFabricProject;
@@ -9,13 +8,26 @@ import io.github.coolcrabs.brachyura.maven.Maven;
 import io.github.coolcrabs.brachyura.maven.MavenId;
 import io.github.coolcrabs.brachyura.minecraft.Minecraft;
 import io.github.coolcrabs.brachyura.minecraft.VersionMeta;
+import io.github.coolcrabs.brachyura.util.Lazy;
 import net.fabricmc.mappingio.tree.MappingTree;
+import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.errors.RepositoryNotFoundException;
+import org.eclipse.jgit.lib.Constants;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Objects;
 
 public class Buildscript extends SimpleFabricProject {
 
+	static final String MC_VERSION = "1.19.4";
+	static final String FABRIC_YARN_MAPPINGS = "1.19.4+build.2";
+	static final String FABRIC_LOADER = "0.14.19";
+	static final String FOXCLIENT_VERSION = "1.0.0-alpha";
 	@Override
 	public VersionMeta createMcVersion() {
-		return Minecraft.getVersion("1.19.4");
+		return Minecraft.getVersion(MC_VERSION);
 	}
 
 	@Override
@@ -25,12 +37,32 @@ public class Buildscript extends SimpleFabricProject {
 
 	@Override
 	public MappingTree createMappings() {
-		return Yarn.ofMaven(FabricMaven.URL, FabricMaven.yarn("1.19.4+build.2")).tree;
+		return Yarn.ofMaven(FabricMaven.URL, FabricMaven.yarn(FABRIC_YARN_MAPPINGS)).tree;
 	}
 
 	@Override
 	public FabricLoader getLoader() {
-		return new FabricLoader(FabricMaven.URL, FabricMaven.loader("0.14.19"));
+		return new FabricLoader(FabricMaven.URL, FabricMaven.loader(FABRIC_LOADER));
+	}
+		String commitHash = "";
+	{
+		Git git = null;
+		try {
+			git = Git.open(getProjectDir().toFile());
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		try {
+			commitHash = git.getRepository().parseCommit(git.getRepository().resolve(Constants.HEAD).toObjectId()).getName().substring(0, 8);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		git.close();
+	}
+
+	@Override
+	public Path getBuildJarPath() {
+		return getBuildLibsDir().resolve(getModId() + "-" + FOXCLIENT_VERSION  + "-mc-" + MC_VERSION + "#" + commitHash + ".jar");
 	}
 
 	@Override
