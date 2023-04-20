@@ -1,4 +1,4 @@
-name: Java CI Thing
+name: Java CI with Brachyura
 
 on:
   push:
