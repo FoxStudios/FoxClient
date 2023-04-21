@@ -40,7 +40,7 @@ public class ToggleButton extends FoxClientButton {
 
         String text = getMessage().getString() + ": " + (displayValue ? "§aON" : "§cOFF");
 
-        DrawUtils.drawCenteredText(matrices, textRenderer, TextUtils.string(text),
+        drawCenteredTextWithShadow(matrices, textRenderer, TextUtils.string(text),
                 this.getX() + this.width / 2,
                 this.getY() + (this.height - 8) / 2,
                 j | MathHelper.ceil(text_alpha * 255.0F) << 24);

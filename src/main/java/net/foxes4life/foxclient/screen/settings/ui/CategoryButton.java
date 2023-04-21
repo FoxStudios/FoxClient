@@ -45,7 +45,7 @@ public class CategoryButton extends FoxClientButton {
             text_alpha = 0.75f;
         }
 
-        DrawUtils.drawCenteredText(matrices, textRenderer, this.getMessage(),
+        drawCenteredTextWithShadow(matrices, textRenderer, this.getMessage(),
                 this.getX() + this.width / 2,
                 this.getY() + (this.height - 8) / 2,
                 j | MathHelper.ceil(text_alpha * 255.0F) << 24);
