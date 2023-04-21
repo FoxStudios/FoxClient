@@ -26,7 +26,6 @@ public class FmjVersionFixer implements Processor {
 		this.parent = parent;
 	}
 
-
 	@Override
 	public void process(Collection<ProcessingEntry> inputs, ProcessingSink sink) throws IOException {
 		for (ProcessingEntry e : inputs) {
@@ -35,7 +34,7 @@ public class FmjVersionFixer implements Processor {
 				JsonObject fabricModJson;
 				try (BufferedReader reader = new BufferedReader(new InputStreamReader(e.in.get(), StandardCharsets.UTF_8))) {
 					fabricModJson = gson.fromJson(reader, JsonObject.class);
-				};
+				}
 
 				fabricModJson.addProperty("version", parent.getVersion());
 				//fabricModJson.get("mixins").getAsJsonArray().remove(new JsonPrimitive("mixins.iris.devenvironment.json"));
