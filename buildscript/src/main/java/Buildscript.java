@@ -57,7 +57,6 @@ public class Buildscript extends SimpleFabricProject {
 
 	@Override
 	public String getVersion() {
-		// ${version}-rev.#branch#.#githash#
 		return FOXCLIENT_VERSION + "-" + MC_VERSION + "-rev." + getGitVersionInformation();
 	}
 
