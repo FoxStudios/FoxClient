@@ -27,7 +27,7 @@ public class Main implements ModInitializer {
             ModContainer modContainer = FabricLoader.getInstance().getModContainer(Main.FOXCLIENT_MOD_ID).get();
 
             VERSION = modContainer.getMetadata().getVersion().getFriendlyString();
-            SIMPLE_VERSION = "1.0.0-alpha";
+            SIMPLE_VERSION = "0.2.0-dev";
             DISCORD_INVITE = modContainer.getMetadata().getCustomValue("modmenu").getAsObject().get("links").getAsObject().get("modmenu.discord").getAsString();
         }
 
