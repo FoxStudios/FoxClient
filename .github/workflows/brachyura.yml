@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ "brachyura" ]
 
-permissions: 
+permissions:
   contents: read
 
 jobs:

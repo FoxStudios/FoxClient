@@ -2,11 +2,9 @@ package net.foxes4life.foxclient.screen.settings.ui;
 
 import net.foxes4life.foxclient.ui.button.FoxClientButton;
 import net.foxes4life.foxclient.util.TextUtils;
-import net.foxes4life.foxclient.util.draw.DrawUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 
@@ -44,18 +42,5 @@ public class ToggleButton extends FoxClientButton {
                 this.getX() + this.width / 2,
                 this.getY() + (this.height - 8) / 2,
                 j | MathHelper.ceil(text_alpha * 255.0F) << 24);
-    }
-
-    @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        /*if (this.isMouseOver(mouseX, mouseY)) {
-            this.onFocusedChanged(true);
-        } else {
-            if (!this.isFocused()) {
-                this.onFocusedChanged(false);
-            }
-        }*/
-
-        super.render(matrices, mouseX, mouseY, delta);
     }
 }
