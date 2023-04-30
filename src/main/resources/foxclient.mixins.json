@@ -12,6 +12,7 @@
     "InGameHUDMixin",
     "LiteralTextMixin",
     "LoadingScreenMixin",
+    "MerchantScreenMixin",
     "MinecraftClientMixin",
     "MouseMixin",
     "MultiplayerScreenMixin",
