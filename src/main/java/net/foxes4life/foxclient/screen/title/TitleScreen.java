@@ -136,7 +136,7 @@ public class TitleScreen extends Screen {
         int transparent = MathHelper.ceil(0.5f * 255.0F) << 24;
 
         // -> copyright
-        drawStringWithShadow(matrices, this.textRenderer, mojangCopyrightText.getString(), this.mojangCopyrightTextX, this.height - 10, 16777215 | transparent);
+        textRenderer.drawWithShadow(matrices, mojangCopyrightText.getString(), this.mojangCopyrightTextX, this.height - 10, 16777215 | transparent);
         // -> copyright hover
         if (mouseX > this.mojangCopyrightTextX && mouseX < this.mojangCopyrightTextX + this.mojangCopyrightTextWidth && mouseY > this.height - 10 && mouseY < this.height) {
             fill(matrices, this.mojangCopyrightTextX, this.height - 1, this.mojangCopyrightTextX + this.mojangCopyrightTextWidth, this.height, 16777215 | transparent);
@@ -150,13 +150,13 @@ public class TitleScreen extends Screen {
             gameVersion = gameVersion + ("release".equalsIgnoreCase(this.client.getVersionType()) ? "" : "/" + this.client.getVersionType());
         }
 
-        drawStringWithShadow(matrices, this.textRenderer, gameVersion, 4, this.height - 10, 16777215 | transparent);
-        drawStringWithShadow(matrices, this.textRenderer, "FoxClient " + Main.SIMPLE_VERSION, 4, this.height - 20, 16777215 | transparent);
+        textRenderer.drawWithShadow(matrices, gameVersion, 4, this.height - 10, 16777215 | transparent);
+        textRenderer.drawWithShadow(matrices, "FoxClient " + Main.SIMPLE_VERSION, 4, this.height - 20, 16777215 | transparent);
         int foxClientTextWidth = this.textRenderer.getWidth("FoxClient " + Main.SIMPLE_VERSION);
         if (mouseX > 2 && mouseX < 2 + foxClientTextWidth && mouseY > this.height - 24 && mouseY < this.height - 10) {
             this.renderOrderedTooltip(matrices, this.textRenderer.wrapLines(StringVisitable.plain("FoxClient " + Main.VERSION), Math.max(this.width / 2 - 43, 170)), mouseX, mouseY);
         }
-        drawStringWithShadow(matrices, this.textRenderer, foxclientCopyrightText, this.foxclientCopyrightTextX, this.height - 20, 16777215 | transparent);
+        textRenderer.drawWithShadow(matrices, foxclientCopyrightText, this.foxclientCopyrightTextX, this.height - 20, 16777215 | transparent);
 
         super.render(matrices, mouseX, mouseY, delta);
     }

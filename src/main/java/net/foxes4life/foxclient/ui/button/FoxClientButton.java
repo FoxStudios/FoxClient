@@ -19,6 +19,17 @@ public class FoxClientButton extends ButtonWidget {
 
     private static final Identifier WIDGET_TEXTURE = new Identifier("foxclient", "textures/ui/widgets.png");
 
+    // todo: dont steal mojang code, bad
+    int getTextureY() {
+        int lvInt2 = 1;
+        if (!this.active) {
+            lvInt2 = 0;
+        } else if (this.isHovered()) {
+            lvInt2 = 2;
+        }
+        return lvInt2;
+    }
+
     @Override
     public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         MinecraftClient minecraftClient = MinecraftClient.getInstance();
@@ -28,13 +39,13 @@ public class FoxClientButton extends ButtonWidget {
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, WIDGET_TEXTURE);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
-        int i = this.getYImage(this.isHovered());
+        int i = getTextureY();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();
         this.drawTexture(matrices, this.getX(), this.getY(), 0, 46 + i * 20, this.width / 2, this.height);
         this.drawTexture(matrices, this.getX() + this.width / 2, this.getY(), 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
-        this.renderBackground(matrices, minecraftClient, mouseX, mouseY);
+        //this.renderBackground(matrices, minecraftClient, mouseX, mouseY);
         int j = this.active ? 16777215 : 10526880;
 
         float text_alpha = 0.6f;
@@ -42,22 +53,19 @@ public class FoxClientButton extends ButtonWidget {
             text_alpha = 0.75f;
         }
 
-        drawCenteredText(matrices, textRenderer, this.getMessage(),
-                this.getX() + this.width / 2,
-                this.getY() + (this.height - 8) / 2,
-                j | MathHelper.ceil(text_alpha * 255.0F) << 24);
+        this.drawScrollableText(matrices, textRenderer, 0, j | MathHelper.ceil(text_alpha * 255.0F) << 24);
     }
 
     @Override
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        if (this.isMouseOver(mouseX, mouseY)) {
-            this.onFocusedChanged(true);
-        } else {
-            if (!this.isFocused()) {
-                this.onFocusedChanged(false);
-            }
-        }
-
         super.render(matrices, mouseX, mouseY, delta);
+
+        //        if (this.isMouseOver(mouseX, mouseY)) {
+        //            this.onFocusedChanged(true);
+        //        } else {
+        //            if (!this.isFocused()) {
+        //                this.onFocusedChanged(false);
+        //            }
+        //        }
     }
 }

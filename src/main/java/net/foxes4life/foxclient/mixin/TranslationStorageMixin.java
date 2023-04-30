@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(TranslationStorage.class)
 public abstract class TranslationStorageMixin {
     @Inject(at = @At("RETURN"), method = "get", cancellable = true)
-    private void get(String key, CallbackInfoReturnable<String> cir) {
+    private void get(String key, String fallback, CallbackInfoReturnable<String> cir) {
         cir.setReturnValue(UwUfyUtils.uwufy(cir.getReturnValue()));
     }
 }

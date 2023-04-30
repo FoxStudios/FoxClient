@@ -65,10 +65,10 @@ public abstract class SplashOverlayMixin extends Overlay {
         fill(matrices, 0, minY, minX + i, maxY, k);
     }
 
-    @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;blendEquation(I)V", ordinal = 0))
+    /*@Redirect(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;blendEquation(I)V", ordinal = 0))
     private void blendEquationLogo(int mode) {
         // do nothing
-    }
+    }*/
 
     @Redirect(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;blendFunc(II)V", ordinal = 0))
     private void blendFuncLogo(int srcFactor, int dstFactor) {

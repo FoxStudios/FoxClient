@@ -1,7 +1,8 @@
-.gradle/
+.brachyura/
 .idea/
 build/
 logs/
 remappedSrc/
 run/
 src_backup/
+*.iml
