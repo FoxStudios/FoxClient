@@ -48,18 +48,16 @@ public class FoxClientSettingsScreen extends Screen {
         super(TextUtils.string("FoxClient"));
 
         categories = new LinkedHashMap<>();
-        categories.put("client", List.of(FoxClientSetting.HudEnabled));
+        categories.put("client", List.of(FoxClientSetting.HudEnabled, FoxClientSetting.ArmorHudEnabled));
         categories.put("menus", List.of(FoxClientSetting.CustomMainMenu, FoxClientSetting.CustomPauseMenu));
         categories.put("misc", List.of(FoxClientSetting.DiscordEnabled, FoxClientSetting.DiscordShowIP, FoxClientSetting.DiscordShowPlayer, FoxClientSetting.SmoothZoom));
         categories.put("eastereggs", List.of(FoxClientSetting.UwUfy));
         categories.put("ingame-hud", List.of(FoxClientSetting.HudBackground, FoxClientSetting.HudLogo, FoxClientSetting.HudVersion, FoxClientSetting.HudCoordinates, FoxClientSetting.HudCoordinatesColor, FoxClientSetting.HudFPS, FoxClientSetting.HudPing, FoxClientSetting.HudTps, FoxClientSetting.HudServerIP));
+        categories.put("armor-hud", List.of(FoxClientSetting.ArmorHudDisplayPercentage));
     }
 
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
         return super.mouseScrolled(mouseX, mouseY, amount);
-    }
-
-    public void tick() {
     }
 
     protected void init() {

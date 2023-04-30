@@ -9,6 +9,6 @@ public class DrawUtils {
     }
 
     public static void drawRect(MatrixStack matrices, Bounds bounds, int color) {
-        drawRect(matrices, bounds.x, bounds.y, bounds.x + bounds.width, bounds.y + bounds.height, color);
+        drawRect(matrices, bounds.x, bounds.y, bounds.width, bounds.height, color);
     }
 }

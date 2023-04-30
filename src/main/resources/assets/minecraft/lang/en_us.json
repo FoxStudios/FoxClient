@@ -23,6 +23,7 @@
   "foxclient.rpc.state.realms": "Playing on a Realm",
 
   "foxclient.config.category.ingame-hud": "In-Game HUD",
+    "foxclient.config.category.armor-hud": "Armor HUD",
   "foxclient.config.category.client": "Client",
   "foxclient.config.category.eastereggs": "EasterEggs",
   "foxclient.config.category.menus": "Custom Menus",
@@ -41,6 +42,9 @@
   "foxclient.config.hudserverip": "Server IP",
   "foxclient.config.hudlogo": "Logo",
   "foxclient.config.hudbackground": "Background",
+
+  "foxclient.config.armorhudenabled": "Enable Armor HUD",
+  "foxclient.config.armorhuddisplaypercentage": "Display as Percentage",
 
   "foxclient.config.uwufy": "UwUfy",
 

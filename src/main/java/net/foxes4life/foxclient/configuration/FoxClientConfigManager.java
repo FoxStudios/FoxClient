@@ -33,5 +33,6 @@ public class FoxClientConfigManager extends Konfig<FoxClientSetting> {
         setDefault(FoxClientSetting.HudBiome, false);
 
         setDefault(FoxClientSetting.ArmorHudEnabled, false);
+        setDefault(FoxClientSetting.ArmorHudDisplayPercentage, false);
     }
 }
