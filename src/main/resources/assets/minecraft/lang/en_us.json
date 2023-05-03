@@ -23,7 +23,7 @@
   "foxclient.rpc.state.realms": "Playing on a Realm",
 
   "foxclient.config.category.ingame-hud": "In-Game HUD",
-    "foxclient.config.category.armor-hud": "Armor HUD",
+  "foxclient.config.category.armor-hud": "Armor HUD",
   "foxclient.config.category.client": "Client",
   "foxclient.config.category.eastereggs": "EasterEggs",
   "foxclient.config.category.menus": "Custom Menus",
