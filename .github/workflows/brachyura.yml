@@ -25,3 +25,12 @@ jobs:
         uses: snickerbockers/submodules-init@v4
       - name: Compile project
         run: java -jar brachyura-bootstrap-0.jar build
+      - name: get version
+        run: |
+          echo "ver=$(git rev-parse --short HEAD)" >> ${GITHUB_ENV}
+      - name: upload built jar
+        uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: foxclient-build-nightly-${{ env.ver }}
+          path: build/libs/*.jar
