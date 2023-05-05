@@ -2,9 +2,9 @@ name: Java CI with Brachyura
 
 on:
   push:
-    branches: [ "brachyura" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "brachyura" ]
+    branches: [ "main" ]
 
 permissions:
   contents: read
