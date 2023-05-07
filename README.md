@@ -40,7 +40,7 @@ Requirements:
 git clone https://github.com/FoxStudios/FoxClient.git
 cd FoxClient
 git submodule update --init --recursive 
-./gradlew build
+java -jar brachyura-bootstrap-0.jar build
 ```
 Copy the foxclient-x.x.x.jar (name may vary) from build/libs into your minecraft mods folder.
 
