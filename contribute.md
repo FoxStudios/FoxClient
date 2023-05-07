@@ -4,7 +4,7 @@ Requirements:
 - Java 17
 - IDE (e.g. IntelliJ Idea)
 
-Follow the [Build Instructions](README.md) first
+Follow the [Build Instructions](README.md#build-instructions) first
 
 Generate the build scripts:
 ```bash
