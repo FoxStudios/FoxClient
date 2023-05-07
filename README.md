@@ -44,6 +44,10 @@ git submodule update --init --recursive
 ```
 Copy the foxclient-x.x.x.jar (name may vary) from build/libs into your minecraft mods folder.
 
+### How to contribute?
+
+[Contribution Instructions](contribute.md)
+
 ### Is there gonna be a forge version?
 NO [here's why](forge.md)
 
