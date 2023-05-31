@@ -31,8 +31,8 @@ public class MainClient implements ClientModInitializer {
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
             DiscordInstance.get().init();
             PresenceUpdater.setState(DiscordMinecraftClient.getState(MinecraftClient.getInstance().getNetworkHandler()));
-            Thread networkingThread = new Thread(Networking::init);
-            networkingThread.start();
+            //Thread networkingThread = new Thread(Networking::init);
+            //networkingThread.start();
         });
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
