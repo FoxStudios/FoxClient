@@ -9,6 +9,7 @@ import net.foxes4life.foxclient.screen.settings.ui.ToggleButton;
 import net.foxes4life.foxclient.util.BackgroundUtils;
 import net.foxes4life.foxclient.util.ConfigUtils;
 import net.foxes4life.foxclient.util.TextUtils;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
@@ -148,19 +149,19 @@ public class FoxClientSettingsScreen extends Screen {
         super.close();
     }
 
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         assert this.client != null;
 
-        BackgroundUtils.drawRandomBackground(matrices, this.width, this.height);
-        fill(matrices, 0, 0, this.width, this.height, 0x44000000);
-        fill(matrices, 0, 0, sidebarWidth, this.height, 0x44000000);
+        BackgroundUtils.drawRandomBackground(context, this.width, this.height);
+        context.fill(0, 0, this.width, this.height, 0x44000000);
+        context.fill(0, 0, sidebarWidth, this.height, 0x44000000);
 
         int i = 0;
         for (Map.Entry<String, List<FoxClientSetting>> entry : categories.entrySet()) {
             if (entry.getKey().equals(currentCategory)) {
                 catSelectBgYGoal = (i * 22) + 22;
                 catSelectBgY = MathHelper.lerp(delta * 1.2, catSelectBgY, catSelectBgYGoal);
-                fill(matrices, 0, (int) catSelectBgY, sidebarWidth, (int) catSelectBgY + 22, 0x44ffffff);
+                context.fill(0, (int) catSelectBgY, sidebarWidth, (int) catSelectBgY + 22, 0x44ffffff);
             }
 
             i++;
@@ -171,16 +172,16 @@ public class FoxClientSettingsScreen extends Screen {
                 if (((ToggleButton) child).isHovered()) {
                     entryHoverBgYGoal = ((ToggleButton) child).getY();
                     entryHoverBgY = MathHelper.lerp(delta * 1.2, entryHoverBgY, entryHoverBgYGoal);
-                    fill(matrices, sidebarWidth + 2, (int) entryHoverBgY, this.client.getWindow().getScaledWidth() - 2, (int) entryHoverBgY + 22, 0x44ffffff);
+                    context.fill( sidebarWidth + 2, (int) entryHoverBgY, this.client.getWindow().getScaledWidth() - 2, (int) entryHoverBgY + 22, 0x44ffffff);
                 }
             }
         }
 
-        drawCenteredTextWithShadow(matrices, this.textRenderer, OrderedText.styledForwardsVisitedString("FoxClient Settings", Style.EMPTY), ((this.client.getWindow().getScaledWidth() - sidebarWidth) / 2) + sidebarWidth, 20, 0xffffff);
+        context.drawCenteredTextWithShadow(this.textRenderer, OrderedText.styledForwardsVisitedString("FoxClient Settings", Style.EMPTY), ((this.client.getWindow().getScaledWidth() - sidebarWidth) / 2) + sidebarWidth, 20, 0xffffff);
 
         assert this.client != null;
 
         // draw buttons
-        super.render(matrices, mouseX, mouseY, delta);
+        super.render(context, mouseX, mouseY, delta);
     }
 }

@@ -2,6 +2,7 @@ package net.foxes4life.foxclient.ui.button;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.util.math.MatrixStack;
@@ -19,15 +20,16 @@ public class FoxClientMiniButton extends TexturedButtonWidget {
     }
 
     @Override
-    public void renderButton(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+    public void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
 
         if (mouseX > getX() && mouseX < getX() + width && mouseY > getY() && mouseY < getY() + height) {
             MinecraftClient mc = MinecraftClient.getInstance();
-            parent.renderOrderedTooltip(matrices, mc.textRenderer.wrapLines(tooltip, 200), mouseX, mouseY);
+            parent.renderWithTooltip(context, mouseX, mouseY, delta); // todo: figure out if this is correct
+            // original: parent.renderOrderedTooltip(context, mc.textRenderer.wrapLines(tooltip, 200), mouseX, mouseY);
         }
 
-        super.renderButton(matrices, mouseX, mouseY, delta);
+        super.renderButton(context, mouseX, mouseY, delta);
     }
 }

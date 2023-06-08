@@ -2,6 +2,7 @@ package net.foxes4life.foxclient.mixin;
 
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.foxes4life.foxclient.util.TextUtils;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.WorldGenerationProgressTracker;
 import net.minecraft.client.gui.screen.LevelLoadingScreen;
 import net.minecraft.client.gui.screen.Screen;
@@ -35,16 +36,16 @@ public abstract class LoadingScreenMixin extends Screen {
     }
 
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+    public void render(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         ci.cancel();
-        renderBackground(matrices);
-        drawTextWithShadow(matrices, textRenderer, TextUtils.string("Loading World... " + MathHelper.clamp(progressProvider.getProgressPercentage(), 0, 100) + "%"), 10, this.height - 22, 0xFFFFFF);
+        renderBackground(context);
+        context.drawTextWithShadow(textRenderer, TextUtils.string("Loading World... " + MathHelper.clamp(progressProvider.getProgressPercentage(), 0, 100) + "%"), 10, this.height - 22, 0xFFFFFF);
         this.progress = MathHelper.lerp(0.88f, progress, this.progress * 0.95F + (progressProvider.getProgressPercentage() / 100f) * 0.2F);
-        fill(matrices, 0, this.height - 3, (int) (this.width * progress), this.height, 0xFFFFFFFF);
-        drawChunkThing(matrices, progressProvider);
+        context.fill(0, this.height - 3, (int) (this.width * progress), this.height, 0xFFFFFFFF);
+        drawChunkThing(context, progressProvider);
     }
 
-    public void drawChunkThing(MatrixStack matrices, WorldGenerationProgressTracker progressProvider) {
+    public void drawChunkThing(DrawContext context, WorldGenerationProgressTracker progressProvider) {
         int m = progressProvider.getSize() * 2;
         int n = this.width - 5 - m;
         int o = this.height - 7 - m;
@@ -54,7 +55,8 @@ public abstract class LoadingScreenMixin extends Screen {
                 ChunkStatus chunkStatus = progressProvider.getChunkStatus(r, s);
                 int t = n + r * 2;
                 int u = o + s * 2;
-                fill(matrices, t, u, t + 2, u + 2, STATUS_TO_COLOR.getInt(chunkStatus) | -16777216);
+
+                context.fill(t, u, t + 2, u + 2, STATUS_TO_COLOR.getInt(chunkStatus) | -16777216);
             }
         }
     }

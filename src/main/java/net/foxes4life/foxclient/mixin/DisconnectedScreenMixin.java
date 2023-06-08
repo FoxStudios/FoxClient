@@ -23,9 +23,6 @@ public abstract class DisconnectedScreenMixin extends Screen {
     @Final
     private Screen parent;
 
-    @Shadow
-    private int reasonHeight;
-
     protected DisconnectedScreenMixin(Text title) {
         super(title);
     }
@@ -33,7 +30,7 @@ public abstract class DisconnectedScreenMixin extends Screen {
     @Inject(at = @At("TAIL"), method = "init")
     public void init(CallbackInfo ci) {
         Objects.requireNonNull(this.textRenderer);
-        int y = this.height / 2 + this.reasonHeight / 2 + 25;
+        int y = this.height / 2 + textRenderer.fontHeight / 2 + 25; // todo: check if this is correct
 
         ButtonWidget buttonWidget = ButtonWidget.builder(TextUtils.translatable("foxclient.gui.button.reconnect"), button -> {
             assert client != null;
@@ -46,7 +43,9 @@ public abstract class DisconnectedScreenMixin extends Screen {
             ConnectScreen.connect(this.parent,
                     client,
                     ServerAddress.parse(SessionConstants.LAST_SERVER.address),
-                    SessionConstants.LAST_SERVER);
+                    SessionConstants.LAST_SERVER,
+                    false
+            );
         }).build();
 
         buttonWidget.setX(this.width / 2 - 100);

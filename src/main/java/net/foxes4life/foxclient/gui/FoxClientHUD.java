@@ -10,17 +10,16 @@ import net.foxes4life.foxclient.util.ServerTickUtils;
 import net.foxes4life.foxclient.util.TextUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
 import java.util.List;
 
-public class FoxClientHUD extends DrawableHelper {
+public class FoxClientHUD {
     private final MinecraftClient client;
     private final TextRenderer fontRenderer;
 
@@ -35,14 +34,14 @@ public class FoxClientHUD extends DrawableHelper {
         this.fontRenderer = client.textRenderer;
     }
 
-    public void render(MatrixStack matrices) {
+    public void render(DrawContext context) {
         boolean drawLogo = Main.config.get(FoxClientSetting.HudLogo, Boolean.class);
         loadList(drawLogo);
 
         if (Main.config.get(FoxClientSetting.HudBackground, Boolean.class)) {
-            fill(matrices, 0, 0, boxWidth - 5, boxHeight - 5, 0x45454545);
-            fill(matrices, boxWidth - 5, 0, boxWidth, boxHeight - 5, 0x45454545);
-            fill(matrices, 0, boxHeight - 5, boxWidth - 5, boxHeight, 0x45454545);
+            context.fill(0, 0, boxWidth - 5, boxHeight - 5, 0x45454545);
+            context.fill(boxWidth - 5, 0, boxWidth, boxHeight - 5, 0x45454545);
+            context.fill(0, boxHeight - 5, boxWidth - 5, boxHeight, 0x45454545);
         }
 
         // draw logo
@@ -53,11 +52,11 @@ public class FoxClientHUD extends DrawableHelper {
             RenderSystem.enableBlend();
             RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-            drawTexture(matrices, 4, 4, 0, 48, 96, 48, 96, 48);
+            //context.drawTexture(4, 4, 0, 48, 96, 48, 96, 48); // todo: figure this out
 
-            renderList(matrices, 42);
+            renderList(context, 42);
         } else {
-            renderList(matrices, 2);
+            renderList(context, 2);
         }
     }
 
@@ -117,11 +116,11 @@ public class FoxClientHUD extends DrawableHelper {
         }
     }
 
-    void renderList(MatrixStack matrices, int offset) {
+    void renderList(DrawContext context, int offset) {
         int i = 0;
         for (Text text : textList) {
             int y = offset + (10 * i);
-            this.fontRenderer.draw(matrices, text, 4, y, 0xFFFFFFFF);
+            context.drawText(this.fontRenderer, text, 4, y, 0xFFFFFFFF, false);
             i++;
         }
     }

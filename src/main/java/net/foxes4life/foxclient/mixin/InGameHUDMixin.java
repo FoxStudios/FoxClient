@@ -5,6 +5,7 @@ import net.foxes4life.foxclient.configuration.FoxClientSetting;
 import net.foxes4life.foxclient.gui.ArmorHud;
 import net.foxes4life.foxclient.gui.FoxClientHUD;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Final;
@@ -24,17 +25,17 @@ public class InGameHUDMixin {
     private static ArmorHud armorHud = null;
 
     @Inject(at = @At("HEAD"), method = "render")
-    public void render(MatrixStack matrices, float tickDelta, CallbackInfo ci) {
+    public void render(DrawContext context, float tickDelta, CallbackInfo ci) {
         if (Main.config.get(FoxClientSetting.HudEnabled, Boolean.class)) {
             if (foxClientHUD == null) {
                 foxClientHUD = new FoxClientHUD(client);
             }
-            foxClientHUD.render(matrices);
+            foxClientHUD.render(context);
         }
 
         if (Main.config.get(FoxClientSetting.ArmorHudEnabled, Boolean.class)) {
             if (armorHud == null) armorHud = new ArmorHud(client);
-            armorHud.render(matrices);
+            armorHud.render(context);
         }
     }
 }

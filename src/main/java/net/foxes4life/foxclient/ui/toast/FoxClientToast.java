@@ -3,13 +3,10 @@ package net.foxes4life.foxclient.ui.toast;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.gui.DrawableHelper;
-import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.toast.Toast;
 import net.minecraft.client.toast.ToastManager;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
@@ -34,7 +31,7 @@ public class FoxClientToast implements Toast {
         this.duration = duration;
     }
 
-    public Visibility draw(MatrixStack matrices, ToastManager manager, long startTime) {
+    public Visibility draw(DrawContext context, ToastManager manager, long startTime) {
         if (this.justUpdated) {
             this.startTime = startTime;
             this.justUpdated = false;
@@ -44,11 +41,11 @@ public class FoxClientToast implements Toast {
         int cornerSize = 3;
 
         RenderSystem.enableBlend();
-        DrawableHelper.fill(matrices, 0, cornerSize, cornerSize, getHeight() - cornerSize, color);
-        DrawableHelper.fill(matrices, cornerSize, 0, getWidth(), getHeight(), color);
+        context.fill(0, cornerSize, cornerSize, getHeight() - cornerSize, color);
+        context.fill(cornerSize, 0, getWidth(), getHeight(), color);
 
-        manager.getClient().textRenderer.draw(matrices, this.title, 7, 7, 0xf77622);
-        manager.getClient().textRenderer.draw(matrices, this.description, 7, 18, 0xffffff);
+        context.drawText(manager.getClient().textRenderer, this.title, 7, 7, 0xf77622, false);
+        context.drawText(manager.getClient().textRenderer, this.description, 7, 18, 0xffffff, false);
 
         return startTime - this.startTime >= duration ? Visibility.HIDE : Visibility.SHOW;
     }

@@ -1,14 +1,15 @@
 package net.foxes4life.foxclient.util.draw;
 
-import net.minecraft.client.gui.DrawableHelper;
+import com.terraformersmc.modmenu.util.DrawingUtil;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.util.math.MatrixStack;
 
 public class DrawUtils {
-    public static void drawRect(MatrixStack matrices, int x, int y, int width, int height, int color) {
-        DrawableHelper.fill(matrices, x, y, x + width, y + height, color);
+    public static void drawRect(DrawContext context, int x, int y, int width, int height, int color) {
+        context.fill(x, y, x + width, y + height, color);
     }
 
-    public static void drawRect(MatrixStack matrices, Bounds bounds, int color) {
-        drawRect(matrices, bounds.x, bounds.y, bounds.width, bounds.height, color);
+    public static void drawRect(DrawContext context, Bounds bounds, int color) {
+        drawRect(context, bounds.x, bounds.y, bounds.width, bounds.height, color);
     }
 }

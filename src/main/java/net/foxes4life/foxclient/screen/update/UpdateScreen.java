@@ -8,8 +8,8 @@ import net.foxes4life.foxclient.util.BackgroundUtils;
 import net.foxes4life.foxclient.util.TextUtils;
 import net.foxes4life.foxclient.util.update.UpdateChecker;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 
@@ -26,12 +26,12 @@ public class UpdateScreen extends Screen {
     }
 
     @Override
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        BackgroundUtils.drawRandomBackground(matrices, this.width, this.height);
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        BackgroundUtils.drawRandomBackground(context, this.width, this.height);
 
         //drawCenteredText(matrices, this.textRenderer, "A new version of FoxClient is available!", this.width / 2, this.height / 2 - 20, 16777215);
 
-        super.render(matrices, mouseX, mouseY, delta);
+        super.render(context, mouseX, mouseY, delta);
     }
 
     public void close() {

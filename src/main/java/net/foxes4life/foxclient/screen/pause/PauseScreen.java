@@ -6,13 +6,13 @@ import net.foxes4life.foxclient.screen.title.TitleScreen;
 import net.foxes4life.foxclient.ui.toast.FoxClientToast;
 import net.foxes4life.foxclient.util.TextUtils;
 import net.minecraft.SharedConstants;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.*;
 import net.minecraft.client.gui.screen.advancement.AdvancementsScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.client.toast.Toast;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Util;
 
@@ -23,13 +23,14 @@ public class PauseScreen extends Screen {
         super(TextUtils.string("Pause Menu"));
     }
 
-    public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
-        this.renderBackground(matrices);
-        super.render(matrices, mouseX, mouseY, delta);
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
+        this.renderBackground(context);
+        super.render(context, mouseX, mouseY, delta);
     }
 
     public void init() {
         this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 24 - 16, 204, 20, TextUtils.translatable("menu.returnToGame"), (button) -> {
+
             this.client.setScreen(null);
             this.client.mouse.lockCursor();
         }));
