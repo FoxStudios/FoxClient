@@ -1,7 +1,5 @@
 package net.foxes4life.foxclient.screen.title;
 
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.loader.api.FabricLoader;
@@ -23,17 +21,13 @@ import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
-import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.toast.Toast;
-import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.StringVisitable;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class TitleScreen extends Screen {
@@ -118,19 +112,24 @@ public class TitleScreen extends Screen {
         BackgroundUtils.drawRandomBackground(context, this.width, this.height);
 
         // draw button box
+        /*
+         - these seem to not be needed anymore
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, BUTTON_BOX);
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.doBackgroundFade ? (float) MathHelper.ceil(MathHelper.clamp(f, 0.0F, 1.0F)) : 1.0F);
+        */
         context.drawTexture(BUTTON_BOX, (width / 2) - (250 / 2), height / 2 - (250 / 3), 0, 0, 250, 175, 250, 175);
 
         // draw fomx
+        /*
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, FOMX);
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.doBackgroundFade ? (float) MathHelper.ceil(MathHelper.clamp(f, 0.0F, 1.0F)) : 1.0F);
+        */
         int fomxSize = 118;
         context.drawTexture(FOMX, (width / 2) - (fomxSize / 2), height / 2 - fomxSize + 32, 0, 0, 128, fomxSize, fomxSize, fomxSize, fomxSize);
 
@@ -248,7 +247,7 @@ public class TitleScreen extends Screen {
                 }
             }
 
-            this.addDrawableChild(new FoxClientMiniButton(this, x, y + spacingY * 2, 20, 20, 0, 0, 20, tex, 32, 64, pressAction, TextUtils.translatable(""), TextUtils.string(tooltip)));
+            this.addDrawableChild(new FoxClientMiniButton(x, y + spacingY * 2, 20, 20, 0, 0, 20, tex, 32, 64, pressAction, TextUtils.translatable(""), TextUtils.string(tooltip)));
         }
     }
 }

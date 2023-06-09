@@ -1,12 +1,8 @@
 package net.foxes4life.foxclient.ui.button;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
@@ -34,20 +30,24 @@ public class FoxClientButton extends ButtonWidget {
     @Override
     public void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
         MinecraftClient minecraftClient = MinecraftClient.getInstance();
-        TextRenderer textRenderer = minecraftClient.textRenderer;
+
+        /*
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, WIDGET_TEXTURE);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
-        int i = getTextureY();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.enableDepthTest();
+        */
+
+        int i = getTextureY();
         /*
         this.drawTexture(context, this.getX(), this.getY(), 0, 46 + i * 20, this.width / 2, this.height);
         this.drawTexture(context, this.getX() + this.width / 2, this.getY(), 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
-         */ // todo: figure this out
+         */
+        // todo: figure this out
         // this maybe?
         context.drawTexture(WIDGET_TEXTURE, this.getX(), this.getY(), 0, 46 + i * 20, this.width / 2, this.height);
         context.drawTexture(WIDGET_TEXTURE, this.getX() + this.width / 2, this.getY(), 200 - this.width / 2, 46 + i * 20, this.width / 2, this.height);
@@ -60,7 +60,7 @@ public class FoxClientButton extends ButtonWidget {
             text_alpha = 0.75f;
         }
 
-        this.drawScrollableText(context, textRenderer, 0, j | MathHelper.ceil(text_alpha * 255.0F) << 24);
+        this.drawScrollableText(context, minecraftClient.textRenderer, 0, j | MathHelper.ceil(text_alpha * 255.0F) << 24);
     }
 
     @Override

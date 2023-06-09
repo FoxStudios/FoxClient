@@ -47,12 +47,7 @@ public class FoxClientHUD {
         // draw logo
         if (drawLogo) {
             boxHeight += 42;
-            RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-            RenderSystem.setShaderTexture(0, FOXCLIENT_TEXT);
-            RenderSystem.enableBlend();
-            RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
-            RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-            //context.drawTexture(4, 4, 0, 48, 96, 48, 96, 48); // todo: figure this out
+            context.drawTexture(FOXCLIENT_TEXT, 4, 4, 0, 48, 96, 48, 96, 48); // todo: figure this out
 
             renderList(context, 42);
         } else {
