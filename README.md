@@ -1,4 +1,4 @@
-# FoxClient
+# FoxClient 1.19.2
 A Fabric (and Quilt) Mod that changes the look of the Minecraft UI and adds some features.
 
 ## Features
