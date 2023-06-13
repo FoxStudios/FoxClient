@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "foxclient",
-  "version": "0.2.0-dev",
+  "version": "0.2.1-dev",
   "name": "FoxClient",
   "description": "A Fabric (and Quilt) Mod that changes the look of the Minecraft UI and adds some features.",
   "authors": [
