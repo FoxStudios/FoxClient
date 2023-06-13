@@ -20,11 +20,11 @@ import java.util.ArrayList;
 
 public class Buildscript extends SimpleFabricProject {
 
-	static final String MC_VERSION         = "1.20";
+	static final String MC_VERSION         = "1.20.1";
 	static final String FOXCLIENT_VERSION  = "0.2.1-dev";
-	static final String YARN_MAPPINGS      = "1.20+build.1";
+	static final String YARN_MAPPINGS      = "1.20.1+build.1";
 	static final String FABRIC_LOADER      = "0.14.21";
-	static final String FABRIC_API_VERSION = "0.83.0+1.20";
+	static final String FABRIC_API_VERSION = "0.83.1+1.20.1";
 	static final String MODMENU_VERSION    = "7.0.1";
 	static final String KONFIG_VERSION     = "1.5.0";
 	static final String JAVA_WS_VERSION    = "1.5.3";
