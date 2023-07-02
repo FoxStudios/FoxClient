@@ -49,7 +49,7 @@ public class FoxClientSettingsScreen extends Screen {
         super(TextUtils.string("FoxClient"));
 
         categories = new LinkedHashMap<>();
-        categories.put("client", List.of(FoxClientSetting.HudEnabled, FoxClientSetting.ArmorHudEnabled));
+        categories.put("client", List.of(FoxClientSetting.HudEnabled, FoxClientSetting.ArmorHudEnabled, FoxClientSetting.BlockHudEnabled));
         categories.put("menus", List.of(FoxClientSetting.CustomMainMenu, FoxClientSetting.CustomPauseMenu));
         categories.put("misc", List.of(FoxClientSetting.DiscordEnabled, FoxClientSetting.DiscordShowIP, FoxClientSetting.DiscordShowPlayer, FoxClientSetting.SmoothZoom));
         categories.put("eastereggs", List.of(FoxClientSetting.UwUfy));

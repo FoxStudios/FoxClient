@@ -46,6 +46,8 @@
   "foxclient.config.armorhudenabled": "Enable Armor HUD",
   "foxclient.config.armorhuddisplaypercentage": "Display as Percentage",
 
+  "foxclient.config.blockhudenabled": "Enable Block HUD",
+
   "foxclient.config.uwufy": "UwUfy",
 
   "foxclient.config.custommainmenu": "Main Menu",

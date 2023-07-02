@@ -44,7 +44,9 @@ public abstract class InGameHUDMixin {
             armorHud.render(context);
         }
 
-        if (blockHud == null) blockHud = new BlockHud(client);
-        blockHud.render(context, (x, y, item) -> renderHotbarItem(context, x, y, tickDelta, client.player, item, 1));
+        if (Main.config.get(FoxClientSetting.BlockHudEnabled, Boolean.class)) {
+            if (blockHud == null) blockHud = new BlockHud(client);
+            blockHud.render(context, (x, y, item) -> renderHotbarItem(context, x, y, tickDelta, client.player, item, 1));
+        }
     }
 }
