@@ -1,13 +1,16 @@
 package net.foxes4life.foxclient.gui;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import net.foxes4life.foxclient.util.TextUtils;
 import net.foxes4life.foxclient.util.draw.Anchor;
 import net.foxes4life.foxclient.util.draw.AnchoredBounds;
 import net.foxes4life.foxclient.util.draw.DrawUtils;
+import net.foxes4life.foxclient.util.rendering.ItemRender;
 import net.minecraft.block.AirBlock;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.hud.InGameHud;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.client.render.RenderLayer;
@@ -15,6 +18,7 @@ import net.minecraft.client.render.item.ItemRenderer;
 import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.MutableText;
 import net.minecraft.util.math.BlockPos;
@@ -35,7 +39,7 @@ public class BlockHud {
         this.client = client;
     }
 
-    public void render(DrawContext context) {
+    public void render(DrawContext context, ItemRender itemRender) {
         Block block = getBlock();
         boolean show = false;
 
@@ -64,18 +68,21 @@ public class BlockHud {
         // transition the width
         width = MathHelper.lerp(.8f * delta, width, w);
 
-        AnchoredBounds bounds = new AnchoredBounds(0, 0, (int)width, 14, client.getWindow().getScaledWidth(), client.getWindow().getScaledHeight(), Anchor.TopCenter, Anchor.TopCenter);
+        AnchoredBounds bounds = new AnchoredBounds(0, 0, (int)width + 20, 16, client.getWindow().getScaledWidth(), client.getWindow().getScaledHeight(), Anchor.TopCenter, Anchor.TopCenter);
 
         Color backgroundColor = new Color(0, 0, 0, .5f * alpha);
         int backgroundColorInt = backgroundColor.getRGB();
 
+        RenderSystem.setShaderColor(1, 1, 1, alpha);
         DrawUtils.drawRect(context, bounds, backgroundColorInt);
         DrawUtils.drawRect(context, bounds.x - 5, bounds.y, 5, bounds.height, backgroundColorInt);
         DrawUtils.drawRect(context, bounds.x + bounds.width, bounds.y, 5, bounds.height, backgroundColorInt);
         DrawUtils.drawRect(context, bounds.x, bounds.y + bounds.height, bounds.width, 5, backgroundColorInt);
 
         Color textColor = new Color(1, 1, 1, alpha);
-        context.drawText(client.textRenderer, text, bounds.x, 3, textColor.getRGB(), false);
+        context.drawText(client.textRenderer, text, bounds.x + 20, 5, textColor.getRGB(), false);
+
+        itemRender.render(bounds.x, 0, new ItemStack(block));
     }
 
     private Block getBlock() {
