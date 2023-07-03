@@ -1,6 +1,8 @@
 package net.foxes4life.foxclient.gui;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import net.foxes4life.foxclient.Main;
+import net.foxes4life.foxclient.configuration.FoxClientSetting;
 import net.foxes4life.foxclient.util.TextUtils;
 import net.foxes4life.foxclient.util.draw.Anchor;
 import net.foxes4life.foxclient.util.draw.AnchoredBounds;
@@ -54,9 +56,13 @@ public class BlockHud {
         // if the block is still null, we don't want to render anything
         if (block == null) return;
 
+        boolean showAnimations = Main.config.get(FoxClientSetting.BlockHudAnimations, Boolean.class);
+
         float delta = client.getTickDelta();
         float alphaDelta = show ? .4f : -.4f;
-        alpha = Math.max(0, Math.min(1, alpha + alphaDelta * delta));
+
+        if (showAnimations) alpha = Math.max(0, Math.min(1, alpha + alphaDelta * delta));
+        else alpha = show ? 1 : 0;
 
         // don't even bother
         if (alpha == 0) return;
@@ -66,7 +72,8 @@ public class BlockHud {
         int w = client.textRenderer.getWidth(text);
 
         // transition the width
-        width = MathHelper.lerp(.8f * delta, width, w);
+        if (showAnimations) width = MathHelper.lerp(.8f * delta, width, w);
+        else width = w;
 
         final int padding = 2;
         final int border = 3;

@@ -28,4 +28,5 @@ public enum FoxClientSetting {
     ArmorHudDisplayPercentage,
 
     BlockHudEnabled,
+    BlockHudAnimations
 }

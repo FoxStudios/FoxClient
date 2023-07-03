@@ -24,6 +24,7 @@
 
   "foxclient.config.category.ingame-hud": "In-Game HUD",
   "foxclient.config.category.armor-hud": "Armor HUD",
+  "foxclient.config.category.block-hud": "Block HUD",
   "foxclient.config.category.client": "Client",
   "foxclient.config.category.eastereggs": "EasterEggs",
   "foxclient.config.category.menus": "Custom Menus",
@@ -47,6 +48,7 @@
   "foxclient.config.armorhuddisplaypercentage": "Display as Percentage",
 
   "foxclient.config.blockhudenabled": "Enable Block HUD",
+  "foxclient.config.blockhudanimations": "Show fade and scale animations",
 
   "foxclient.config.uwufy": "UwUfy",
 
