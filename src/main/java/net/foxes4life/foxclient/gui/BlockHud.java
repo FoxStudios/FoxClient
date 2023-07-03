@@ -68,21 +68,24 @@ public class BlockHud {
         // transition the width
         width = MathHelper.lerp(.8f * delta, width, w);
 
-        AnchoredBounds bounds = new AnchoredBounds(0, 0, (int)width + 20, 16, client.getWindow().getScaledWidth(), client.getWindow().getScaledHeight(), Anchor.TopCenter, Anchor.TopCenter);
+        final int padding = 2;
+        final int border = 3;
+
+        AnchoredBounds bounds = new AnchoredBounds(0, 0, (int)width + 20 + padding * 2, 16 + padding * 2, client.getWindow().getScaledWidth(), client.getWindow().getScaledHeight(), Anchor.TopCenter, Anchor.TopCenter);
 
         Color backgroundColor = new Color(0, 0, 0, .5f * alpha);
         int backgroundColorInt = backgroundColor.getRGB();
 
         RenderSystem.setShaderColor(1, 1, 1, alpha);
         DrawUtils.drawRect(context, bounds, backgroundColorInt);
-        DrawUtils.drawRect(context, bounds.x - 5, bounds.y, 5, bounds.height, backgroundColorInt);
-        DrawUtils.drawRect(context, bounds.x + bounds.width, bounds.y, 5, bounds.height, backgroundColorInt);
-        DrawUtils.drawRect(context, bounds.x, bounds.y + bounds.height, bounds.width, 5, backgroundColorInt);
+        DrawUtils.drawRect(context, bounds.x - border, bounds.y, border, bounds.height, backgroundColorInt);
+        DrawUtils.drawRect(context, bounds.x + bounds.width, bounds.y, border, bounds.height, backgroundColorInt);
+        DrawUtils.drawRect(context, bounds.x, bounds.y + bounds.height, bounds.width, border, backgroundColorInt);
 
         Color textColor = new Color(1, 1, 1, alpha);
-        context.drawText(client.textRenderer, text, bounds.x + 20, 5, textColor.getRGB(), false);
+        context.drawText(client.textRenderer, text, bounds.x + 20 + padding, 5 + padding, textColor.getRGB(), false);
 
-        itemRender.render(bounds.x, 0, new ItemStack(block));
+        itemRender.render(bounds.x + padding, padding, new ItemStack(block));
     }
 
     private Block getBlock() {
