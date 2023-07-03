@@ -34,7 +34,7 @@ public class BlockHud {
     private final MinecraftClient client;
     private Block lastBlock;
 
-    private float alpha = 0;
+    private float y = 0;
     private float width = 0;
 
     public BlockHud(MinecraftClient client) {
@@ -59,13 +59,20 @@ public class BlockHud {
         boolean showAnimations = Main.config.get(FoxClientSetting.BlockHudAnimations, Boolean.class);
 
         float delta = client.getTickDelta();
-        float alphaDelta = show ? .4f : -.4f;
 
-        if (showAnimations) alpha = Math.max(0, Math.min(1, alpha + alphaDelta * delta));
-        else alpha = show ? 1 : 0;
+        final int padding = 2;
+        final int border = 3;
+        final int height = 16;
 
-        // don't even bother
-        if (alpha == 0) return;
+        final int minY = -height - padding * 2 - border - 2;
+        int goalY = show ? 0 : minY;
+
+        // transition y position
+        if (showAnimations) y = MathHelper.lerp(.6f * delta, y, goalY);
+        else y = goalY;
+
+        // don't even bother if its off screen
+        if (y == minY) return;
 
         String translationKey = block.getTranslationKey();
         MutableText text = TextUtils.translatable(translationKey);
@@ -75,24 +82,18 @@ public class BlockHud {
         if (showAnimations) width = MathHelper.lerp(.8f * delta, width, w);
         else width = w;
 
-        final int padding = 2;
-        final int border = 3;
+        AnchoredBounds bounds = new AnchoredBounds(0, (int)y, (int)width + 20 + padding * 2, height + padding * 2, client.getWindow().getScaledWidth(), client.getWindow().getScaledHeight(), Anchor.TopCenter, Anchor.TopCenter);
 
-        AnchoredBounds bounds = new AnchoredBounds(0, 0, (int)width + 20 + padding * 2, 16 + padding * 2, client.getWindow().getScaledWidth(), client.getWindow().getScaledHeight(), Anchor.TopCenter, Anchor.TopCenter);
-
-        Color backgroundColor = new Color(0, 0, 0, .5f * alpha);
+        Color backgroundColor = new Color(0, 0, 0, .5f);
         int backgroundColorInt = backgroundColor.getRGB();
 
-        RenderSystem.setShaderColor(1, 1, 1, alpha);
         DrawUtils.drawRect(context, bounds, backgroundColorInt);
         DrawUtils.drawRect(context, bounds.x - border, bounds.y, border, bounds.height, backgroundColorInt);
         DrawUtils.drawRect(context, bounds.x + bounds.width, bounds.y, border, bounds.height, backgroundColorInt);
         DrawUtils.drawRect(context, bounds.x, bounds.y + bounds.height, bounds.width, border, backgroundColorInt);
 
-        Color textColor = new Color(1, 1, 1, alpha);
-        context.drawText(client.textRenderer, text, bounds.x + 20 + padding, 5 + padding, textColor.getRGB(), false);
-
-        itemRender.render(bounds.x + padding, padding, new ItemStack(block));
+        context.drawText(client.textRenderer, text, bounds.x + 20 + padding, bounds.y + 5 + padding, 0xFFFFFF, false);
+        itemRender.render(bounds.x + padding,  bounds.y + padding, new ItemStack(block));
     }
 
     private Block getBlock() {

@@ -48,7 +48,7 @@
   "foxclient.config.armorhuddisplaypercentage": "Display as Percentage",
 
   "foxclient.config.blockhudenabled": "Enable Block HUD",
-  "foxclient.config.blockhudanimations": "Show fade and scale animations",
+  "foxclient.config.blockhudanimations": "Show fade and slide animations",
 
   "foxclient.config.uwufy": "UwUfy",
 
