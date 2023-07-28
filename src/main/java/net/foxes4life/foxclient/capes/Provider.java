@@ -31,8 +31,8 @@ public final class Provider {
             // Check if the player doesn't already have a cape.
             Identifier existingCape = capes.get(player.getName());
             if (existingCape != null) {
-                //callback.onTexAvail(existingCape);
-                //return;
+                callback.onTexAvail(existingCape);
+                return;
             }
 
             if (!Provider.tryUrl(player, callback, "https://client.foxes4life.net/api/v0/capes/get/" + player.getId().toString().replace("-", ""))) {
