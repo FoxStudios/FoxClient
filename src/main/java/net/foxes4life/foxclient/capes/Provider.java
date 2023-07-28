@@ -35,8 +35,8 @@ public final class Provider {
                 //return;
             }
 
-            if (!Provider.tryUrl(player, callback, "https://client.foxes4life.net/capes/get.php?uuid=" + player.getId().toString().replace("-", ""))) {
-                Provider.tryUrl(player, callback, "http://client.foxes4life.net/capes/get.php?uuid=" + player.getId().toString().replace("-", ""));
+            if (!Provider.tryUrl(player, callback, "https://client.foxes4life.net/api/v0/capes/get/" + player.getId().toString().replace("-", ""))) {
+                Provider.tryUrl(player, callback, "http://client.foxes4life.net/api/v0/capes/get/" + player.getId().toString().replace("-", ""));
             }
         };
         Util.getMainWorkerExecutor().execute(runnable);
