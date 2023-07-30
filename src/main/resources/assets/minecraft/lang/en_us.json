@@ -53,5 +53,8 @@
 
   "foxclient.config.discordenabled": "DiscordRPC - Enabled",
   "foxclient.config.discordshowip": "DiscordRPC - Show IP",
-  "foxclient.config.discordshowplayer": "DiscordRPC - Show own player"
+  "foxclient.config.discordshowplayer": "DiscordRPC - Show own player",
+
+  "foxclient.config.toggle.on": "ON",
+  "foxclient.config.toggle.off": "OFF"
 }
