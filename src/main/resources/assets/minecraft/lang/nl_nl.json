@@ -53,5 +53,8 @@
 
   "foxclient.config.discordenabled": "DiscordRPC - in/uit schakelen",
   "foxclient.config.discordshowip": "DiscordRPC - IP weergeven",
-  "foxclient.config.discordshowplayer": "DiscordRPC - toon eigen speeler"
+  "foxclient.config.discordshowplayer": "DiscordRPC - toon eigen speeler",
+
+  "foxclient.config.toggle.on": "AAN",
+  "foxclient.config.toggle.off": "UIT"
 }
