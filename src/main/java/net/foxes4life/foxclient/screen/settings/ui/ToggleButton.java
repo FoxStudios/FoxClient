@@ -4,6 +4,7 @@ import net.foxes4life.foxclient.ui.button.FoxClientButton;
 import net.foxes4life.foxclient.util.TextUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
@@ -36,7 +37,8 @@ public class ToggleButton extends FoxClientButton {
             text_alpha = 0.75f;
         }
 
-        String text = getMessage().getString() + ": " + (displayValue ? "§aON" : "§cOFF");
+        String text = getMessage().getString() + ": " + (displayValue ? "§a" + I18n.translate("foxclient.config.toggle.on") : "§c" + I18n.translate("foxclient.config.toggle.off"));
+
 
         drawCenteredTextWithShadow(matrices, textRenderer, TextUtils.string(text),
                 this.getX() + this.width / 2,

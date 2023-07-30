@@ -53,5 +53,8 @@
 
   "foxclient.config.discordenabled": "DiscordRPC - Eingeschaltet",
   "foxclient.config.discordshowip": "DiscordRPC - IP anzeigen",
-  "foxclient.config.discordshowplayer": "DiscordRPC - Eigenen Spieler anzeigen"
+  "foxclient.config.discordshowplayer": "DiscordRPC - Eigenen Spieler anzeigen",
+
+  "foxclient.config.toggle.on": "AN",
+  "foxclient.config.toggle.off": "AUS"
 }
