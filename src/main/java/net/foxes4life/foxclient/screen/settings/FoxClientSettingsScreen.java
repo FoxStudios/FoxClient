@@ -39,7 +39,7 @@ public class FoxClientSettingsScreen extends Screen {
     static double entryHoverBgY = 0;
     static int entryHoverBgYGoal = 0;
 
-    private static final int sidebarWidth = 64 + 16;
+    private static final int sidebarWidth = 64 + 32;
 
     private int amountOfDrawableChilds = 0; // set amount of buttons created in init() here (excluding the ones in the loop)
     private boolean initDone = false; // to prevent amountOfDrawableChilds from increasing after init is done
