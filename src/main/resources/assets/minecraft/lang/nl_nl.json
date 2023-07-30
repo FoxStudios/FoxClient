@@ -8,18 +8,18 @@
   "foxclient.gui.toast.modmenu.missing": "ModMenu is niet geïnstalleerd",
 
   "category.foxclient.main": "FoxClient",
-  "key.foxclient.toggle_hud": "Schakel HUD in/uit schakelen",
+  "key.foxclient.toggle_hud": "HUD in/uit schakelen",
   "key.foxclient.freelook": "Freelook",
-  "key.foxclient.configKey": "FoxClient Konfiguratie",
+  "key.foxclient.configKey": "FoxClient Configuratie",
   "key.foxclient.zoom": "Zoom",
 
   "foxclient.rpc.state.idle": "Inactief",
-  "foxclient.rpc.state.singleplayer": "Speelt een speler",
+  "foxclient.rpc.state.singleplayer": "Speelt singleplayer",
   "foxclient.rpc.state.lan": "Speelt in een LAN-game",
   "foxclient.rpc.state.multiplayer": "Speelt op %s",
   "foxclient.rpc.state.multiplayer.count": "Speelt op %s (%s speler)",
   "foxclient.rpc.state.multiplayer.count.single": "Speelt op %s (%s spelers)",
-  "foxclient.rpc.state.multiplayer.hide_ip": "Speelt meerspeler",
+  "foxclient.rpc.state.multiplayer.hide_ip": "Speelt multiplayer",
   "foxclient.rpc.state.realms": "Speelt op een Realm",
 
   "foxclient.config.category.ingame-hud": "In-Game HUD",
@@ -27,7 +27,7 @@
   "foxclient.config.category.client": "Cliënt",
   "foxclient.config.category.eastereggs": "EasterEggs",
   "foxclient.config.category.menus": "Aangepaste menu's",
-  "foxclient.config.category.misc": "Miscellaneous",
+  "foxclient.config.category.misc": "Overige",
 
   "foxclient.config.smoothzoom": "Smooth Zoom in/uit schakelen",
 
@@ -53,7 +53,7 @@
 
   "foxclient.config.discordenabled": "DiscordRPC - in/uit schakelen",
   "foxclient.config.discordshowip": "DiscordRPC - IP weergeven",
-  "foxclient.config.discordshowplayer": "DiscordRPC - toon eigen speeler",
+  "foxclient.config.discordshowplayer": "DiscordRPC - toon eigen speler",
 
   "foxclient.config.toggle.on": "AAN",
   "foxclient.config.toggle.off": "UIT"
