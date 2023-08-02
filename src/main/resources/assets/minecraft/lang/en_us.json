@@ -1,0 +1,60 @@
+{
+  "title.multiplayer.other2": "Multiplayer (%s)",
+
+  "foxclient.gui.button.reconnect": "Reconnect",
+  "foxclient.gui.button.close": "Close",
+
+  "foxclient.gui.toast.title": "FoxClient",
+  "foxclient.gui.toast.modmenu.missing": "ModMenu isn't installed",
+
+  "category.foxclient.main": "FoxClient",
+  "key.foxclient.toggle_hud": "Toggle HUD",
+  "key.foxclient.freelook": "Freelook",
+  "key.foxclient.configKey": "FoxClient Config",
+  "key.foxclient.zoom": "Zoom",
+
+  "foxclient.rpc.state.idle": "Idle",
+  "foxclient.rpc.state.singleplayer": "Playing Singleplayer",
+  "foxclient.rpc.state.lan": "Playing on a LAN game",
+  "foxclient.rpc.state.multiplayer": "Playing on %s",
+  "foxclient.rpc.state.multiplayer.count": "Playing on %s (%s players)",
+  "foxclient.rpc.state.multiplayer.count.single": "Playing on %s (%s player)",
+  "foxclient.rpc.state.multiplayer.hide_ip": "Playing Multiplayer",
+  "foxclient.rpc.state.realms": "Playing on a Realm",
+
+  "foxclient.config.category.ingame-hud": "In-Game HUD",
+  "foxclient.config.category.armor-hud": "Armor HUD",
+  "foxclient.config.category.client": "Client",
+  "foxclient.config.category.eastereggs": "EasterEggs",
+  "foxclient.config.category.menus": "Custom Menus",
+  "foxclient.config.category.misc": "Miscellaneous",
+
+  "foxclient.config.smoothzoom": "Enable Smooth Zoom",
+
+  "foxclient.config.hudenabled" : "Enable In-Game HUD",
+  "foxclient.config.hudping": "Ping",
+  "foxclient.config.hudtps": "TPS",
+  "foxclient.config.hudfps": "FPS",
+  "foxclient.config.hudversion": "Version",
+  "foxclient.config.hudcoordinates": "XYZ",
+  "foxclient.config.hudbiome": "Biome",
+  "foxclient.config.hudcoordinatescolor": "Colored XYZ",
+  "foxclient.config.hudserverip": "Server IP",
+  "foxclient.config.hudlogo": "Logo",
+  "foxclient.config.hudbackground": "Background",
+
+  "foxclient.config.armorhudenabled": "Enable Armor HUD",
+  "foxclient.config.armorhuddisplaypercentage": "Display as Percentage",
+
+  "foxclient.config.uwufy": "UwUfy",
+
+  "foxclient.config.custommainmenu": "Main Menu",
+  "foxclient.config.custompausemenu": "Pause Menu",
+
+  "foxclient.config.discordenabled": "DiscordRPC - Enabled",
+  "foxclient.config.discordshowip": "DiscordRPC - Show IP",
+  "foxclient.config.discordshowplayer": "DiscordRPC - Show own player",
+
+  "foxclient.config.toggle.on": "ON",
+  "foxclient.config.toggle.off": "OFF"
+}
