@@ -1,0 +1,60 @@
+{
+  "title.multiplayer.other2": "Multijugador (%s)",
+
+  "foxclient.gui.button.reconnect": "Reconectar",
+  "foxclient.gui.button.close": "Cerrar",
+
+  "foxclient.gui.toast.title": "FoxClient",
+  "foxclient.gui.toast.modmenu.missing": "El menu de mod no está instalado",
+
+  "category.foxclient.main": "FoxClien",
+  "key.foxclient.toggle_hud": "Cambiar HUD",
+  "key.foxclient.freelook": "Mirada libre",
+  "key.foxclient.configKey": "Configuración FoxClient",
+  "key.foxclient.zoom": "Zoom",
+
+  "foxclient.rpc.state.idle": "Inactivo",
+  "foxclient.rpc.state.singleplayer": "Jugando a un jugador",
+  "foxclient.rpc.state.lan": "Jugando en un juego LAN",
+  "foxclient.rpc.state.multiplayer": "Jugando en %s",
+  "foxclient.rpc.state.multiplayer.count": "Jugando en %s (%s jugadores)",
+  "foxclient.rpc.state.multiplayer.count.single": "Jugando en %s (%s jugador)",
+  "foxclient.rpc.state.multiplayer.hide_ip": "Jugando a Multijuador",
+  "foxclient.rpc.state.realms": "Jugando en un Realm",
+
+  "foxclient.config.category.ingame-hud": "HUD en-juego",
+  "foxclient.config.category.armor-hud": "HUD de armadura",
+  "foxclient.config.category.client": "Cliente",
+  "foxclient.config.category.eastereggs": "EasterEggs",
+  "foxclient.config.category.menus": "Menus personalizados",
+  "foxclient.config.category.misc": "Misceláneo",
+
+  "foxclient.config.smoothzoom": "Cambiar Zoom suave",
+
+  "foxclient.config.hudenabled" : "Activar HUD en-juego",
+  "foxclient.config.hudping": "Ping",
+  "foxclient.config.hudtps": "TPS",
+  "foxclient.config.hudfps": "FPS",
+  "foxclient.config.hudversion": "Versión",
+  "foxclient.config.hudcoordinates": "XYZ",
+  "foxclient.config.hudbiome": "Bioma",
+  "foxclient.config.hudcoordinatescolor": "XYZ coloreado",
+  "foxclient.config.hudserverip": "IP del servidor",
+  "foxclient.config.hudlogo": "Logo",
+  "foxclient.config.hudbackground": "Fondo de pantalla",
+
+  "foxclient.config.armorhudenabled": "Activar HUD de armadura",
+  "foxclient.config.armorhuddisplaypercentage": "Mostrar como porcentaje",
+
+  "foxclient.config.uwufy": "UwUficar",
+
+  "foxclient.config.custommainmenu": "Menu principal",
+  "foxclient.config.custompausemenu": "Menu de pausa",
+
+  "foxclient.config.discordenabled": "DiscordRPC - activado",
+  "foxclient.config.discordshowip": "DiscordRPC - Mostrar IP",
+  "foxclient.config.discordshowplayer": "DiscordRPC - Mostrar un jugador",
+
+  "foxclient.config.toggle.on": "Encendido",
+  "foxclient.config.toggle.off": "Apagado"
+}
