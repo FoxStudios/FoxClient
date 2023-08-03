@@ -46,8 +46,11 @@ public class FoxClientSettingsScreen extends Screen {
     private int amountOfDrawableChilds = 0; // set amount of buttons created in init() here (excluding the ones in the loop)
     private boolean initDone = false; // to prevent amountOfDrawableChilds from increasing after init is done
 
-    public FoxClientSettingsScreen() {
+    private boolean showBackground;
+
+    public FoxClientSettingsScreen(boolean showBackground) {
         super(TextUtils.string("FoxClient"));
+        this.showBackground = showBackground;
 
         categories = new LinkedHashMap<>();
         categories.put("client", List.of(FoxClientSetting.HudEnabled, FoxClientSetting.ArmorHudEnabled, FoxClientSetting.BlockHudEnabled));
@@ -154,7 +157,9 @@ public class FoxClientSettingsScreen extends Screen {
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         assert this.client != null;
 
-        BackgroundUtils.drawRandomBackground(context, this.width, this.height);
+        if (showBackground)
+            BackgroundUtils.drawRandomBackground(context, this.width, this.height);
+
         context.fill(0, 0, this.width, this.height, 0x44000000);
         context.fill(0, 0, sidebarWidth, this.height, 0x44000000);
 

@@ -46,7 +46,7 @@ public class MainClient implements ClientModInitializer {
 
         ClientTickEvents.START_CLIENT_TICK.register(client -> {
             while (clientConfig.wasPressed()) {
-                MinecraftClient.getInstance().setScreen(new FoxClientSettingsScreen());
+                MinecraftClient.getInstance().setScreen(new FoxClientSettingsScreen(false));
             }
         });
 
