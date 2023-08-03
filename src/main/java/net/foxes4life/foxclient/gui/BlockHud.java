@@ -1,7 +1,7 @@
 package net.foxes4life.foxclient.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.foxes4life.foxclient.Main;
+import net.foxes4life.foxclient.MainClient;
 import net.foxes4life.foxclient.configuration.FoxClientSetting;
 import net.foxes4life.foxclient.util.TextUtils;
 import net.foxes4life.foxclient.util.draw.Anchor;
@@ -12,15 +12,9 @@ import net.minecraft.block.AirBlock;
 import net.minecraft.block.Block;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerInteractionManager;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.render.model.json.ModelTransformationMode;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.MutableText;
 import net.minecraft.util.math.BlockPos;
@@ -48,8 +42,7 @@ public class BlockHud {
         if (block != null && !(block instanceof AirBlock)) {
             lastBlock = block;
             show = true;
-        }
-        else {
+        } else {
             block = lastBlock;
         }
 
@@ -58,7 +51,8 @@ public class BlockHud {
 
         boolean showAnimations = Main.config.get(FoxClientSetting.BlockHudAnimations, Boolean.class);
 
-        float delta = client.getTickDelta();
+        float delta = MainClient.deltaTime;
+//        context.drawText(client.textRenderer, "Draw delta: " + (int)delta + "ms", 10, 10, 0xFFFFFF, false);
 
         final int padding = 2;
         final int border = 3;
@@ -68,22 +62,26 @@ public class BlockHud {
         int goalY = show ? 0 : minY;
 
         // transition y position
-        if (showAnimations) y = MathHelper.lerp(.6f * delta, y, goalY);
-        else y = goalY;
+        if (showAnimations) {
+            y = (float) MathHelper.lerp(Math.exp(-0.01 * delta), goalY, y);
+        } else {
+            y = goalY;
+        }
 
         // don't even bother if its off screen
         if (y == minY) return;
 
-        String translationKey = block.getTranslationKey();
-        MutableText text = TextUtils.translatable(translationKey);
+        MutableText text = TextUtils.translatable(block.getTranslationKey());
         int w = client.textRenderer.getWidth(text);
 
         // transition the width
-        if (showAnimations) width = MathHelper.lerp(.8f * delta, width, w);
-        else width = w;
+        if (showAnimations) {
+            width = (float) MathHelper.lerp(Math.exp(-0.01 * delta), w, width);
+        } else {
+            width = w;
+        }
 
         AnchoredBounds bounds = new AnchoredBounds(0, (int)y, (int)width + 20 + padding * 2, height + padding * 2, client.getWindow().getScaledWidth(), client.getWindow().getScaledHeight(), Anchor.TopCenter, Anchor.TopCenter);
-
         Color backgroundColor = new Color(0, 0, 0, .5f);
         int backgroundColorInt = backgroundColor.getRGB();
 
@@ -98,18 +96,16 @@ public class BlockHud {
 
     private Block getBlock() {
         ClientWorld world = client.world;
-        if (world == null) return null;
-
         Entity camera = client.getCameraEntity();
-        if (camera == null) return null;
-
         ClientPlayerInteractionManager interactionManager = client.interactionManager;
-        if (interactionManager == null) return null;
+
+        if (world == null || camera == null || interactionManager == null) return null;
 
         float maxRange = interactionManager.getReachDistance();
+        float tickDelta = client.getTickDelta();
 
-        Vec3d viewVector = camera.getRotationVec(client.getTickDelta());
-        Vec3d startVector = camera.getCameraPosVec(client.getTickDelta());
+        Vec3d viewVector = camera.getRotationVec(tickDelta);
+        Vec3d startVector = camera.getCameraPosVec(tickDelta);
         Vec3d endVector = startVector.add(viewVector.x * maxRange, viewVector.y * maxRange, viewVector.z * maxRange);
 
         RaycastContext raycastContext = new RaycastContext(startVector, endVector, RaycastContext.ShapeType.OUTLINE, RaycastContext.FluidHandling.SOURCE_ONLY, camera);

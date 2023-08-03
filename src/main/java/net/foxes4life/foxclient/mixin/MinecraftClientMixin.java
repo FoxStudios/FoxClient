@@ -1,6 +1,7 @@
 package net.foxes4life.foxclient.mixin;
 
 import net.foxes4life.foxclient.Main;
+import net.foxes4life.foxclient.MainClient;
 import net.foxes4life.foxclient.configuration.FoxClientSetting;
 import net.foxes4life.foxclient.rpc.DiscordMinecraftClient;
 import net.foxes4life.foxclient.rpc.PresenceUpdater;
@@ -14,6 +15,7 @@ import net.minecraft.server.integrated.IntegratedServer;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -83,5 +85,15 @@ public abstract class MinecraftClientMixin {
                 MinecraftClient.getInstance().setScreen(new PauseScreen());
             }
         }
+    }
+
+    @Unique
+    private long lastTime = 0;
+
+    @Inject(at = @At("HEAD"), method = "render")
+    public void render(boolean tick, CallbackInfo ci) {
+        long currentTime = System.currentTimeMillis();
+        MainClient.deltaTime = currentTime - lastTime;
+        lastTime = currentTime;
     }
 }
