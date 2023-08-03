@@ -34,5 +34,8 @@ public class FoxClientConfigManager extends Konfig<FoxClientSetting> {
 
         setDefault(FoxClientSetting.ArmorHudEnabled, false);
         setDefault(FoxClientSetting.ArmorHudDisplayPercentage, false);
+
+        setDefault(FoxClientSetting.BlockHudEnabled, true);
+        setDefault(FoxClientSetting.BlockHudAnimations, true);
     }
 }
