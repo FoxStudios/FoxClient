@@ -3,6 +3,7 @@ package net.foxes4life.foxclient.screen.settings;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.foxes4life.foxclient.Main;
+import net.foxes4life.foxclient.MainClient;
 import net.foxes4life.foxclient.configuration.FoxClientSetting;
 import net.foxes4life.foxclient.screen.settings.ui.CategoryButton;
 import net.foxes4life.foxclient.screen.settings.ui.ToggleButton;
@@ -157,11 +158,13 @@ public class FoxClientSettingsScreen extends Screen {
         context.fill(0, 0, this.width, this.height, 0x44000000);
         context.fill(0, 0, sidebarWidth, this.height, 0x44000000);
 
+        float elapsed = MainClient.deltaTime;
+
         int i = 0;
         for (Map.Entry<String, List<FoxClientSetting>> entry : categories.entrySet()) {
             if (entry.getKey().equals(currentCategory)) {
                 catSelectBgYGoal = (i * 22) + 22;
-                catSelectBgY = MathHelper.lerp(delta * 1.2, catSelectBgY, catSelectBgYGoal);
+                catSelectBgY = MathHelper.lerp(Math.exp(-0.02 * elapsed), catSelectBgYGoal, catSelectBgY);
                 context.fill(0, (int) catSelectBgY, sidebarWidth, (int) catSelectBgY + 22, 0x44ffffff);
             }
 
@@ -172,7 +175,7 @@ public class FoxClientSettingsScreen extends Screen {
             if (child instanceof ToggleButton) {
                 if (((ToggleButton) child).isHovered()) {
                     entryHoverBgYGoal = ((ToggleButton) child).getY();
-                    entryHoverBgY = MathHelper.lerp(delta * 1.2, entryHoverBgY, entryHoverBgYGoal);
+                    entryHoverBgY = MathHelper.lerp(Math.exp(-0.02 * elapsed), entryHoverBgYGoal, entryHoverBgY);
                     context.fill( sidebarWidth + 2, (int) entryHoverBgY, this.client.getWindow().getScaledWidth() - 2, (int) entryHoverBgY + 22, 0x44ffffff);
                 }
             }
