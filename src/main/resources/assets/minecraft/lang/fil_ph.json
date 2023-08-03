@@ -1,0 +1,60 @@
+{
+  "title.multiplayer.other2": "Multiplayer (%s)",
+
+  "foxclient.gui.button.reconnect": "Muling Kumonekta",
+  "foxclient.gui.button.close": "Isara",
+
+  "foxclient.gui.toast.title": "FoxClient",
+  "foxclient.gui.toast.modmenu.missing": "Hindi naka-install ang ModMenu",
+
+  "category.foxclient.main": "FoxClient",
+  "key.foxclient.toggle_hud": "Ipakita ang HUD",
+  "key.foxclient.freelook": "Freelook",
+  "key.foxclient.configKey": "Pagkaayos ng FoxClient",
+  "key.foxclient.zoom": "Zoom",
+
+  "foxclient.rpc.state.idle": "Idle",
+  "foxclient.rpc.state.singleplayer": "Naglalaron ng Singleplayer",
+  "foxclient.rpc.state.lan": "Naglalaro sa LAN game",
+  "foxclient.rpc.state.multiplayer": "Naglalaro sa %s",
+  "foxclient.rpc.state.multiplayer.count": "Naglalaro sa %s (%s players)",
+  "foxclient.rpc.state.multiplayer.count.single": "Naglalaro sa %s (%s player)",
+  "foxclient.rpc.state.multiplayer.hide_ip": "Naglalaro ng Multiplayer",
+  "foxclient.rpc.state.realms": "Naglalaro sa Realm",
+
+  "foxclient.config.category.ingame-hud": "In-Game HUD",
+  "foxclient.config.category.armor-hud": "Armor HUD",
+  "foxclient.config.category.client": "Kliente",
+  "foxclient.config.category.eastereggs": "Mga Sekreto",
+  "foxclient.config.category.menus": "Pasadyang Menu",
+  "foxclient.config.category.misc": "Sari-Sari",
+
+  "foxclient.config.smoothzoom": "Gamitin ang Smooth Zoom",
+
+  "foxclient.config.hudenabled" : "Buksan ang In-Game HUD",
+  "foxclient.config.hudping": "Ping",
+  "foxclient.config.hudtps": "TPS",
+  "foxclient.config.hudfps": "FPS",
+  "foxclient.config.hudversion": "Bersyon",
+  "foxclient.config.hudcoordinates": "XYZ",
+  "foxclient.config.hudbiome": "Biome",
+  "foxclient.config.hudcoordinatescolor": "May Kulay na XYZ",
+  "foxclient.config.hudserverip": "Server IP",
+  "foxclient.config.hudlogo": "Logo",
+  "foxclient.config.hudbackground": "Background",
+
+  "foxclient.config.armorhudenabled": "Buksan ang Armor HUD",
+  "foxclient.config.armorhuddisplaypercentage": "Ipakita Bilang Porsyento",
+
+  "foxclient.config.uwufy": "UwUfy",
+
+  "foxclient.config.custommainmenu": "Main Menu",
+  "foxclient.config.custompausemenu": "Pause Menu",
+
+  "foxclient.config.discordenabled": "DiscordRPC - Nakabukas",
+  "foxclient.config.discordshowip": "DiscordRPC - Ipakita ang IP",
+  "foxclient.config.discordshowplayer": "DiscordRPC - Ipakita sariling player",
+
+  "foxclient.config.toggle.on": "ON",
+  "foxclient.config.toggle.off": "OFF"
+}
