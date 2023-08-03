@@ -1,8 +1,6 @@
 package net.foxes4life.foxclient.gui;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.configuration.FoxClientSetting;
 import net.foxes4life.foxclient.util.ClientUtils;
@@ -11,7 +9,6 @@ import net.foxes4life.foxclient.util.TextUtils;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
@@ -19,7 +16,7 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.List;
 
-public class FoxClientHUD {
+public class InfoHud {
     private final MinecraftClient client;
     private final TextRenderer fontRenderer;
 
@@ -29,7 +26,7 @@ public class FoxClientHUD {
 
     private static final Identifier FOXCLIENT_TEXT = new Identifier("foxclient", "textures/ui/branding/text.png");
 
-    public FoxClientHUD(MinecraftClient client) {
+    public InfoHud(MinecraftClient client) {
         this.client = client;
         this.fontRenderer = client.textRenderer;
     }

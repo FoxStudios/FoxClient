@@ -4,11 +4,10 @@ import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.configuration.FoxClientSetting;
 import net.foxes4life.foxclient.gui.ArmorHud;
 import net.foxes4life.foxclient.gui.BlockHud;
-import net.foxes4life.foxclient.gui.FoxClientHUD;
+import net.foxes4life.foxclient.gui.InfoHud;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
@@ -26,17 +25,17 @@ public abstract class InGameHUDMixin {
 
     @Shadow protected abstract void renderHotbarItem(DrawContext context, int x, int y, float pFloat3, PlayerEntity player, ItemStack stack, int seed);
 
-    private static FoxClientHUD foxClientHUD = null;
+    private static InfoHud infoHud = null;
     private static ArmorHud armorHud = null;
     private static BlockHud blockHud = null;
 
     @Inject(at = @At("HEAD"), method = "render")
     public void render(DrawContext context, float tickDelta, CallbackInfo ci) {
         if (Main.config.get(FoxClientSetting.HudEnabled, Boolean.class)) {
-            if (foxClientHUD == null) {
-                foxClientHUD = new FoxClientHUD(client);
+            if (infoHud == null) {
+                infoHud = new InfoHud(client);
             }
-            foxClientHUD.render(context);
+            infoHud.render(context);
         }
 
         if (Main.config.get(FoxClientSetting.ArmorHudEnabled, Boolean.class)) {
