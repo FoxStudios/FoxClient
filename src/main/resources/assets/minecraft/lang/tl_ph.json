@@ -22,7 +22,7 @@
   "foxclient.rpc.state.multiplayer.hide_ip": "Naglalaro ng Multiplayer",
   "foxclient.rpc.state.realms": "Naglalaro sa Realm",
 
-  "foxclient.config.category.ingame-hud": "In-Game HUD",
+  "foxclient.config.category.ingame-hud": "Info HUD",
   "foxclient.config.category.armor-hud": "Armor HUD",
   "foxclient.config.category.client": "Kliente",
   "foxclient.config.category.eastereggs": "Mga Sekreto",
@@ -31,7 +31,7 @@
 
   "foxclient.config.smoothzoom": "Gamitin ang Smooth Zoom",
 
-  "foxclient.config.hudenabled" : "Buksan ang In-Game HUD",
+  "foxclient.config.hudenabled" : "Buksan ang Info HUD",
   "foxclient.config.hudping": "Ping",
   "foxclient.config.hudtps": "TPS",
   "foxclient.config.hudfps": "FPS",

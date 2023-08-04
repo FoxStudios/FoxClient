@@ -227,7 +227,7 @@ public class TitleScreen extends Screen {
                 }
                 case 5 -> {
                     tex = FOXCLIENT_OPTIONS_BUTTON;
-                    pressAction = (button) -> this.client.setScreen(new FoxClientSettingsScreen());
+                    pressAction = (button) -> this.client.setScreen(new FoxClientSettingsScreen(true));
                     x += 30;
                     tooltip = "FoxClient Options";
                 }

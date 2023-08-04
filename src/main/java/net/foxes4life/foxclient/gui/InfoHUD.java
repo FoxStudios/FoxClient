@@ -18,19 +18,21 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
-public class FoxClientHUD extends DrawableHelper {
+public class InfoHUD extends DrawableHelper {
     private final MinecraftClient client;
     private final TextRenderer fontRenderer;
 
     private int boxHeight = 2;
     private int boxWidth = 98;
-    private final List<Text> textList = Lists.newArrayList();
+    private final LinkedHashMap<String, Text> textList = new LinkedHashMap<>();
 
     private static final Identifier FOXCLIENT_TEXT = new Identifier("foxclient", "textures/ui/branding/text.png");
 
-    public FoxClientHUD(MinecraftClient client) {
+    public InfoHUD(MinecraftClient client) {
         this.client = client;
         this.fontRenderer = client.textRenderer;
     }
@@ -39,15 +41,19 @@ public class FoxClientHUD extends DrawableHelper {
         boolean drawLogo = Main.config.get(FoxClientSetting.HudLogo, Boolean.class);
         loadList(drawLogo);
 
+        int padding = 2;
+        int border = 4;
+
         if (Main.config.get(FoxClientSetting.HudBackground, Boolean.class)) {
-            fill(matrices, 0, 0, boxWidth - 5, boxHeight - 5, 0x45454545);
-            fill(matrices, boxWidth - 5, 0, boxWidth, boxHeight - 5, 0x45454545);
-            fill(matrices, 0, boxHeight - 5, boxWidth - 5, boxHeight, 0x45454545);
+            context.fill(0, 0, boxWidth + padding * 2, boxHeight + padding * 2, 0x80000000);
+            context.fill(0, boxHeight + padding * 2, boxWidth + padding * 2, boxHeight + padding * 2 + border, 0x80000000);
+            context.fill(boxWidth + padding * 2, 0, boxWidth + padding * 2 + border, boxHeight + padding * 2, 0x80000000);
         }
 
         // draw logo
         if (drawLogo) {
-            boxHeight += 42;
+            context.drawTexture(FOXCLIENT_TEXT, padding, padding, 0, 48, 96, 48, 96, 48); // todo: figure this out
+            renderList(context, 40 + padding);
             RenderSystem.setShader(GameRenderer::getPositionTexProgram);
             RenderSystem.setShaderTexture(0, FOXCLIENT_TEXT);
             RenderSystem.enableBlend();
@@ -57,14 +63,14 @@ public class FoxClientHUD extends DrawableHelper {
 
             renderList(matrices, 42);
         } else {
-            renderList(matrices, 2);
+            renderList(matrices, padding);
         }
     }
 
     void loadList(boolean drawLogo) {
         textList.clear();
-        boxHeight = drawLogo ? 42 : 2;
-        boxWidth = 98;
+        boxHeight = drawLogo ? 40 : 0;
+        boxWidth = 100;
 
         boolean version = Main.config.get(FoxClientSetting.HudVersion, Boolean.class);
         boolean coords = Main.config.get(FoxClientSetting.HudCoordinates, Boolean.class);
@@ -77,52 +83,54 @@ public class FoxClientHUD extends DrawableHelper {
 
 
         if (version)
-            textList.add(TextUtils.string(Main.SIMPLE_VERSION));
+            textList.put("version", TextUtils.string(Main.SIMPLE_VERSION));
 
         if (coords) {
             assert this.client.player != null;
-            textList.add(TextUtils.string(String.format("[XYZ] " + (colorcoords ? "§c%s §a%s §9%s" : "%s %s %s"), this.client.player.getBlockPos().getX(), this.client.player.getBlockPos().getY(), this.client.player.getBlockPos().getZ())));
+            textList.put("xyz", TextUtils.string(String.format((colorcoords ? "§c%s §a%s §9%s" : "%s %s %s"), this.client.player.getBlockPos().getX(), this.client.player.getBlockPos().getY(), this.client.player.getBlockPos().getZ())));
         }
 
         if (fps)
-            textList.add(TextUtils.string("[FPS] " + ClientUtils.getFPS()));
+            textList.put("fps", TextUtils.string(ClientUtils.getFPS() + "fps"));
 
         if (ping)
-            textList.add(TextUtils.string(String.format("[Ping] " + ClientUtils.getPing() + "ms")));
+            textList.put("ping", TextUtils.string(String.format(ClientUtils.getPing() + "ms")));
 
         if (tps)
-            textList.add(TextUtils.string(String.format("[TPS] " + ServerTickUtils.calculateServerTPS())));
+            textList.put("tps", TextUtils.string(String.format(ServerTickUtils.calculateServerTPS() + "tps")));
 
         if (biome)
             if (client.world != null) {
                 assert client.getCameraEntity() != null;
                 final BlockPos blockPos = client.getCameraEntity().getBlockPos();
-                textList.add(TextUtils.string(String.format("[BIOME] " + client.world.getBiome(blockPos).getKey().get().getValue().toString())));
+                textList.put("biome", TextUtils.string(String.format(client.world.getBiome(blockPos).getKey().get().getValue().toString())));
             }
 
         if (server) {
             if (client.getCurrentServerEntry() != null) {
-                textList.add(TextUtils.string(String.format("[IP] " + client.getCurrentServerEntry().address)));
+                textList.put("ip", TextUtils.string(String.format(client.getCurrentServerEntry().address)));
             } else {
-                textList.add(TextUtils.string("[IP] " + I18n.translate("menu.singleplayer")));
+                textList.put("ip", TextUtils.string(I18n.translate("menu.singleplayer")));
             }
         }
 
-        for (Text text : textList) {
-            boxHeight += 10;
+        for (Map.Entry<String, Text> entry : textList.entrySet()) {
+            boxHeight += 14;
+            Text text = entry.getValue();
+            boxWidth = Math.max(boxWidth, this.client.textRenderer.getWidth(text.getString()) + 20);
 
-            if (this.client.textRenderer.getWidth(text.getString()) > boxWidth - 8) {
-                boxWidth = this.client.textRenderer.getWidth(text.getString()) + 8;
+            void renderList (MatrixStack matrices,int offset){
+                int i = 0;
+                for (Map.Entry<String, Text> entry : textList.entrySet()) {
+                    Identifier identifier = new Identifier("foxclient", "textures/ui/info-hud/icons/" + entry.getKey() + ".png");
+                    Text text = entry.getValue();
+
+                    int y = offset + (14 * i);
+                    context.drawTexture(identifier, 2, y - 1, 0, 0, 16, 16, 16, 16);
+                    context.drawText(this.fontRenderer, text, 22, y + 3, 0xFFFFFFFF, true);
+                    i++;
+                }
             }
-        }
-    }
-
-    void renderList(MatrixStack matrices, int offset) {
-        int i = 0;
-        for (Text text : textList) {
-            int y = offset + (10 * i);
-            this.fontRenderer.draw(matrices, text, 4, y, 0xFFFFFFFF);
-            i++;
         }
     }
 }
