@@ -3,6 +3,7 @@ package net.foxes4life.foxclient.screen.settings;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.foxes4life.foxclient.Main;
+import net.foxes4life.foxclient.MainClient;
 import net.foxes4life.foxclient.configuration.FoxClientSetting;
 import net.foxes4life.foxclient.screen.settings.ui.CategoryButton;
 import net.foxes4life.foxclient.screen.settings.ui.ToggleButton;
@@ -44,16 +45,20 @@ public class FoxClientSettingsScreen extends Screen {
     private int amountOfDrawableChilds = 0; // set amount of buttons created in init() here (excluding the ones in the loop)
     private boolean initDone = false; // to prevent amountOfDrawableChilds from increasing after init is done
 
-    public FoxClientSettingsScreen() {
+    private boolean showBackground;
+
+    public FoxClientSettingsScreen(boolean showBackground) {
         super(TextUtils.string("FoxClient"));
+        this.showBackground = showBackground;
 
         categories = new LinkedHashMap<>();
-        categories.put("client", List.of(FoxClientSetting.HudEnabled, FoxClientSetting.ArmorHudEnabled));
+        categories.put("client", List.of(FoxClientSetting.HudEnabled, FoxClientSetting.ArmorHudEnabled, FoxClientSetting.BlockHudEnabled));
         categories.put("menus", List.of(FoxClientSetting.CustomMainMenu, FoxClientSetting.CustomPauseMenu));
         categories.put("misc", List.of(FoxClientSetting.DiscordEnabled, FoxClientSetting.DiscordShowIP, FoxClientSetting.DiscordShowPlayer, FoxClientSetting.SmoothZoom));
         categories.put("eastereggs", List.of(FoxClientSetting.UwUfy));
         categories.put("ingame-hud", List.of(FoxClientSetting.HudBackground, FoxClientSetting.HudLogo, FoxClientSetting.HudVersion, FoxClientSetting.HudCoordinates, FoxClientSetting.HudCoordinatesColor, FoxClientSetting.HudFPS, FoxClientSetting.HudPing, FoxClientSetting.HudTps, FoxClientSetting.HudServerIP, FoxClientSetting.HudBiome));
         categories.put("armor-hud", List.of(FoxClientSetting.ArmorHudDisplayPercentage));
+        categories.put("block-hud", List.of(FoxClientSetting.BlockHudAnimations));
     }
 
     public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
@@ -151,15 +156,18 @@ public class FoxClientSettingsScreen extends Screen {
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
         assert this.client != null;
 
-        BackgroundUtils.drawRandomBackground(matrices, this.width, this.height);
+        if (showBackground)
+            BackgroundUtils.drawRandomBackground(context, this.width, this.height);
         fill(matrices, 0, 0, this.width, this.height, 0x44000000);
         fill(matrices, 0, 0, sidebarWidth, this.height, 0x44000000);
+
+        float elapsed = MainClient.deltaTime;
 
         int i = 0;
         for (Map.Entry<String, List<FoxClientSetting>> entry : categories.entrySet()) {
             if (entry.getKey().equals(currentCategory)) {
                 catSelectBgYGoal = (i * 22) + 22;
-                catSelectBgY = MathHelper.lerp(delta * 1.2, catSelectBgY, catSelectBgYGoal);
+                catSelectBgY = MathHelper.lerp(Math.exp(-0.02 * elapsed), catSelectBgYGoal, catSelectBgY);
                 fill(matrices, 0, (int) catSelectBgY, sidebarWidth, (int) catSelectBgY + 22, 0x44ffffff);
             }
 
@@ -170,7 +178,7 @@ public class FoxClientSettingsScreen extends Screen {
             if (child instanceof ToggleButton) {
                 if (((ToggleButton) child).isHovered()) {
                     entryHoverBgYGoal = ((ToggleButton) child).getY();
-                    entryHoverBgY = MathHelper.lerp(delta * 1.2, entryHoverBgY, entryHoverBgYGoal);
+                    entryHoverBgY = MathHelper.lerp(Math.exp(-0.02 * elapsed), entryHoverBgYGoal, entryHoverBgY);
                     fill(matrices, sidebarWidth + 2, (int) entryHoverBgY, this.client.getWindow().getScaledWidth() - 2, (int) entryHoverBgY + 22, 0x44ffffff);
                 }
             }

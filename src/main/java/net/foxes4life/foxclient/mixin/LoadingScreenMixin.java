@@ -9,19 +9,14 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.chunk.ChunkStatus;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Mutable;
-import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LevelLoadingScreen.class)
 public abstract class LoadingScreenMixin extends Screen {
-    @Shadow
-    @Final
-    @Mutable
+    @Shadow @Final @Mutable
     private WorldGenerationProgressTracker progressProvider;
     @Shadow
     @Final
@@ -30,6 +25,12 @@ public abstract class LoadingScreenMixin extends Screen {
 
     float progress;
 
+    @Unique
+    private double progress = 0.0;
+
+    @Unique
+    private Progressbar progressbar;
+
     protected LoadingScreenMixin(Text title) {
         super(title);
     }
@@ -37,17 +38,10 @@ public abstract class LoadingScreenMixin extends Screen {
     @Inject(method = "render", at = @At("HEAD"), cancellable = true)
     public void render(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
         ci.cancel();
-        renderBackground(matrices);
-        drawTextWithShadow(matrices, textRenderer, TextUtils.string("Loading World... " + MathHelper.clamp(progressProvider.getProgressPercentage(), 0, 100) + "%"), 10, this.height - 22, 0xFFFFFF);
-        this.progress = MathHelper.lerp(0.88f, progress, this.progress * 0.95F + (progressProvider.getProgressPercentage() / 100f) * 0.2F);
-        fill(matrices, 0, this.height - 3, (int) (this.width * progress), this.height, 0xFFFFFFFF);
-        drawChunkThing(matrices, progressProvider);
-    }
-
-    public void drawChunkThing(MatrixStack matrices, WorldGenerationProgressTracker progressProvider) {
-        int m = progressProvider.getSize() * 2;
-        int n = this.width - 5 - m;
-        int o = this.height - 7 - m;
+        if (progressbar == null)
+            progressbar = new Progressbar(this.width / 2 - 75, this.height / 2 + 5, 150, 10);
+        renderBackground(context);
+        context.drawCenteredTextWithShadow(textRenderer, TextUtils.string("Loading World... " + progressProvider.getProgressPercentage() + "%"), this.width / 2, this.height / 2 - 10, 0xFFFFFF);
 
         for (int r = 0; r < progressProvider.getSize(); ++r) {
             for (int s = 0; s < progressProvider.getSize(); ++s) {
