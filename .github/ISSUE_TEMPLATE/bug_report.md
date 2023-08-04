@@ -25,7 +25,8 @@ If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
  - OS: [e.g. Linux]
- - Mod Version [e.g. 0.1.7]
+ - FoxClient Version [e.g. 0.1.7]
+ - Mod loader [e.g. fabric]
 
 **Additional context**
 Add any other context about the problem here.
