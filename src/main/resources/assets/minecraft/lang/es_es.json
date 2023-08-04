@@ -22,7 +22,7 @@
   "foxclient.rpc.state.multiplayer.hide_ip": "Jugando a Multijuador",
   "foxclient.rpc.state.realms": "Jugando en un Realm",
 
-  "foxclient.config.category.ingame-hud": "HUD en-juego",
+  "foxclient.config.category.ingame-hud": "Info HUD",
   "foxclient.config.category.armor-hud": "HUD de armadura",
   "foxclient.config.category.client": "Cliente",
   "foxclient.config.category.eastereggs": "EasterEggs",
@@ -31,7 +31,7 @@
 
   "foxclient.config.smoothzoom": "Cambiar Zoom suave",
 
-  "foxclient.config.hudenabled" : "Activar HUD en-juego",
+  "foxclient.config.hudenabled" : "Activar Info HUD",
   "foxclient.config.hudping": "Ping",
   "foxclient.config.hudtps": "TPS",
   "foxclient.config.hudfps": "FPS",

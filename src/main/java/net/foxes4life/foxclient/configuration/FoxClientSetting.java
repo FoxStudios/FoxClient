@@ -25,5 +25,8 @@ public enum FoxClientSetting {
     HudBiome,
 
     ArmorHudEnabled,
-    ArmorHudDisplayPercentage
+    ArmorHudDisplayPercentage,
+
+    BlockHudEnabled,
+    BlockHudAnimations
 }
