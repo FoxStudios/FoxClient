@@ -11,6 +11,7 @@ import net.foxes4life.foxclient.rpc.PresenceUpdater;
 import net.foxes4life.foxclient.screen.settings.FoxClientSettingsScreen;
 import net.foxes4life.foxclient.util.ZoomUtils;
 import net.foxes4life.foxclient.util.freelook.FreelookUtils;
+import net.foxes4life.foxclient.util.transforms.TransformManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import org.lwjgl.glfw.GLFW;
@@ -21,6 +22,7 @@ public class MainClient implements ClientModInitializer {
     private static final KeyBinding clientConfig = new KeyBinding("key.foxclient.configKey", GLFW.GLFW_KEY_RIGHT_CONTROL, "category.foxclient.main");
 
     public static long deltaTime = 0;
+    public static TransformManager transformManager = new TransformManager();
 
     @Override
     public void onInitializeClient() {

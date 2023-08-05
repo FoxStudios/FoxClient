@@ -94,6 +94,7 @@ public abstract class MinecraftClientMixin {
     public void render(boolean tick, CallbackInfo ci) {
         long currentTime = System.currentTimeMillis();
         MainClient.deltaTime = currentTime - lastTime;
+        MainClient.transformManager.update(MainClient.deltaTime);
         lastTime = currentTime;
     }
 }
