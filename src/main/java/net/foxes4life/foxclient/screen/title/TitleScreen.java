@@ -13,6 +13,7 @@ import net.foxes4life.foxclient.util.TextUtils;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
+import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.CreditsScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
@@ -20,6 +21,7 @@ import net.minecraft.client.gui.screen.option.AccessibilityOptionsScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
+import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.client.toast.Toast;
 import net.minecraft.text.Text;
@@ -64,13 +66,8 @@ public class TitleScreen extends Screen {
         this.doBackgroundFade = doBackgroundFade;
     }
 
-    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-        System.out.println(amount);
-        return super.mouseScrolled(mouseX, mouseY, amount);
-    }
-
-    public void tick() {
-
+    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+        return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
     }
 
     protected void init() {
@@ -102,6 +99,12 @@ public class TitleScreen extends Screen {
         this.foxclientCopyrightTextX = this.width - foxclientCopyrightTextWidth - 4;
     }
 
+    @Override
+    public void renderBackground(DrawContext context, int mouseX, int mouseY, float delta) {
+        // do nothing because no lol (not overriding this will break the whole ui)
+    }
+
+    @Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         if (this.backgroundFadeStart == 0L && this.doBackgroundFade) {
             this.backgroundFadeStart = Util.getMeasuringTimeMs();
@@ -247,7 +250,10 @@ public class TitleScreen extends Screen {
                 }
             }
 
-            this.addDrawableChild(new FoxClientMiniButton(x, y + spacingY * 2, 20, 20, 0, 0, 20, tex, 32, 64, pressAction, TextUtils.translatable(""), TextUtils.string(tooltip)));
+            // TODO: mojang implemented 9-slicing for buttons, we gotta switch to that
+            // this is a temporary solution
+            ButtonTextures textures = new ButtonTextures(tex, tex);
+            this.addDrawableChild(new FoxClientMiniButton(x, y + spacingY * 2, 20, 20, textures, pressAction, TextUtils.translatable(""), TextUtils.string(tooltip)));
         }
     }
 }

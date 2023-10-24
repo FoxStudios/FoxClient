@@ -4,8 +4,6 @@
 */
 package net.foxes4life.foxclient.capes;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.util.Http;
@@ -16,11 +14,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import org.apache.http.HttpResponse;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public final class Provider {
 
@@ -29,11 +26,14 @@ public final class Provider {
     public static void loadCape(GameProfile player, CapeTextureAvailableCallback callback) {
         Runnable runnable = () -> {
             // Check if the player doesn't already have a cape.
-            Identifier existingCape = capes.get(player.getName());
+            CapeTexture existingCape = capes.get(player.getId());
             if (existingCape != null) {
                 callback.onTexAvail(existingCape);
                 return;
             }
+
+            // put a null cape to prevent multiple requests
+            capes.put(player.getId(), new CapeTexture(null, null));
 
             if (!Provider.tryUrl(player, callback, "https://client.foxes4life.net/api/v0/capes/get/" + player.getId().toString().replace("-", ""))) {
                 Provider.tryUrl(player, callback, "http://client.foxes4life.net/api/v0/capes/get/" + player.getId().toString().replace("-", ""));
@@ -43,11 +43,11 @@ public final class Provider {
     }
 
     public interface CapeTextureAvailableCallback {
-        void onTexAvail(Identifier id);
+        void onTexAvail(CapeTexture id);
     }
 
     // This is where capes will be stored
-    private static final Map<String, Identifier> capes = new HashMap<>();
+    private static final Map<UUID, CapeTexture> capes = new HashMap<>();
 
     // Try to load a cape from an URL.
     // If this fails, it'll return false, and let us try another url.
@@ -63,9 +63,12 @@ public final class Provider {
                         .registerDynamicTexture("foxclient_" + player.getId().toString().replace("-", ""),
                                 new NativeImageBackedTexture(cape));
 
-                capes.put(player.getName(), id);
+                // todo: elytra?
+                CapeTexture texture = new CapeTexture(id, id);
+
+                capes.put(player.getId(), texture);
                 Main.LOGGER.debug("put " + id.toString() + " for player " + player.getName());
-                callback.onTexAvail(id);
+                callback.onTexAvail(texture);
             } else {
                 if (response == null || response.getStatusLine().getStatusCode() != 404) {
                     Main.LOGGER.debug("[FoxClient/Cape/Provider] request failed: " + player.getId().toString());

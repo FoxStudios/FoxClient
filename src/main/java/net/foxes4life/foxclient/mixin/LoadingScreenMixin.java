@@ -36,7 +36,7 @@ public abstract class LoadingScreenMixin extends Screen {
         if (progressbar == null)
             progressbar = new Progressbar(this.width / 2 - 75, this.height / 2 + 5, 150, 10);
 
-        renderBackground(context);
+        renderBackground(context, mouseX, mouseY, delta);
         context.drawCenteredTextWithShadow(textRenderer, TextUtils.string("Loading World... " + progressProvider.getProgressPercentage() + "%"), this.width / 2, this.height / 2 - 10, 0xFFFFFF);
 
         progress = MathHelper.lerp(Math.exp(-0.03 * MainClient.deltaTime), progressProvider.getProgressPercentage() / 100f, progress);

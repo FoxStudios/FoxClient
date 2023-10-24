@@ -18,6 +18,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.Drawable;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.Selectable;
+import net.minecraft.client.gui.screen.ButtonTextures;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.text.OrderedText;
@@ -94,8 +95,8 @@ public class FoxClientSettingsScreen extends Screen {
         categories.put("block-hud", List.of(FoxClientSetting.BlockHudAnimations));
     }
 
-    public boolean mouseScrolled(double mouseX, double mouseY, double amount) {
-        return super.mouseScrolled(mouseX, mouseY, amount);
+    public boolean mouseScrolled(double mouseX, double mouseY, double horizontalAmount, double verticalAmount) {
+        return super.mouseScrolled(mouseX, mouseY, horizontalAmount, verticalAmount);
     }
 
     protected void init() {
@@ -123,8 +124,10 @@ public class FoxClientSettingsScreen extends Screen {
             currentCategory = categories.keySet().toArray(new String[0])[0];
         }
 
+        ButtonTextures closeButtonTextures = new ButtonTextures(X_BUTTON, X_BUTTON);
+
         // close
-        this.addDrawableChild(new TexturedButtonWidget(this.client.getWindow().getScaledWidth() - 24, 4, 20, 20, 0, 0, 20, X_BUTTON, 32, 64, (button) -> this.close(), TextUtils.translatable("foxclient.gui.button.close")));
+        this.addDrawableChild(new TexturedButtonWidget(this.client.getWindow().getScaledWidth() - 24, 4, 20, 20, closeButtonTextures, (button) -> this.close(), TextUtils.translatable("foxclient.gui.button.close")));
 
         initDone = true;
 

@@ -61,7 +61,7 @@ public abstract class MinecraftClientMixin {
             title += " - ";
             if (this.server != null && !this.server.isRemote()) {
                 title += I18n.translate("title.singleplayer");
-            } else if (MinecraftClient.getInstance().isConnectedToRealms()) {
+            } else if (currentServerEntry != null && currentServerEntry.isRealm()) {
                 title += I18n.translate("title.multiplayer.realms");
             } else if (this.server == null && (currentServerEntry == null || !currentServerEntry.isLocal())) {
                 if (currentServerEntry != null && currentServerEntry.address != null || Main.config.get(FoxClientSetting.DiscordShowIP, Boolean.class)) {
@@ -77,7 +77,7 @@ public abstract class MinecraftClientMixin {
         cir.setReturnValue(title);
     }
 
-    @Inject(at = @At("HEAD"), method = "openPauseMenu", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "openGameMenu", cancellable = true)
     public void openPauseMenu(boolean pause, CallbackInfo ci) {
         if (Main.config.get(FoxClientSetting.CustomPauseMenu, Boolean.class)) {
             ci.cancel();

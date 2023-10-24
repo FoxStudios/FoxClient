@@ -8,7 +8,7 @@ public class DiscordMinecraftClient {
         if (clientPlayNetworkHandler != null && clientPlayNetworkHandler.getConnection().isOpen()) {
             if (MinecraftClient.getInstance().getServer() != null && !MinecraftClient.getInstance().getServer().isRemote()) {
                 return State.SINGLEPLAYER;
-            } else if (MinecraftClient.getInstance().isConnectedToRealms()) {
+            } else if (MinecraftClient.getInstance().getCurrentServerEntry().isRealm()) {
                 return State.REALMS;
             } else if (MinecraftClient.getInstance().getServer() == null && (MinecraftClient.getInstance().getCurrentServerEntry() == null || !MinecraftClient.getInstance().getCurrentServerEntry().isLocal())) {
                 return State.MULTIPLAYER;
