@@ -32,9 +32,6 @@ public final class Provider {
                 return;
             }
 
-            // put a null cape to prevent multiple requests
-            capes.put(player.getId(), new CapeTexture(null, null));
-
             if (!Provider.tryUrl(player, callback, "https://client.foxes4life.net/api/v0/capes/get/" + player.getId().toString().replace("-", ""))) {
                 Provider.tryUrl(player, callback, "http://client.foxes4life.net/api/v0/capes/get/" + player.getId().toString().replace("-", ""));
             }
