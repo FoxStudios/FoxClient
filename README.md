@@ -11,6 +11,13 @@ A Fabric (and Quilt) Mod that changes the look of the Minecraft UI and adds some
 #### Custom main and pause menu
 #### Discord RPC
 
+### Supported Languages: 
+- English
+- German
+- Filipino/Tagalog
+- Dutch
+- Spanish (Español)
+
 ## Planned features:
 - Friend system
 - chat system (maybe)
@@ -27,7 +34,7 @@ Sure! Just press F6. (key is changable via the minecraft keybind settings)
 ## TODO:
 - Make the HUD more customizable
 - More stability improvements
-- Add more language translations (currently only english and german are supported, feel free to add more translations and make a pull request)
+- Add more language translations (feel free to add more translations and make a pull request)
 
 ### Build Instructions
 
