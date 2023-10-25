@@ -24,6 +24,7 @@ public final class PlayerListEntryMixin {
 
     // Note that loadTextures()V might be called like a foxton,
     // so rejecting to run it has to be really fast
+    /*
     @Inject(at = @At("TAIL"), method = "getSkinTextures", cancellable = true)
     private void loadTextures(CallbackInfoReturnable<SkinTextures> cir) {
         // this is broken as hell, todo: fix
@@ -42,4 +43,5 @@ public final class PlayerListEntryMixin {
             cir.setReturnValue(modified);
         });
     }
+    */
 }
