@@ -16,7 +16,7 @@ A Fabric (and Quilt) Mod that changes the look of the Minecraft UI and adds some
 - German
 - Filipino/Tagalog
 - Dutch
-- Spanish (Español)
+- Spanish (España)
 
 ## Planned features:
 - Friend system
