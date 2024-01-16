@@ -38,6 +38,7 @@
   "foxclient.config.hudversion": "Version",
   "foxclient.config.hudcoordinates": "XYZ",
   "foxclient.config.hudcoordinatescolor": "Farbige Koordinaten",
+  "foxclient.config.hudchunkcoordinates": "Chunk Koordinaten",
   "foxclient.config.hudbiome": "Biom",
   "foxclient.config.hudserverip": "Server IP",
   "foxclient.config.hudlogo": "Logo",

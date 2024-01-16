@@ -39,6 +39,7 @@
   "foxclient.config.hudcoordinates": "XYZ",
   "foxclient.config.hudbiome": "Bioom",
   "foxclient.config.hudcoordinatescolor": "Gekleurde XYZ",
+  "foxclient.config.hudchunkcoordinates": "Chunk coords",
   "foxclient.config.hudserverip": "Server IP",
   "foxclient.config.hudlogo": "Logo",
   "foxclient.config.hudbackground": "Achtergrond",

@@ -65,6 +65,7 @@ public class InfoHud {
         boolean version = Main.config.get(FoxClientSetting.HudVersion, Boolean.class);
         boolean coords = Main.config.get(FoxClientSetting.HudCoordinates, Boolean.class);
         boolean colorcoords = Main.config.get(FoxClientSetting.HudCoordinatesColor, Boolean.class);
+        boolean chunkcoords = Main.config.get(FoxClientSetting.HudChunkCoordinates, Boolean.class);
         boolean fps = Main.config.get(FoxClientSetting.HudFPS, Boolean.class);
         boolean ping = Main.config.get(FoxClientSetting.HudPing, Boolean.class);
         boolean tps = Main.config.get(FoxClientSetting.HudTps, Boolean.class);
@@ -80,6 +81,11 @@ public class InfoHud {
             textList.put("xyz", TextUtils.string(String.format((colorcoords ? "§c%s §a%s §9%s" : "%s %s %s"), this.client.player.getBlockPos().getX(), this.client.player.getBlockPos().getY(), this.client.player.getBlockPos().getZ())));
         }
 
+        if (chunkcoords) {
+            assert this.client.player != null;
+            textList.put("cxyz", TextUtils.string(String.format((colorcoords ? "§c%s §9%s" : "%s %s"), this.client.player.getChunkPos().getRegionRelativeX(), this.client.player.getChunkPos().getRegionRelativeZ())));
+        }
+
         if (fps)
             textList.put("fps", TextUtils.string(ClientUtils.getFPS() + "fps"));
 
@@ -93,7 +99,7 @@ public class InfoHud {
             if (client.world != null) {
                 assert client.getCameraEntity() != null;
                 final BlockPos blockPos = client.getCameraEntity().getBlockPos();
-                textList.put("biome", TextUtils.string(String.format(client.world.getBiome(blockPos).getKey().get().getValue().toString())));
+                textList.put("biome", TextUtils.string(client.world.getBiome(blockPos).getKey().get().getValue().toString().replaceAll("([Aa-zZ].*:)", "")));
             }
 
         if (server) {
