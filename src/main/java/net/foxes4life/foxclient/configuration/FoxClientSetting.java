@@ -18,6 +18,7 @@ public enum FoxClientSetting {
     HudVersion,
     HudCoordinates,
     HudCoordinatesColor,
+    HudChunkCoordinates,
     HudFPS,
     HudPing,
     HudTps,

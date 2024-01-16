@@ -26,6 +26,7 @@ public class FoxClientConfigManager extends Konfig<FoxClientSetting> {
         setDefault(FoxClientSetting.HudVersion, true);
         setDefault(FoxClientSetting.HudCoordinates, true);
         setDefault(FoxClientSetting.HudCoordinatesColor, false);
+        setDefault(FoxClientSetting.HudChunkCoordinates, false);
         setDefault(FoxClientSetting.HudFPS, true);
         setDefault(FoxClientSetting.HudPing, true);
         setDefault(FoxClientSetting.HudTps, true);
