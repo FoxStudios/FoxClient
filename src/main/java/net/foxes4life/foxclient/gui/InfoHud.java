@@ -99,7 +99,7 @@ public class InfoHud {
             if (client.world != null) {
                 assert client.getCameraEntity() != null;
                 final BlockPos blockPos = client.getCameraEntity().getBlockPos();
-                textList.put("biome", TextUtils.string(String.format(client.world.getBiome(blockPos).getKey().get().getValue().toString())));
+                textList.put("biome", TextUtils.string(client.world.getBiome(blockPos).getKey().get().getValue().toString().replaceAll("([Aa-zZ].*:)", "")));
             }
 
         if (server) {
