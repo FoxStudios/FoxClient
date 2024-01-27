@@ -6,7 +6,7 @@ import net.foxes4life.foxclient.networking.shared.BrokenHash;
 import net.foxes4life.foxclient.networking.shared.LoggedInWebsocketPacket;
 import net.foxes4life.foxclient.networking.shared.LowWebsocketPacket;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.util.Session;
+import net.minecraft.client.session.Session;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -36,7 +36,7 @@ public class WebSocketClientImpl extends WebSocketClient {
         List<Byte> packet = new ArrayList<>();
         packet.add(LowWebsocketPacket.C2S_LOGIN_REQUEST.getId()); // packet id
 
-        byte[] balls = (playerSession.getUsername() + "\0" + playerSession.getUuid()).getBytes();
+        byte[] balls = (playerSession.getUsername() + "\0" + playerSession.getUuidOrNull()).getBytes();
         for (byte b : balls) {
             packet.add(b);
         }
@@ -90,7 +90,7 @@ public class WebSocketClientImpl extends WebSocketClient {
 
                 try {
                     post.setEntity(new StringEntity("{\"accessToken\": \"" + mcSession.getAccessToken() +
-                            "\", \"selectedProfile\": \"" + mcSession.getUuid() + "\", \"serverId\": \"" + hash + "\"}"));
+                            "\", \"selectedProfile\": \"" + mcSession.getUuidOrNull() + "\", \"serverId\": \"" + hash + "\"}"));
                     HttpResponse execute = client.execute(post);
                 } catch (IOException e) {
                     e.printStackTrace();

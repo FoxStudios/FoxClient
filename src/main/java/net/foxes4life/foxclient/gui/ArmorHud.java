@@ -5,16 +5,18 @@ import net.foxes4life.foxclient.configuration.FoxClientSetting;
 import net.foxes4life.foxclient.util.draw.Anchor;
 import net.foxes4life.foxclient.util.draw.AnchoredBounds;
 import net.foxes4life.foxclient.util.draw.Bounds;
+import net.foxes4life.foxclient.util.rendering.ItemRender;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawableHelper;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.item.ItemRenderer;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
+import net.minecraft.util.Identifier;
 
-public class ArmorHud extends DrawableHelper {
+public class ArmorHud {
     private final MinecraftClient client;
 
     private final TextRenderer fontRenderer;
@@ -27,7 +29,7 @@ public class ArmorHud extends DrawableHelper {
         Main.LOGGER.info(client.getWindow().getScaledWidth() + " " + client.getWindow().getScaledHeight());
     }
 
-    public void render(MatrixStack matrices) {
+    public void render(DrawContext context, ItemRender itemRender) {
         int width = client.getWindow().getScaledWidth();
         int height = client.getWindow().getScaledHeight();
 
@@ -36,17 +38,15 @@ public class ArmorHud extends DrawableHelper {
         ClientPlayerEntity player = client.player;
         if (player == null) return;
 
-        ItemRenderer itemRenderer = client.getItemRenderer();
-
-        renderItem(matrices, player, itemRenderer, EquipmentSlot.MAINHAND, bounds);
-        renderItem(matrices, player, itemRenderer, EquipmentSlot.OFFHAND, bounds);
-        renderItem(matrices, player, itemRenderer, EquipmentSlot.HEAD, bounds);
-        renderItem(matrices, player, itemRenderer, EquipmentSlot.CHEST, bounds);
-        renderItem(matrices, player, itemRenderer, EquipmentSlot.LEGS, bounds);
-        renderItem(matrices, player, itemRenderer, EquipmentSlot.FEET, bounds);
+        renderItem(context, itemRender, player, EquipmentSlot.MAINHAND, bounds);
+        renderItem(context, itemRender, player, EquipmentSlot.OFFHAND, bounds);
+        renderItem(context, itemRender, player, EquipmentSlot.HEAD, bounds);
+        renderItem(context, itemRender, player, EquipmentSlot.CHEST, bounds);
+        renderItem(context, itemRender, player, EquipmentSlot.LEGS, bounds);
+        renderItem(context, itemRender, player, EquipmentSlot.FEET, bounds);
     }
 
-    private void renderItem(MatrixStack matrices, ClientPlayerEntity player, ItemRenderer itemRenderer, EquipmentSlot slot, Bounds bounds) {
+    private void renderItem(DrawContext context, ItemRender itemRender, ClientPlayerEntity player, EquipmentSlot slot, Bounds bounds) {
         int x = bounds.x;
         int y = bounds.y;
         boolean right = slot == EquipmentSlot.OFFHAND || slot == EquipmentSlot.LEGS || slot == EquipmentSlot.FEET;
@@ -75,7 +75,7 @@ public class ArmorHud extends DrawableHelper {
 
         ItemStack stack = player.getEquippedStack(slot);
         if (!stack.isEmpty()) {
-            itemRenderer.renderGuiItemIcon(matrices, stack, x, y);
+            itemRender.render(x, y, stack);
 
             String text = "";
             int color = 0xFFFFFF;
@@ -116,7 +116,7 @@ public class ArmorHud extends DrawableHelper {
             int countWidth = fontRenderer.getWidth(text);
 
             int x2 = x + (right ? 20 : -4 - countWidth);
-            fontRenderer.draw(matrices, text, x2, y + 3, color);
+            context.drawText(fontRenderer, text, x2, y + 3, color, true);
         }
     }
 }

@@ -8,7 +8,7 @@
   "foxclient.gui.toast.modmenu.missing": "ModMenu ist nicht installiert",
 
   "category.foxclient.main": "FoxClient",
-  "key.foxclient.toggle_hud": "HUD ein/ausschalten",
+  "key.foxclient.toggle_hud": "Info HUD ein/ausschalten",
   "key.foxclient.freelook": "FreeLook",
   "key.foxclient.configKey": "FoxClient Konfiguration",
   "key.foxclient.zoom": "Zoom",
@@ -22,7 +22,7 @@
   "foxclient.rpc.state.multiplayer.hide_ip": "Spielt Mehrspieler",
   "foxclient.rpc.state.realms": "Spielt auf einem Realm",
 
-  "foxclient.config.category.ingame-hud": "In-Game HUD",
+  "foxclient.config.category.ingame-hud": "Info HUD",
   "foxclient.config.category.armor-hud": "Rüstungs HUD",
   "foxclient.config.category.client": "Client",
   "foxclient.config.category.eastereggs": "EasterEggs",
@@ -31,7 +31,7 @@
 
   "foxclient.config.smoothzoom": "Smooth Zoom einschalten",
 
-  "foxclient.config.hudenabled": "In-Game HUD einschalten",
+  "foxclient.config.hudenabled": "Info HUD einschalten",
   "foxclient.config.hudping": "Ping",
   "foxclient.config.hudtps": "TPS",
   "foxclient.config.hudfps": "FPS",

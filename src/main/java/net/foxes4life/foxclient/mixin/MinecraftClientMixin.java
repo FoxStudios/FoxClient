@@ -1,6 +1,7 @@
 package net.foxes4life.foxclient.mixin;
 
 import net.foxes4life.foxclient.Main;
+import net.foxes4life.foxclient.MainClient;
 import net.foxes4life.foxclient.configuration.FoxClientSetting;
 import net.foxes4life.foxclient.rpc.DiscordMinecraftClient;
 import net.foxes4life.foxclient.rpc.PresenceUpdater;
@@ -14,6 +15,7 @@ import net.minecraft.server.integrated.IntegratedServer;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -59,10 +61,10 @@ public abstract class MinecraftClientMixin {
             title += " - ";
             if (this.server != null && !this.server.isRemote()) {
                 title += I18n.translate("title.singleplayer");
-            } else if (MinecraftClient.getInstance().isConnectedToRealms()) {
+            } else if (currentServerEntry != null && currentServerEntry.isRealm()) {
                 title += I18n.translate("title.multiplayer.realms");
             } else if (this.server == null && (currentServerEntry == null || !currentServerEntry.isLocal())) {
-                if (currentServerEntry != null && currentServerEntry.address != null || Main.config.get(FoxClientSetting.DiscordShowIP, Boolean.class)) {
+                if (currentServerEntry != null && currentServerEntry.address != null && Main.config.get(FoxClientSetting.DiscordShowIP, Boolean.class)) {
                     title += I18n.translate("title.multiplayer.other2", currentServerEntry.address);
                 } else {
                     title += I18n.translate("title.multiplayer.other");
@@ -75,7 +77,7 @@ public abstract class MinecraftClientMixin {
         cir.setReturnValue(title);
     }
 
-    @Inject(at = @At("HEAD"), method = "openPauseMenu", cancellable = true)
+    @Inject(at = @At("HEAD"), method = "openGameMenu", cancellable = true)
     public void openPauseMenu(boolean pause, CallbackInfo ci) {
         if (Main.config.get(FoxClientSetting.CustomPauseMenu, Boolean.class)) {
             ci.cancel();
@@ -83,5 +85,16 @@ public abstract class MinecraftClientMixin {
                 MinecraftClient.getInstance().setScreen(new PauseScreen());
             }
         }
+    }
+
+    @Unique
+    private long lastTime = 0;
+
+    @Inject(at = @At("HEAD"), method = "render")
+    public void render(boolean tick, CallbackInfo ci) {
+        long currentTime = System.currentTimeMillis();
+        MainClient.deltaTime = currentTime - lastTime;
+        MainClient.transformManager.update(MainClient.deltaTime);
+        lastTime = currentTime;
     }
 }

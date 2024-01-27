@@ -20,12 +20,12 @@ import java.util.ArrayList;
 
 public class Buildscript extends SimpleFabricProject {
 
-	static final String MC_VERSION         = "1.19.4";
-	static final String FOXCLIENT_VERSION  = "0.2.0-dev";
-	static final String YARN_MAPPINGS      = "1.19.4+build.2";
-	static final String FABRIC_LOADER      = "0.14.19";
-	static final String FABRIC_API_VERSION = "0.78.0+1.19.4";
-	static final String MODMENU_VERSION    = "6.2.0";
+	static final String MC_VERSION         = "1.20.2";
+	static final String FOXCLIENT_VERSION  = "0.2.1-dev";
+	static final String YARN_MAPPINGS      = "1.20.2+build.4";
+	static final String FABRIC_LOADER      = "0.14.24";
+	static final String FABRIC_API_VERSION = "0.90.4+1.20.2";
+	static final String MODMENU_VERSION    = "8.0.0";
 	static final String KONFIG_VERSION     = "1.5.0";
 	static final String JAVA_WS_VERSION    = "1.5.3";
 
@@ -101,11 +101,11 @@ public class Buildscript extends SimpleFabricProject {
 	@Override
 	public void getModDependencies(ModDependencyCollector d) {
 		String[][] fapiModules = new String[][] {
-				{"fabric-api-base", "0.4.23+9ff28bcef4"},
-				{"fabric-key-binding-api-v1", "1.0.32+c477957ef4"},
-				{"fabric-lifecycle-events-v1", "2.2.14+5da15ca1f4"},
-				{"fabric-resource-loader-v0", "0.11.1+1e1fb126f4"},
-				{"fabric-screen-api-v1", "1.0.44+8c25edb4f4"},
+				{"fabric-api-base", "0.4.33+fce67b32a0"},
+				{"fabric-key-binding-api-v1", "1.0.38+f4b7e424a0"},
+				{"fabric-lifecycle-events-v1", "2.2.27+b1792f7da0"},
+				{"fabric-resource-loader-v0", "0.11.12+b1792f7da0"},
+				{"fabric-screen-api-v1", "2.0.12+b1792f7da0"},
 		};
 
 		for (String[] module : fapiModules) {

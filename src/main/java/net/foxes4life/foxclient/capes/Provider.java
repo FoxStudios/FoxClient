@@ -4,8 +4,6 @@
 */
 package net.foxes4life.foxclient.capes;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.util.Http;
@@ -16,11 +14,10 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import org.apache.http.HttpResponse;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public final class Provider {
 
@@ -29,10 +26,10 @@ public final class Provider {
     public static void loadCape(GameProfile player, CapeTextureAvailableCallback callback) {
         Runnable runnable = () -> {
             // Check if the player doesn't already have a cape.
-            Identifier existingCape = capes.get(player.getName());
+            CapeTexture existingCape = capes.get(player.getId());
             if (existingCape != null) {
-                //callback.onTexAvail(existingCape);
-                //return;
+                callback.onTexAvail(existingCape);
+                return;
             }
 
             if (!Provider.tryUrl(player, callback, "https://client.foxes4life.net/api/v0/capes/get/" + player.getId().toString().replace("-", ""))) {
@@ -43,11 +40,11 @@ public final class Provider {
     }
 
     public interface CapeTextureAvailableCallback {
-        void onTexAvail(Identifier id);
+        void onTexAvail(CapeTexture id);
     }
 
     // This is where capes will be stored
-    private static final Map<String, Identifier> capes = new HashMap<>();
+    private static final Map<UUID, CapeTexture> capes = new HashMap<>();
 
     // Try to load a cape from an URL.
     // If this fails, it'll return false, and let us try another url.
@@ -56,28 +53,26 @@ public final class Provider {
             //Main.LOGGER.debug("[FoxClient/Cape/Provider] trying url: " + urlFrom);
             HttpResponse response = Http.get(urlFrom);
             if (response != null && response.getStatusLine().getStatusCode() == 200) {
-                String responseBody = Http.getResponseBody(response);
-                JsonObject capeJson = JsonParser.parseString(responseBody).getAsJsonObject();
-                if (capeJson.has("textures") && capeJson.get("textures").getAsJsonObject().get("cape") != null) {
-                    // set the cape
-                    String capeBase64 = capeJson.get("textures").getAsJsonObject().get("cape").getAsString();
-                    byte[] img = Base64.getDecoder().decode(capeBase64);
-                    NativeImage cape = NativeImage.read(new ByteArrayInputStream(img));
-                    Identifier id = MinecraftClient
-                            .getInstance()
-                            .getTextureManager()
-                            .registerDynamicTexture("foxclient_" + player.getId().toString().replace("-", ""),
-                                    new NativeImageBackedTexture(cape));
-                    capes.put(player.getName(), id);
-                    Main.LOGGER.debug("put " + id.toString() + " for player " + player.getName());
-                    callback.onTexAvail(id);
-                }
+                NativeImage cape = NativeImage.read(response.getEntity().getContent());
+                Identifier id = MinecraftClient
+                        .getInstance()
+                        .getTextureManager()
+                        .registerDynamicTexture("foxclient_" + player.getId().toString().replace("-", ""),
+                                new NativeImageBackedTexture(cape));
+
+                // todo: elytra?
+                CapeTexture texture = new CapeTexture(id, id);
+
+                capes.put(player.getId(), texture);
+                Main.LOGGER.debug("put " + id.toString() + " for player " + player.getName());
+                callback.onTexAvail(texture);
             } else {
-                if (response != null && response.getStatusLine().getStatusCode() == 404) {
-                    // player has no cape
-                    return true;
+                if (response == null || response.getStatusLine().getStatusCode() != 404) {
+                    Main.LOGGER.debug("[FoxClient/Cape/Provider] request failed: " + player.getId().toString());
                 }
-                Main.LOGGER.debug("[FoxClient/Cape/Provider] request failed: " + player.getId().toString());
+
+                // player has no cape
+                return true;
             }
         } catch (IOException e) {
             e.printStackTrace();

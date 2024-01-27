@@ -27,7 +27,7 @@ public class Http {
         return response;
     }
 
-    public static String getResponseBody(HttpResponse response) {
+    public static String getResponseBodyString(HttpResponse response) {
         if (response == null) return null;
         if (response.getEntity() == null) return null;
         BufferedReader rd;

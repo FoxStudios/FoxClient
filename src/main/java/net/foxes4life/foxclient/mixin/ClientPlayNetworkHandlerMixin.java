@@ -5,9 +5,8 @@ import net.foxes4life.foxclient.networking.Networking;
 import net.foxes4life.foxclient.networking.shared.HashUtils;
 import net.foxes4life.foxclient.util.ServerTickUtils;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.AbstractClientPlayerEntity;
-import net.minecraft.client.network.ClientPlayNetworkHandler;
-import net.minecraft.client.network.ServerInfo;
+import net.minecraft.client.network.*;
+import net.minecraft.network.ClientConnection;
 import net.minecraft.network.packet.s2c.play.GameJoinS2CPacket;
 import net.minecraft.network.packet.s2c.play.WorldTimeUpdateS2CPacket;
 import net.minecraft.text.Text;
@@ -19,10 +18,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ClientPlayNetworkHandler.class)
-public abstract class ClientPlayNetworkHandlerMixin {
-    @Shadow
-    @Final
-    private MinecraftClient client;
+public abstract class ClientPlayNetworkHandlerMixin extends ClientCommonNetworkHandler {
+    protected ClientPlayNetworkHandlerMixin(MinecraftClient client, ClientConnection connection, ClientConnectionState connectionState) {
+        super(client, connection, connectionState);
+    }
 
     @Inject(at = @At("RETURN"), method = "onGameJoin")
     public void onGameJoin(GameJoinS2CPacket packet, CallbackInfo ci) {
@@ -44,6 +43,7 @@ public abstract class ClientPlayNetworkHandlerMixin {
         }
     }
 
+    /* todo: update this
     @Inject(at = @At("HEAD"), method = "onDisconnected")
     public void onDisconnected(Text reason, CallbackInfo ci) {
         SessionConstants.LAST_SERVER = this.client.getCurrentServerEntry();
@@ -55,6 +55,7 @@ public abstract class ClientPlayNetworkHandlerMixin {
             Networking.leaveServer(serverEntry.address);
         }
     }
+    */
 
     @Inject(at = @At("TAIL"), method = "onWorldTimeUpdate")
     private void onWorldTimeUpdate(WorldTimeUpdateS2CPacket packet, CallbackInfo ci) {
