@@ -95,7 +95,7 @@ public class PauseScreen extends Screen {
         Text text = this.client.isInSingleplayer() ? TextUtils.translatable("menu.returnToMenu") : TextUtils.translatable("menu.disconnect");
         this.addDrawableChild(new FoxClientButton(this.width / 2 - 102, this.height / 4 + 145 - 16, 204, 20, text, (button) -> {
             boolean bl = this.client.isInSingleplayer();
-            boolean bl2 = this.client.getCurrentServerEntry().isRealm();
+            boolean bl2 = bl ? false : this.client.getCurrentServerEntry().isRealm();
             button.active = false;
             this.client.world.disconnect();
             if (bl) {
