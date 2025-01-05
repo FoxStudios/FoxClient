@@ -101,8 +101,8 @@ public class BlockHud {
 
         if (world == null || camera == null || interactionManager == null) return null;
 
-        float maxRange = interactionManager.getReachDistance();
-        float tickDelta = client.getTickDelta();
+        float maxRange = 4.f; //interactionManager.getReachDistance();
+        float tickDelta = client.getRenderTickCounter().getTickDelta(false); // todo: idk?
 
         Vec3d viewVector = camera.getRotationVec(tickDelta);
         Vec3d startVector = camera.getCameraPosVec(tickDelta);

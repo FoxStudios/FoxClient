@@ -4,8 +4,8 @@ import net.foxes4life.foxclient.MainClient;
 import net.foxes4life.foxclient.ui.Progressbar;
 import net.foxes4life.foxclient.util.TextUtils;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.WorldGenerationProgressTracker;
-import net.minecraft.client.gui.screen.LevelLoadingScreen;
+//import net.minecraft.client.gui.WorldGenerationProgressTracker;
+//import net.minecraft.client.gui.screen.LevelLoadingScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
@@ -13,7 +13,7 @@ import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
+/*
 @Mixin(LevelLoadingScreen.class)
 public abstract class LoadingScreenMixin extends Screen {
     @Shadow @Final @Mutable
@@ -43,3 +43,4 @@ public abstract class LoadingScreenMixin extends Screen {
         progressbar.render(context, progress);
     }
 }
+*/

@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "foxclient",
-  "version": "0.2.1-dev",
+  "version": "0.2.2-dev",
   "name": "FoxClient",
   "description": "A Fabric (and Quilt) Mod that changes the look of the Minecraft UI and adds some features.",
   "authors": [
@@ -31,9 +31,9 @@
     "foxclient.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.22",
+    "fabricloader": ">=0.16.9",
     "fabric": "*",
-    "minecraft": "1.20.2"
+    "minecraft": "1.21.1"
   },
   "recommends": {
     "modmenu": "*"

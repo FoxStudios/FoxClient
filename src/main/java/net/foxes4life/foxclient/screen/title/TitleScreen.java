@@ -35,19 +35,19 @@ import java.lang.reflect.InvocationTargetException;
 public class TitleScreen extends Screen {
 
     // ui
-    private static final Identifier BUTTON_BOX = new Identifier("foxclient", "textures/ui/title/titlebox.png");
-    private static final Identifier FOMX = new Identifier("foxclient", "textures/ui/branding/fox.png");
+    private static final Identifier BUTTON_BOX = Identifier.of("foxclient", "textures/ui/title/titlebox.png");
+    private static final Identifier FOMX = Identifier.of("foxclient", "textures/ui/branding/fox.png");
     // bg
-    private static final Identifier EXIT_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/exit.png");
-    private static final Identifier OPTIONS_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/options.png");
-    private static final Identifier EMPTY_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/empty.png");
-    private static final Identifier ACCESSIBILITY_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/accessibility.png");
-    private static final Identifier MODS_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/modmenu.png");
-    private static final Identifier REALMS_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/realms.png");
-    private static final Identifier FOXCLIENT_OPTIONS_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/tail.png");
-    private static final Identifier DISCORD_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/discord.png");
-    //private static final Identifier REPLAYMOD_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
-    //private static final Identifier UPDATE_BUTTON = new Identifier("foxclient", "textures/ui/buttons/empty.png");
+    private static final Identifier EXIT_BUTTON = Identifier.of("foxclient", "textures/ui/title/buttons/exit.png");
+    private static final Identifier OPTIONS_BUTTON = Identifier.of("foxclient", "textures/ui/title/buttons/options.png");
+    private static final Identifier EMPTY_BUTTON = Identifier.of("foxclient", "textures/ui/title/buttons/empty.png");
+    private static final Identifier ACCESSIBILITY_BUTTON = Identifier.of("foxclient", "textures/ui/title/buttons/accessibility.png");
+    private static final Identifier MODS_BUTTON = Identifier.of("foxclient", "textures/ui/title/buttons/modmenu.png");
+    private static final Identifier REALMS_BUTTON = Identifier.of("foxclient", "textures/ui/title/buttons/realms.png");
+    private static final Identifier FOXCLIENT_OPTIONS_BUTTON = Identifier.of("foxclient", "textures/ui/title/buttons/tail.png");
+    private static final Identifier DISCORD_BUTTON = Identifier.of("foxclient", "textures/ui/title/buttons/discord.png");
+    //private static final Identifier REPLAYMOD_BUTTON = Identifier.of("foxclient", "textures/ui/buttons/empty.png");
+    //private static final Identifier UPDATE_BUTTON = Identifier.of("foxclient", "textures/ui/buttons/empty.png");
 
 
     private static final Text mojangCopyrightText = TextUtils.string("Copyright Mojang AB. Do not distribute!");

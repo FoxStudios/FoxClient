@@ -15,7 +15,7 @@ public class FoxClientButton extends ButtonWidget {
         super(x, y, width, height, message, onPress, Supplier::get);
     }
 
-    private static final Identifier WIDGET_TEXTURE = new Identifier("foxclient", "textures/ui/widgets.png");
+    private static final Identifier WIDGET_TEXTURE = Identifier.of("foxclient", "textures/ui/widgets.png");
 
     // todo: dont steal mojang code, bad
     int getTextureY() {
@@ -29,7 +29,7 @@ public class FoxClientButton extends ButtonWidget {
     }
 
     @Override
-    public void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
         MinecraftClient minecraftClient = MinecraftClient.getInstance();
 
 
@@ -52,7 +52,7 @@ public class FoxClientButton extends ButtonWidget {
         this.drawScrollableText(context, minecraftClient.textRenderer, 0, j | MathHelper.ceil(text_alpha * 255.0F) << 24);
     }
 
-    @Override
+    /*@Override
     public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         super.render(context, mouseX, mouseY, delta);
 
@@ -63,5 +63,5 @@ public class FoxClientButton extends ButtonWidget {
         //                this.onFocusedChanged(false);
         //            }
         //        }
-    }
+    }*/
 }

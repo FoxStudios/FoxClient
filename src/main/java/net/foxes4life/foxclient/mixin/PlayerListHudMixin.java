@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerListHud.class)
 public class PlayerListHudMixin {
-    final Identifier FOXCLIENT_TAIL = new Identifier("foxclient", "textures/ui/branding/tail.png");
+    final Identifier FOXCLIENT_TAIL = Identifier.of("foxclient", "textures/ui/branding/tail.png");
 
     @Inject(at = @At("TAIL"), method = "renderLatencyIcon")
     private void renderLatencyIcon(DrawContext context, int width, int x, int y, PlayerListEntry entry, CallbackInfo ci) {

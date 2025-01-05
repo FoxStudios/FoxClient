@@ -9,12 +9,12 @@ import net.minecraft.util.Identifier;
 public class BackgroundUtils {
     private static int backgroundIndex = 0;
     private static final int backgroundAmount = 6;
-    private static Identifier BACKGROUND = new Identifier("foxclient", "textures/ui/title/bg/" + backgroundIndex + ".png");
+    private static Identifier BACKGROUND = Identifier.of("foxclient", "textures/ui/title/bg/" + backgroundIndex + ".png");
 
     public static void selectBackground() {
         backgroundIndex++;
         if (backgroundIndex >= backgroundAmount) backgroundIndex = 0;
-        BACKGROUND = new Identifier("foxclient", "textures/ui/title/bg/" + backgroundIndex + ".png");
+        BACKGROUND = Identifier.of("foxclient", "textures/ui/title/bg/" + backgroundIndex + ".png");
     }
 
     public static void drawRandomBackground(DrawContext context, int w, int h) {

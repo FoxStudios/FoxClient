@@ -7,7 +7,6 @@ import net.minecraft.client.gui.screen.Overlay;
 import net.minecraft.client.gui.screen.SplashOverlay;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.ColorHelper;
-import net.minecraft.util.math.MathHelper;
 import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -44,7 +43,7 @@ public abstract class SplashOverlayMixin extends Overlay {
     @Inject(at = @At("HEAD"), method = "init", cancellable = true)
     private static void init(MinecraftClient client, CallbackInfo ci) {
         ci.cancel();
-        LOGO = new Identifier("foxclient", "textures/ui/splash/foxclient.png");
+        LOGO = Identifier.of("foxclient", "textures/ui/splash/foxclient.png");
 
         MOJANG_RED = ColorHelper.Argb.getArgb(255, 32, 32, 32);
         MONOCHROME_BLACK = ColorHelper.Argb.getArgb(255, 16, 16, 16);

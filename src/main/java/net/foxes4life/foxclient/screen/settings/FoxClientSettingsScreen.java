@@ -32,7 +32,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Environment(EnvType.CLIENT)
 public class FoxClientSettingsScreen extends Screen {
-    private static final Identifier X_BUTTON = new Identifier("foxclient", "textures/ui/title/buttons/x.png");
+    private static final Identifier X_BUTTON = Identifier.of("foxclient", "textures/ui/title/buttons/x.png");
 
     private static String currentCategory;
     private static LinkedHashMap<String, List<FoxClientSetting>> categories;

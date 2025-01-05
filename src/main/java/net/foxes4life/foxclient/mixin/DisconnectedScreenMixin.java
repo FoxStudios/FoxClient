@@ -2,9 +2,9 @@ package net.foxes4life.foxclient.mixin;
 
 import net.foxes4life.foxclient.SessionConstants;
 import net.foxes4life.foxclient.util.TextUtils;
-import net.minecraft.client.gui.screen.ConnectScreen;
 import net.minecraft.client.gui.screen.DisconnectedScreen;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.screen.multiplayer.ConnectScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.network.ServerAddress;
 import net.minecraft.text.Text;
@@ -44,7 +44,7 @@ public abstract class DisconnectedScreenMixin extends Screen {
                     client,
                     ServerAddress.parse(SessionConstants.LAST_SERVER.address),
                     SessionConstants.LAST_SERVER,
-                    false
+                    false, null
             );
         }).build();
 

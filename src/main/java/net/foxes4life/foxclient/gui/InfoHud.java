@@ -28,7 +28,7 @@ public class InfoHud {
     private int boxWidth = 98;
     private final LinkedHashMap<String, Text> textList = new LinkedHashMap<>();
 
-    private static final Identifier FOXCLIENT_TEXT = new Identifier("foxclient", "textures/ui/branding/text.png");
+    private static final Identifier FOXCLIENT_TEXT = Identifier.of("foxclient", "textures/ui/branding/text.png");
 
     public InfoHud(MinecraftClient client) {
         this.client = client;
@@ -114,7 +114,7 @@ public class InfoHud {
     void renderList(DrawContext context, int offset) {
         int i = 0;
         for (Map.Entry<String, Text> entry : textList.entrySet()) {
-            Identifier identifier = new Identifier("foxclient", "textures/ui/info-hud/icons/" + entry.getKey() + ".png");
+            Identifier identifier = Identifier.of("foxclient", "textures/ui/info-hud/icons/" + entry.getKey() + ".png");
             Text text = entry.getValue();
 
             int y = offset + (14 * i);

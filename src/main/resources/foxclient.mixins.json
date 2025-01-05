@@ -10,8 +10,8 @@
     "EntityMixin",
     "GameRendererMixin",
     "InGameHUDMixin",
-    "LiteralTextMixin",
-    "LoadingScreenMixin",
+
+
     "MerchantScreenMixin",
     "MinecraftClientMixin",
     "MouseMixin",

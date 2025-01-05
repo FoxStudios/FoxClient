@@ -18,7 +18,7 @@ public class FoxClientMiniButton extends TexturedButtonWidget {
     }
 
     @Override
-    public void renderButton(DrawContext context, int mouseX, int mouseY, float delta) {
+    public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
 
@@ -27,6 +27,6 @@ public class FoxClientMiniButton extends TexturedButtonWidget {
             context.drawOrderedTooltip(mc.textRenderer, mc.textRenderer.wrapLines(tooltip, 200), mouseX, mouseY);
         }
 
-        super.renderButton(context, mouseX, mouseY, delta);
+        super.renderWidget(context, mouseX, mouseY, delta);
     }
 }
