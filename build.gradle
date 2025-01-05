@@ -46,11 +46,11 @@ dependencies {
 
     implementation "com.github.Vatuu:discord-rpc:1.6.2"
     implementation "net.foxes4life:konfig:${project.konfig_version}"
-    jij "net.foxes4life:konfig:${project.konfig_version}"
-    jij files("discord-rpc-jna-removed.jar")
+    lib "net.foxes4life:konfig:${project.konfig_version}"
+    lib files("discord-rpc-jna-removed.jar")
 
     implementation "org.java-websocket:Java-WebSocket:${project.java_ws_version}"
-    jij "org.java-websocket:Java-WebSocket:${project.java_ws_version}"
+    lib "org.java-websocket:Java-WebSocket:${project.java_ws_version}"
 
     modApi "com.terraformersmc:modmenu:${project.modmenu_version}"
 
