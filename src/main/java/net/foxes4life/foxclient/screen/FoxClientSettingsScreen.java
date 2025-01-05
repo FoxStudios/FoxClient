@@ -1,4 +1,4 @@
-package net.foxes4life.foxclient.screen.settings;
+package net.foxes4life.foxclient.screen;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

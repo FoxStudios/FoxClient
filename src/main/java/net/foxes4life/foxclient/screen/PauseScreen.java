@@ -1,8 +1,7 @@
-package net.foxes4life.foxclient.screen.pause;
+package net.foxes4life.foxclient.screen;
 
 import net.fabricmc.loader.api.FabricLoader;
 import net.foxes4life.foxclient.ui.button.FoxClientButton;
-import net.foxes4life.foxclient.screen.title.TitleScreen;
 import net.foxes4life.foxclient.ui.toast.FoxClientToast;
 import net.foxes4life.foxclient.util.TextUtils;
 import net.minecraft.SharedConstants;

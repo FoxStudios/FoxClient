@@ -2,8 +2,8 @@ package net.foxes4life.foxclient.mixin;
 
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.configuration.FoxClientSetting;
-import net.foxes4life.foxclient.screen.title.TitleScreen;
-import net.foxes4life.foxclient.screen.update.UpdateScreen;
+import net.foxes4life.foxclient.screen.TitleScreen;
+import net.foxes4life.foxclient.screen.UpdateScreen;
 import net.foxes4life.foxclient.util.update.UpdateChecker;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;

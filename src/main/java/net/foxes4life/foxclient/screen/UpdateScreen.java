@@ -1,8 +1,7 @@
-package net.foxes4life.foxclient.screen.update;
+package net.foxes4life.foxclient.screen;
 
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.configuration.FoxClientSetting;
-import net.foxes4life.foxclient.screen.title.TitleScreen;
 import net.foxes4life.foxclient.ui.button.FoxClientButton;
 import net.foxes4life.foxclient.util.BackgroundUtils;
 import net.foxes4life.foxclient.util.TextUtils;

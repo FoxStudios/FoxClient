@@ -8,7 +8,7 @@ import net.foxes4life.foxclient.configuration.FoxClientSetting;
 import net.foxes4life.foxclient.rpc.DiscordInstance;
 import net.foxes4life.foxclient.rpc.DiscordMinecraftClient;
 import net.foxes4life.foxclient.rpc.PresenceUpdater;
-import net.foxes4life.foxclient.screen.settings.FoxClientSettingsScreen;
+import net.foxes4life.foxclient.screen.FoxClientSettingsScreen;
 import net.foxes4life.foxclient.util.ZoomUtils;
 import net.foxes4life.foxclient.util.freelook.FreelookUtils;
 import net.foxes4life.foxclient.util.transforms.TransformManager;

@@ -5,7 +5,7 @@ import net.foxes4life.foxclient.MainClient;
 import net.foxes4life.foxclient.configuration.FoxClientSetting;
 import net.foxes4life.foxclient.rpc.DiscordMinecraftClient;
 import net.foxes4life.foxclient.rpc.PresenceUpdater;
-import net.foxes4life.foxclient.screen.pause.PauseScreen;
+import net.foxes4life.foxclient.screen.PauseScreen;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;

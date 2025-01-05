@@ -1,4 +1,4 @@
-package net.foxes4life.foxclient.screen.title;
+package net.foxes4life.foxclient.screen;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -7,7 +7,6 @@ import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.ui.button.FoxClientButton;
 import net.foxes4life.foxclient.ui.button.FoxClientMiniButton;
 import net.foxes4life.foxclient.ui.toast.FoxClientToast;
-import net.foxes4life.foxclient.screen.settings.FoxClientSettingsScreen;
 import net.foxes4life.foxclient.util.BackgroundUtils;
 import net.foxes4life.foxclient.util.TextUtils;
 import net.minecraft.SharedConstants;
@@ -21,7 +20,6 @@ import net.minecraft.client.gui.screen.option.AccessibilityOptionsScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.client.toast.Toast;
 import net.minecraft.text.Text;
