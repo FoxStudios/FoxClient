@@ -10,7 +10,7 @@
     "EntityMixin",
     "GameRendererMixin",
     "InGameHUDMixin",
-
+    "LoadingScreenMixin",
     "MerchantScreenMixin",
     "MinecraftClientMixin",
     "MouseMixin",
