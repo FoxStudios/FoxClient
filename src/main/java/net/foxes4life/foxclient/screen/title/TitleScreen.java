@@ -172,7 +172,9 @@ public class TitleScreen extends Screen {
         }
         if (mouseX > (double) this.mojangCopyrightTextX && mouseX < (double) (this.mojangCopyrightTextX + this.mojangCopyrightTextWidth) && mouseY > (double) (this.height - 10) && mouseY < (double) this.height) {
             assert this.client != null;
-            this.client.setScreen(new CreditsScreen(true, () -> {}));
+            this.client.setScreen(new CreditsScreen(false, () -> {
+                this.client.setScreen(TitleScreen.this);
+            }));
         }
         return false;
     }
