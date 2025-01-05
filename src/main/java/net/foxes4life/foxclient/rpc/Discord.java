@@ -35,7 +35,7 @@ public class Discord implements ReadyCallback {
                 try {
                     initDC();
                 } catch (Exception e) {
-                    e.printStackTrace();
+                    Main.LOGGER.warn("failed to initialise Discord RPC: {}", e.getMessage());
                 }
             }
         });
@@ -48,7 +48,7 @@ public class Discord implements ReadyCallback {
         DiscordRPC.discordShutdown();
 
         if (CALLBACK_THREAD != null) //noinspection deprecation
-            CALLBACK_THREAD.stop();
+            CALLBACK_THREAD.interrupt(); // calling .stop() will throw and crash now
         initialised = false;
     }
 
@@ -97,13 +97,15 @@ public class Discord implements ReadyCallback {
     private void runCallback() {
         if (Main.config.get(FoxClientSetting.DiscordEnabled, Boolean.class)) {
             DiscordRPC.discordRunCallbacks();
+        } else {
+            Thread.currentThread().interrupt();
         }
     }
 
     @Override
     public void apply(DiscordUser user) {
         Main.LOGGER.info("RPC loaded!");
-        Main.LOGGER.info("Username: " + user.username + "#" + user.discriminator);
+        Main.LOGGER.info("Username: {}#{}", user.username, user.discriminator);
         initialised = true;
 
         DiscordRPC.discordUpdatePresence(new DiscordRichPresence.Builder("Initialising")
