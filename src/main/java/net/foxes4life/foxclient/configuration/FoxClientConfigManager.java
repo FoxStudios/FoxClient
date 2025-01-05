@@ -19,8 +19,6 @@ public class FoxClientConfigManager extends Konfig<FoxClientSetting> {
 
         setDefault(FoxClientSetting.SmoothZoom, false);
 
-        setDefault(FoxClientSetting.UwUfy, false);
-
         setDefault(FoxClientSetting.HudBackground, true);
         setDefault(FoxClientSetting.HudLogo, true);
         setDefault(FoxClientSetting.HudVersion, true);

@@ -25,7 +25,6 @@
   "foxclient.config.category.ingame-hud": "In-Game HUD",
   "foxclient.config.category.armor-hud": "Armor HUD",
   "foxclient.config.category.client": "Kliente",
-  "foxclient.config.category.eastereggs": "Mga Sekreto",
   "foxclient.config.category.menus": "Pasadyang Menu",
   "foxclient.config.category.misc": "Sari-Sari",
 
@@ -45,8 +44,6 @@
 
   "foxclient.config.armorhudenabled": "Buksan ang Armor HUD",
   "foxclient.config.armorhuddisplaypercentage": "Ipakita Bilang Porsyento",
-
-  "foxclient.config.uwufy": "UwUfy",
 
   "foxclient.config.custommainmenu": "Main Menu",
   "foxclient.config.custompausemenu": "Pause Menu",

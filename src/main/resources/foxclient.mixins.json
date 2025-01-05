@@ -11,7 +11,6 @@
     "GameRendererMixin",
     "InGameHUDMixin",
 
-
     "MerchantScreenMixin",
     "MinecraftClientMixin",
     "MouseMixin",
@@ -19,8 +18,7 @@
     "PlayerListEntryMixin",
     "PlayerListHudMixin",
     "SplashOverlayMixin",
-    "TitleScreenMixin",
-    "TranslationStorageMixin"
+    "TitleScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

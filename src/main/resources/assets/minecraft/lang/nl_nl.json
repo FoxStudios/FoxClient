@@ -25,7 +25,6 @@
   "foxclient.config.category.ingame-hud": "In-Game HUD",
   "foxclient.config.category.armor-hud": "Pantser HUD",
   "foxclient.config.category.client": "Cliënt",
-  "foxclient.config.category.eastereggs": "EasterEggs",
   "foxclient.config.category.menus": "Aangepaste menu's",
   "foxclient.config.category.misc": "Overige",
 
@@ -45,8 +44,6 @@
 
   "foxclient.config.armorhudenabled": "Pantser HUD in/uit schakelen",
   "foxclient.config.armorhuddisplaypercentage": "Weergeven als percentage",
-
-  "foxclient.config.uwufy": "UwUfy",
 
   "foxclient.config.custommainmenu": "Hoofdmenu",
   "foxclient.config.custompausemenu": "Pauzemenu",

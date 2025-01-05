@@ -10,8 +10,6 @@ public enum FoxClientSetting {
 
     SmoothZoom,
 
-    UwUfy,
-
     HudEnabled,
     HudBackground,
     HudLogo,

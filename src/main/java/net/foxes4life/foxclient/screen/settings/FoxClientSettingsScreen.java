@@ -89,7 +89,6 @@ public class FoxClientSettingsScreen extends Screen {
         categories.put("client", List.of(FoxClientSetting.HudEnabled, FoxClientSetting.ArmorHudEnabled, FoxClientSetting.BlockHudEnabled));
         categories.put("menus", List.of(FoxClientSetting.CustomMainMenu, FoxClientSetting.CustomPauseMenu));
         categories.put("misc", List.of(FoxClientSetting.DiscordEnabled, FoxClientSetting.DiscordShowIP, FoxClientSetting.DiscordShowPlayer, FoxClientSetting.SmoothZoom));
-        categories.put("eastereggs", List.of(FoxClientSetting.UwUfy));
         categories.put("ingame-hud", List.of(FoxClientSetting.HudBackground, FoxClientSetting.HudLogo, FoxClientSetting.HudVersion, FoxClientSetting.HudCoordinates, FoxClientSetting.HudCoordinatesColor, FoxClientSetting.HudFPS, FoxClientSetting.HudPing, FoxClientSetting.HudTps, FoxClientSetting.HudServerIP, FoxClientSetting.HudBiome));
         categories.put("armor-hud", List.of(FoxClientSetting.ArmorHudDisplayPercentage));
         categories.put("block-hud", List.of(FoxClientSetting.BlockHudAnimations));

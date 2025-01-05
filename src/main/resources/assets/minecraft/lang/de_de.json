@@ -25,7 +25,6 @@
   "foxclient.config.category.ingame-hud": "Info HUD",
   "foxclient.config.category.armor-hud": "Rüstungs HUD",
   "foxclient.config.category.client": "Client",
-  "foxclient.config.category.eastereggs": "EasterEggs",
   "foxclient.config.category.menus": "Custom Menüs",
   "foxclient.config.category.misc": "Weiteres",
 
@@ -45,8 +44,6 @@
 
   "foxclient.config.armorhudenabled": "Rüstungs HUD einschalten",
   "foxclient.config.armorhuddisplaypercentage": "Als Prozentzahl anzeigen",
-
-  "foxclient.config.uwufy": "UwUfy",
 
   "foxclient.config.custommainmenu": "Hauptmenü",
   "foxclient.config.custompausemenu": "Pause Menü",
