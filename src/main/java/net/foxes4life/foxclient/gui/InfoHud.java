@@ -1,6 +1,5 @@
 package net.foxes4life.foxclient.gui;
 
-import com.google.common.collect.Lists;
 import net.foxes4life.foxclient.Main;
 import net.foxes4life.foxclient.configuration.FoxClientSetting;
 import net.foxes4life.foxclient.util.ClientUtils;
@@ -14,10 +13,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 
-import java.awt.*;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 
 public class InfoHud {

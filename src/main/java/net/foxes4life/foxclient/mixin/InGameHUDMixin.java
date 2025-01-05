@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -26,9 +27,9 @@ public abstract class InGameHUDMixin {
 
     @Shadow protected abstract void renderHotbarItem(DrawContext context, int x, int y, RenderTickCounter tickCounter, PlayerEntity player, ItemStack stack, int seed);
 
-    private static InfoHud infoHud = null;
-    private static ArmorHud armorHud = null;
-    private static BlockHud blockHud = null;
+    @Unique private static InfoHud infoHud = null;
+    @Unique private static ArmorHud armorHud = null;
+    @Unique private static BlockHud blockHud = null;
 
     @Inject(at = @At("HEAD"), method = "render")
     public void render(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {

@@ -9,7 +9,7 @@ import net.minecraft.client.toast.ToastManager;
 import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
 
-import java.awt.*;
+import java.awt.Color;
 
 @Environment(EnvType.CLIENT)
 public class FoxClientToast implements Toast {

@@ -4,7 +4,6 @@ import net.foxes4life.foxclient.ui.button.FoxClientButton;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.math.MathHelper;
 
@@ -22,11 +21,6 @@ public class CategoryButton extends FoxClientButton {
     public void onPress() {
         super.onPress();
     }
-
-    /*@Override
-    public void appendNarrations(NarrationMessageBuilder builder) {
-
-    }*/
 
     @Override
     public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {

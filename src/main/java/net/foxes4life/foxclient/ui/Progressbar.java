@@ -2,7 +2,7 @@ package net.foxes4life.foxclient.ui;
 
 import net.minecraft.client.gui.DrawContext;
 
-import java.awt.*;
+import java.awt.Color;
 
 public class Progressbar {
     public int x;

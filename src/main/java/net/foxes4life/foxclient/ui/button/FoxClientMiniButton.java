@@ -4,10 +4,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ButtonTextures;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TexturedButtonWidget;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 
 public class FoxClientMiniButton extends TexturedButtonWidget {
     private final Text tooltip;
