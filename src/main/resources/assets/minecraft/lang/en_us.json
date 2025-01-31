@@ -52,7 +52,7 @@
   "foxclient.config.custommainmenu": "Main Menu",
   "foxclient.config.custompausemenu": "Pause Menu",
 
-  "foxclient.config.discordenabled": "DiscordRPC - Enabled",
+  "foxclient.config.discordenabled": "DiscordRPC - Enabled (requires restart)",
   "foxclient.config.discordshowip": "DiscordRPC - Show IP",
   "foxclient.config.discordshowplayer": "DiscordRPC - Show own player",
 

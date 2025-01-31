@@ -48,7 +48,7 @@
   "foxclient.config.custommainmenu": "Hauptmenü",
   "foxclient.config.custompausemenu": "Pause Menü",
 
-  "foxclient.config.discordenabled": "DiscordRPC - Eingeschaltet",
+  "foxclient.config.discordenabled": "DiscordRPC - Eingeschaltet (Neustart benötigt)",
   "foxclient.config.discordshowip": "DiscordRPC - IP anzeigen",
   "foxclient.config.discordshowplayer": "DiscordRPC - Eigenen Spieler anzeigen",
 

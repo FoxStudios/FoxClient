@@ -52,7 +52,7 @@ public class TitleScreen extends Screen {
     private int mojangCopyrightTextWidth;
     private int mojangCopyrightTextX;
 
-    private static final String foxclientCopyrightText = "© FoxClient 2021-2023";
+    private static final String foxclientCopyrightText = "© FoxClient 2021-2025";
     private int foxclientCopyrightTextX;
 
     private final boolean doBackgroundFade;
