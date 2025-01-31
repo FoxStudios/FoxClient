@@ -33,6 +33,10 @@ public abstract class InGameHUDMixin {
 
     @Inject(at = @At("HEAD"), method = "render")
     public void render(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
+        if (MinecraftClient.getInstance().options.hudHidden) {
+            return;
+        }
+
         if (Main.config.get(FoxClientSetting.HudEnabled, Boolean.class)) {
             if (infoHud == null) {
                 infoHud = new InfoHud(client);
