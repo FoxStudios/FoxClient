@@ -44,8 +44,8 @@ dependencies {
     // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    implementation "com.github.Vatuu:discord-rpc:1.6.2"
-    implementation "net.foxes4life:konfig:${project.konfig_version}"
+    lib "com.github.Vatuu:discord-rpc:1.6.2"
+    lib "net.foxes4life:konfig:${project.konfig_version}"
     jij "net.foxes4life:konfig:${project.konfig_version}"
     jij files("discord-rpc-jna-removed.jar")
 
