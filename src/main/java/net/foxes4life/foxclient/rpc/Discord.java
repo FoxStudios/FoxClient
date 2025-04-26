@@ -13,17 +13,25 @@ import net.minecraft.client.network.ClientPlayerEntity;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Discord implements ReadyCallback {
     private static final String playerIconAPI = "https://visage.surgeplay.com/face/128/";
 
+    ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
     public Thread CALLBACK_THREAD = null;
     public long START_TIME = 0L;
     public static boolean initialised = false;
 
     public void init() {
+        if (executorService == null || executorService.isShutdown()) {
+            executorService = Executors.newSingleThreadScheduledExecutor();
+        }
+
         Thread initDiscord = new Thread(() -> {
-            while (!(MinecraftClient.getInstance() != null && !MinecraftClient.getInstance().fpsDebugString.equals(""))) {
+            while (!(MinecraftClient.getInstance() != null && !MinecraftClient.getInstance().fpsDebugString.isEmpty())) {
                 try {
                     //noinspection BusyWait
                     Thread.sleep(100);
@@ -47,8 +55,20 @@ public class Discord implements ReadyCallback {
         DiscordRPC.discordClearPresence();
         DiscordRPC.discordShutdown();
 
-        if (CALLBACK_THREAD != null) //noinspection deprecation
-            CALLBACK_THREAD.interrupt(); // calling .stop() will throw and crash now
+        if (CALLBACK_THREAD != null) {
+            executorService.shutdownNow();
+            try {
+                if (!executorService.awaitTermination(1, TimeUnit.SECONDS)) {
+                    executorService.shutdownNow();
+                }
+            } catch (InterruptedException e) {
+                executorService.shutdownNow();
+                Thread.currentThread().interrupt();
+            }
+
+            CALLBACK_THREAD.interrupt();
+        } // calling .stop() will throw and crash now
+
         initialised = false;
     }
 
@@ -57,13 +77,16 @@ public class Discord implements ReadyCallback {
         DiscordRPC.discordInitialize("805552222985388063", new DiscordEventHandlers.Builder().setReadyEventHandler(this).build(), true);
         DiscordRPC.discordRunCallbacks();
 
-        // Run callbacks forever
-        CALLBACK_THREAD = new Thread(() -> new Timer().scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
+        System.out.println("starting rpc");
+
+        CALLBACK_THREAD = new Thread(() -> {
+            executorService.scheduleAtFixedRate(() -> {
+                if (Thread.interrupted()) {
+                    return;
+                }
                 runCallback();
-            }
-        }, 100, 1024));
+            }, 100, 1024, TimeUnit.MILLISECONDS);
+        });
         CALLBACK_THREAD.setName("discordCallbackThread");
         CALLBACK_THREAD.start();
     }
@@ -98,7 +121,9 @@ public class Discord implements ReadyCallback {
         if (Main.config.get(FoxClientSetting.DiscordEnabled, Boolean.class)) {
             DiscordRPC.discordRunCallbacks();
         } else {
+            System.out.println("killing rpc");
             Thread.currentThread().interrupt();
+            stfu();
         }
     }
 

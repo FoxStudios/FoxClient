@@ -18,7 +18,7 @@ public class ConfigUtils {
         if (setting == FoxClientSetting.DiscordEnabled) {
             Discord discordInstance = DiscordInstance.get();
 
-            if (!(boolean) value) {
+            if ((boolean) value) {
                 if (!Discord.initialised) {
                     discordInstance.init();
                 }
