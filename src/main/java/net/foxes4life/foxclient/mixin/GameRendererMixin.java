@@ -8,19 +8,27 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+
 @Mixin(GameRenderer.class)
 public class GameRendererMixin {
-    @Inject(at = @At("TAIL"), method = "getFov", cancellable = true)
-    private void getFov(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Double> cir) {
-        if (ZoomUtils.zoomin()) {
-            ZoomUtils.currentZoomLevel = cir.getReturnValue() * ZoomUtils.zoomModifier;
-            ZoomUtils.calculateZoom();
-            cir.setReturnValue(ZoomUtils.actualZoomLevel);
-        } else {
-            ZoomUtils.zoomModifier = 0.2F;
-            ZoomUtils.currentZoomLevel = cir.getReturnValue();
-            ZoomUtils.actualZoomLevel = cir.getReturnValue();
-        }
+    @Inject(method = "getFov", at = @At("TAIL"), cancellable = true)
+    private void onGetFov(Camera camera, float tickDelta, boolean changingFov, CallbackInfoReturnable<Double> cir) {
+        double baseFov = cir.getReturnValue();
+
+        // Handle key state and smooth camera toggle
         ZoomUtils.smoothCam();
+
+        // Set the desired target zoom level based on key state
+        if (ZoomUtils.zoomin()) {
+            ZoomUtils.currentZoomLevel = baseFov * ZoomUtils.zoomedFov;
+        } else {
+            ZoomUtils.currentZoomLevel = baseFov;
+        }
+
+        // Smoothly interpolate toward target
+        ZoomUtils.calculateZoom();
+
+        // Override FOV with interpolated zoom value
+        cir.setReturnValue(ZoomUtils.actualZoomLevel);
     }
 }
