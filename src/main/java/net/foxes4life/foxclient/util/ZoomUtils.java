@@ -10,14 +10,17 @@ import org.lwjgl.glfw.GLFW;
 
 public class ZoomUtils {
     private static final KeyBinding zoomKey = new KeyBinding("key.foxclient.zoom", GLFW.GLFW_KEY_C, "category.foxclient.main");
-    static boolean isZoomin = false;
-    public static float zoomModifier = 0.2F;
-    public static double currentZoomLevel = 0.2F;
-    public static double actualZoomLevel = 0.2F;
+    public static boolean isZoomin = false;
+
+    public static float zoomedFovDefault = 0.2F;
+    public static float zoomedFov = 0.2F;       // Zoomed-in FOV scale
+    public static float defaultFov = 1.0F;      // Normal FOV scale
+
+    public static double currentZoomLevel = 1.0F;   // The target zoom level
+    public static double actualZoomLevel = 1.0F;    // The lerped FOV value
 
     public static void initZoom() {
         KeyBindingHelper.registerKeyBinding(zoomKey);
-        isZoomin = false;
     }
 
     public static boolean zoomin() {
@@ -25,22 +28,28 @@ public class ZoomUtils {
     }
 
     public static void smoothCam() {
-        //start holdin
-        if (zoomin() && !isZoomin) {
-            isZoomin = true;
-            MinecraftClient.getInstance().options.smoothCameraEnabled = true;
-        }
+        if (zoomin()) {
+            if (!isZoomin) {
+                isZoomin = true;
+                MinecraftClient.getInstance().options.smoothCameraEnabled = true;
+            }
 
-        //stop holdin
-        if (!zoomin() && isZoomin) {
-            isZoomin = false;
-            MinecraftClient.getInstance().options.smoothCameraEnabled = false;
+            currentZoomLevel = zoomedFov;
+        } else {
+            if (isZoomin) {
+                isZoomin = false;
+                MinecraftClient.getInstance().options.smoothCameraEnabled = false;
+
+                zoomedFov = zoomedFovDefault;
+            }
+            currentZoomLevel = defaultFov;
         }
     }
 
+
     public static void calculateZoom() {
         ZoomUtils.actualZoomLevel = Main.config.get(FoxClientSetting.SmoothZoom, Boolean.class) ?
-                MathHelper.lerp(0.05f, ZoomUtils.actualZoomLevel, ZoomUtils.currentZoomLevel) :
+                MathHelper.lerp(0.1f, (float) actualZoomLevel, (float) currentZoomLevel) :
                 ZoomUtils.currentZoomLevel;
     }
 }
